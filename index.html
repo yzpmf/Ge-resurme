@@ -1,113 +1,362 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>葛政豪的个人网站</title>
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="葛政豪的个人网站 - 全栈开发者 | 终身学习者 | 问题解决者">
+    <title>政豪 | 个人网站</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
     <!-- 导航栏 -->
-    <nav>
-      <div class="nav-inner">
-        <div class="logo">GZH</div>
-        <ul class="nav-links">
-          <li><a href="#home">首页</a></li>
-          <li><a href="#about">关于我</a></li>
-          <li><a href="#projects">项目</a></li>
-          <li><a href="#contact">联系</a></li>
-        </ul>
-      </div>
+    <nav id="navbar">
+        <div class="nav-inner">
+            <div class="logo">政豪</div>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#projects">项目经历</a></li>
+                <li><a href="#timeline">学习经历</a></li>
+                <li><a href="#skills">技能专长</a></li>
+                <li><a href="#contact">联系方式</a></li>
+            </ul>
+            <a href="#contact" class="btn-resume">联系我</a>
+            <button class="hamburger" id="hamburger" aria-label="菜单">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#home" class="mobile-link">首页</a></li>
+                <li><a href="#about" class="mobile-link">关于我</a></li>
+                <li><a href="#projects" class="mobile-link">项目经历</a></li>
+                <li><a href="#timeline" class="mobile-link">学习经历</a></li>
+                <li><a href="#skills" class="mobile-link">技能专长</a></li>
+                <li><a href="#contact" class="mobile-link">联系方式</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <!-- 首页 -->
+    <!-- Hero 区 -->
     <section id="home" class="hero">
-      <div class="hero-content">
-        <h1>你好，我是 <span class="highlight">葛政豪</span></h1>
-        <p>一名大一学生</p>
-        <a href="#about" class="btn">了解更多</a>
-      </div>
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <p class="hero-greeting">你好，我是</p>
+            <h1>葛政豪</h1>
+            <p class="hero-tagline" id="typewriter">全栈开发者 | 终身学习者 | 问题解决者</p>
+            <p class="hero-desc">西南交通大学大一学生，热爱前端开发与硬件配置，用代码创造有价值的东西。</p>
+            <div class="hero-btns">
+                <a href="#projects" class="btn-primary">查看我的项目</a>
+                <a href="#contact" class="btn-secondary">联系我</a>
+            </div>
+        </div>
+        <!-- 核心优势卡片 -->
+        <div class="hero-cards">
+            <div class="hero-card">
+                <span class="card-icon">🚀</span>
+                <h3>项目经验</h3>
+                <p>多个完整项目从 0 到 1 落地</p>
+            </div>
+            <div class="hero-card">
+                <span class="card-icon">💻</span>
+                <h3>技术栈</h3>
+                <p>HTML · CSS · JS · Python · C++</p>
+            </div>
+            <div class="hero-card">
+                <span class="card-icon">📚</span>
+                <h3>持续学习</h3>
+                <p>快速适应 · 深度思考 · 不断成长</p>
+            </div>
+        </div>
     </section>
 
     <!-- 关于我 -->
-    <section id="about">
-      <div class="container">
-        <h2 class="section-title">关于我</h2>
-        <div class="about-content">
-          <div class="about-text">
-            <p>
-              你好！我叫葛政豪，目前在学习软件开发。我对前端开发、硬件配置充满热情，喜欢用代码创造有趣的东西。
-            </p>
-            <p>我正在不断学习和成长，如果你有任何合作或交流的想法，欢迎联系我！</p>
-          </div>
-          <div class="skills">
-            <div class="skill-item">
-              <span>HTML / CSS</span>
-              <div class="skill-bar"><div class="skill-fill w80"></div></div>
+    <section id="about" class="section fade-in">
+        <div class="container">
+            <h2 class="section-title">关于我</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>不只是代码，还有热爱生活的灵魂</h3>
+                    <p>你好！我是葛政豪，就读于西南交通大学，目前大一。我对前端开发和硬件配置充满热情，相信技术是工具，解决真实问题才是目的。</p>
+                    <p>我喜欢把复杂的问题拆解成可执行的步骤，享受从零构建一个完整项目的过程。在学习编程的同时，我也在探索嵌入式开发和硬件世界。</p>
+                    <p>如果你正在寻找一个认真、好学、有执行力的合作伙伴，欢迎联系我！</p>
+                    <div class="about-tags">
+                        <span class="tag-item">🎓 西南交通大学</span>
+                        <span class="tag-item">💡 前端开发</span>
+                        <span class="tag-item">🔧 硬件配置</span>
+                        <span class="tag-item">📐 嵌入式学习</span>
+                    </div>
+                </div>
+                <div class="about-values">
+                    <div class="value-card">
+                        <span>🎯</span>
+                        <h4>目标导向</h4>
+                        <p>专注于解决真实问题，而不是炫技</p>
+                    </div>
+                    <div class="value-card">
+                        <span>🔄</span>
+                        <h4>持续迭代</h4>
+                        <p>每个项目都是学习和成长的机会</p>
+                    </div>
+                    <div class="value-card">
+                        <span>🤝</span>
+                        <h4>开放协作</h4>
+                        <p>喜欢交流想法，欢迎不同观点</p>
+                    </div>
+                    <div class="value-card">
+                        <span>⚡</span>
+                        <h4>快速执行</h4>
+                        <p>想法落地，行动优先于完美计划</p>
+                    </div>
+                </div>
             </div>
-            <div class="skill-item">
-              <span>JavaScript</span>
-              <div class="skill-bar"><div class="skill-fill w70"></div></div>
-            </div>
-            <div class="skill-item">
-              <span>Python</span>
-              <div class="skill-bar"><div class="skill-fill w60"></div></div>
-            </div>
-            <div class="skill-item">
-              <span>C++</span>
-              <div class="skill-bar"><div class="skill-fill w60"></div></div>
-            </div>
-          </div>
         </div>
-      </div>
     </section>
 
-    <!-- 项目 -->
-    <section id="projects">
-      <div class="container">
-        <h2 class="section-title">项目展示</h2>
-        <div class="projects-grid">
-          <div class="project-card">
-            <h3>个人网站</h3>
-            <p>用 HTML + CSS + JS 搭建的响应式个人网站，部署在 Netlify 上。</p>
-            <span class="tag">前端</span>
-          </div>
-          <div class="project-card">
-            <h3>C++ 程序</h3>
-            <p>西南交通大学 C++ 实验代码，包含多个算法和基础程序练习。</p>
-            <span class="tag">C++</span>
-          </div>
-          <div class="project-card">
-            <h3>更多项目...</h3>
-            <p>持续更新中，敬请期待！</p>
-            <span class="tag">待开发</span>
-          </div>
+    <!-- 项目经历 -->
+    <section id="projects" class="section section-gray fade-in">
+        <div class="container">
+            <h2 class="section-title">项目经历</h2>
+            <p class="section-sub">以下是我参与的部分项目，每个项目都记录了我的职责、挑战和成果</p>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>个人品牌网站</h3>
+                        <span class="project-status">进行中</span>
+                    </div>
+                    <p>从零搭建的响应式个人网站，包含项目展示、学习经历时间线、技能专长等模块，部署在 Netlify 上，绑定自定义域名。</p>
+                    <div class="project-tags">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Netlify</span>
+                        <span class="tech-tag">GitHub</span>
+                    </div>
+                    <ul class="project-points">
+                        <li>独立完成从设计到开发的全流程</li>
+                        <li>实现响应式布局，适配移动端/平板/桌面</li>
+                        <li>配置 CI/CD 自动部署流程</li>
+                    </ul>
+                    <a href="https://github.com/yzpmf/Ge-resurme" target="_blank" class="project-link">🐙 查看源码</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>C++ 算法实验</h3>
+                        <span class="project-status">已完成</span>
+                    </div>
+                    <p>西南交通大学 C++ 课程实验代码，包含多个算法和基础程序练习，涵盖条件判断、函数设计、数据处理等核心知识点。</p>
+                    <div class="project-tags">
+                        <span class="tech-tag">C++</span>
+                        <span class="tech-tag">算法</span>
+                        <span class="tech-tag">数据结构</span>
+                    </div>
+                    <ul class="project-points">
+                        <li>完成比较、判断、计价等多类型程序</li>
+                        <li>代码规范，注释清晰</li>
+                        <li>通过所有实验测试用例</li>
+                    </ul>
+                </div>
+
+                <div class="project-card project-card-placeholder">
+                    <div class="project-header">
+                        <h3>更多项目</h3>
+                        <span class="project-status project-status-soon">即将上线</span>
+                    </div>
+                    <p>正在开发中，敬请期待！如果你对某个方向感兴趣，欢迎一起探讨合作。</p>
+                    <a href="#contact" class="project-link">💬 一起聊聊</a>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
-    <!-- 联系 -->
-    <section id="contact">
-      <div class="container">
-        <h2 class="section-title">联系我</h2>
-        <p style="text-align: center; margin-bottom: 30px">
-          如果你有任何问题或合作意向，欢迎通过以下方式联系我：
-        </p>
-        <div class="contact-links">
-          <a href="mailto:2298209797@qq.com" class="contact-item">📧 2298209797@qq.com</a>
-          <a href="https://github.com" target="_blank" class="contact-item">🐙 GitHub</a>
-          <a href="https://gezhenghao.com" target="_blank" class="contact-item"
-            >🌐 gezhenghao.com</a
-          >
+    <!-- 学习经历时间线 -->
+    <section id="timeline" class="section fade-in">
+        <div class="container">
+            <h2 class="section-title">学习经历</h2>
+            <p class="section-sub">持续学习是应对变化的唯一方式</p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2024 — 至今</div>
+                    <div class="timeline-content">
+                        <h3>西南交通大学</h3>
+                        <p class="timeline-sub">本科在读</p>
+                        <p>主修化学相关专业，同时自学前端开发、Python 编程和 C++ 算法，积极参与各类技术实践项目。</p>
+                        <div class="timeline-tags">
+                            <span>化学</span><span>编程</span><span>前端开发</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-content">
+                        <h3>自学前端开发</h3>
+                        <p class="timeline-sub">自主学习</p>
+                        <p>系统学习 HTML、CSS、JavaScript，掌握响应式布局、动画效果、Git 版本控制，完成个人网站项目。</p>
+                        <div class="timeline-tags">
+                            <span>HTML/CSS</span><span>JavaScript</span><span>Git</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-content">
+                        <h3>C++ 程序设计</h3>
+                        <p class="timeline-sub">课程学习</p>
+                        <p>完成西南交通大学 C++ 课程，掌握面向对象编程、算法设计、数据结构等核心知识。</p>
+                        <div class="timeline-tags">
+                            <span>C++</span><span>算法</span><span>OOP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item timeline-item-future">
+                    <div class="timeline-dot timeline-dot-future"></div>
+                    <div class="timeline-date">持续学习中...</div>
+                    <div class="timeline-content">
+                        <h3>探索更多可能</h3>
+                        <p>嵌入式开发、全栈技术、硬件配置... 成长的旅程永不停止。</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
+
+    <!-- 技能专长 -->
+    <section id="skills" class="section section-gray fade-in">
+        <div class="container">
+            <h2 class="section-title">技能专长</h2>
+            <p class="section-sub">这些技能如何帮助你的团队？<a href="#contact">联系我聊聊</a></p>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><span>🎨</span> 前端开发</h3>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <div class="skill-header"><span>HTML / CSS</span><span>80%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header"><span>JavaScript</span><span>65%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="65"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header"><span>响应式设计</span><span>75%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><span>⚙️</span> 编程语言</h3>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <div class="skill-header"><span>Python</span><span>60%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="60"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header"><span>C++</span><span>60%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="60"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><span>🔧</span> 工具 & 硬件</h3>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <div class="skill-header"><span>Git / GitHub</span><span>70%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header"><span>硬件配置</span><span>75%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header"><span>嵌入式开发（学习中）</span><span>30%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="30"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><span>🤝</span> 软技能</h3>
+                    <div class="skill-tags">
+                        <span>快速学习</span>
+                        <span>问题拆解</span>
+                        <span>独立执行</span>
+                        <span>开放沟通</span>
+                        <span>持续迭代</span>
+                        <span>细节把控</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact" class="section fade-in">
+        <div class="container">
+            <h2 class="section-title">联系方式</h2>
+            <p class="section-sub">想和我一起共事？欢迎通过以下方式联系我，我会在 24 小时内回复。</p>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item-card">
+                        <span class="contact-icon">📧</span>
+                        <div>
+                            <h4>邮箱</h4>
+                            <p>2298209797@qq.com</p>
+                            <button class="copy-btn" data-copy="2298209797@qq.com">一键复制</button>
+                        </div>
+                    </div>
+                    <div class="contact-item-card">
+                        <span class="contact-icon">🐙</span>
+                        <div>
+                            <h4>GitHub</h4>
+                            <p>github.com/yzpmf</p>
+                            <a href="https://github.com/yzpmf" target="_blank" class="contact-link-btn">访问主页</a>
+                        </div>
+                    </div>
+                    <div class="contact-item-card">
+                        <span class="contact-icon">🌐</span>
+                        <div>
+                            <h4>个人网站</h4>
+                            <p>gezhenghao.com</p>
+                            <a href="https://gezhenghao.com" target="_blank" class="contact-link-btn">访问网站</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-area">
+                    <h3>发送消息</h3>
+                    <p class="form-note">（表单功能即将上线，目前请通过邮箱联系）</p>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <input type="text" placeholder="你的姓名 *" required>
+                            <input type="text" placeholder="公司/学校">
+                        </div>
+                        <input type="email" placeholder="你的邮箱 *" required>
+                        <textarea placeholder="留言内容 *" rows="5" required></textarea>
+                        <button type="submit" class="btn-submit">发送消息 ✉️</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- 页脚 -->
     <footer>
-      <p>&copy; 2026 葛政豪. 用 ❤️ 和代码构建.</p>
+        <div class="footer-inner">
+            <div class="footer-logo">政豪</div>
+            <p>用 ❤️ 和代码构建 · &copy; 2026 葛政豪</p>
+            <div class="footer-links">
+                <a href="#home">首页</a>
+                <a href="#projects">项目</a>
+                <a href="#contact">联系</a>
+                <a href="https://github.com/yzpmf" target="_blank">GitHub</a>
+            </div>
+        </div>
     </footer>
 
     <script src="js/main.js"></script>
-  </body>
+</body>
 </html>
