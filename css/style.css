@@ -334,6 +334,9 @@ nav.scrolled {
 .contact-card p { margin-bottom: 12px; color: var(--text-light); font-size: 16px; }
 .contact-card a { color: var(--primary); font-weight: 600; transition: var(--transition); }
 .contact-card a:hover { color: var(--accent); }
+.contact-wechat { margin-top: 16px; }
+.contact-wechat p { margin-bottom: 12px; }
+.qrcode-img { width: 180px; height: 180px; border-radius: 12px; box-shadow: var(--shadow); object-fit: cover; }
 footer { padding: 36px 0; text-align:center; color: var(--text-muted); background: var(--light); }
 
 /* responsive */
