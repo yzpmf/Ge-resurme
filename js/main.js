@@ -78,7 +78,7 @@ if (skillSection) skillObserver.observe(skillSection);
 const phrases = [
     '全栈开发者 | 终身学习者 | 问题解决者',
     '前端开发 · 硬件配置 · 嵌入式探索',
-    '西南交通大学 · 大一 · 化学专业',
+    '西南交通大学 · 大一 · 计算机类',
 ];
 let phraseIndex = 0;
 let charIndex = 0;

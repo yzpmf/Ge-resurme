@@ -1,167 +1,293 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="葛政豪的个人网站 - 全栈开发者 | 终身学习者 | 问题解决者">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="葛政豪的个人网站 - 全栈开发者 | 终身学习者 | 问题解决者" />
     <title>Zheng hao | 清新 · 天蓝</title>
     <!-- 引入楷体 + Inter 混合字体 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
     <!-- 导航栏 - 半透明毛玻璃效果 -->
     <nav id="navbar">
-        <div class="nav-inner">
-            <div class="logo">政豪</div>
-            <ul class="nav-links">
-                <li><a href="#home">首页</a></li>
-                <li><a href="#about">关于我</a></li>
-                <li><a href="#projects">项目经历</a></li>
-                <li><a href="#timeline">学习经历</a></li>
-                <li><a href="#skills">技能专长</a></li>
-                <li><a href="#contact">联系方式</a></li>
-            </ul>
-            <a href="#contact" class="btn-resume">联系我</a>
-            <button class="hamburger" id="hamburger" aria-label="菜单">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-        <!-- 移动端菜单 -->
-        <div class="mobile-menu" id="mobileMenu">
-            <ul>
-                <li><a href="#home" class="mobile-link">首页</a></li>
-                <li><a href="#about" class="mobile-link">关于我</a></li>
-                <li><a href="#projects" class="mobile-link">项目经历</a></li>
-                <li><a href="#timeline" class="mobile-link">学习经历</a></li>
-                <li><a href="#skills" class="mobile-link">技能专长</a></li>
-                <li><a href="#contact" class="mobile-link">联系方式</a></li>
-            </ul>
-        </div>
+      <div class="nav-inner">
+        <div class="logo">政豪</div>
+        <ul class="nav-links">
+          <li><a href="#home">首页</a></li>
+          <li><a href="#about">关于我</a></li>
+          <li><a href="#projects">项目经历</a></li>
+          <li><a href="#timeline">学习经历</a></li>
+          <li><a href="#skills">技能专长</a></li>
+          <li><a href="#contact">联系方式</a></li>
+        </ul>
+        <a href="#contact" class="btn-resume">联系我</a>
+        <button class="hamburger" id="hamburger" aria-label="菜单">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <!-- 移动端菜单 -->
+      <div class="mobile-menu" id="mobileMenu">
+        <ul>
+          <li><a href="#home" class="mobile-link">首页</a></li>
+          <li><a href="#about" class="mobile-link">关于我</a></li>
+          <li><a href="#projects" class="mobile-link">项目经历</a></li>
+          <li><a href="#timeline" class="mobile-link">学习经历</a></li>
+          <li><a href="#skills" class="mobile-link">技能专长</a></li>
+          <li><a href="#contact" class="mobile-link">联系方式</a></li>
+        </ul>
+      </div>
     </nav>
 
     <!-- Hero 区 - 天蓝渐变背景 -->
     <section id="home" class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <p class="hero-greeting">你好，我是</p>
-            <h1>葛政豪</h1>
-            <p class="hero-tagline" id="typewriter">全栈开发者 | 终身学习者 | 问题解决者</p>
-            <p class="hero-desc">西南交通大学大一学生，热爱前端开发与硬件配置，用代码创造有价值的东西。</p>
-            <div class="hero-btns">
-                <a href="#projects" class="btn-primary">查看我的项目</a>
-                <a href="#contact" class="btn-secondary">联系我</a>
-            </div>
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <p class="hero-greeting">你好，我是</p>
+        <h1>葛政豪</h1>
+        <p class="hero-tagline" id="typewriter">全栈开发者 | 终身学习者 | 问题解决者</p>
+        <p class="hero-desc">
+          西南交通大学大一学生，热爱前端开发与硬件配置，用代码创造有价值的东西。
+        </p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn-primary">查看我的项目</a>
+          <a href="#contact" class="btn-secondary">联系我</a>
         </div>
-        <!-- 核心优势卡片 - 玻璃质感 -->
-        <div class="hero-cards">
-            <div class="hero-card">
-                <span class="card-icon">🚀</span>
-                <h3>项目经验</h3>
-                <p>多个完整项目从 0 到 1 落地</p>
-            </div>
-            <div class="hero-card">
-                <span class="card-icon">💻</span>
-                <h3>技术栈</h3>
-                <p>HTML · CSS · JS · Python · C++</p>
-            </div>
-            <div class="hero-card">
-                <span class="card-icon">📚</span>
-                <h3>持续学习</h3>
-                <p>快速适应 · 深度思考 · 不断成长</p>
-            </div>
+      </div>
+      <!-- 核心优势卡片 - 玻璃质感 -->
+      <div class="hero-cards">
+        <div class="hero-card">
+          <span class="card-icon">🚀</span>
+          <h3>项目经验</h3>
+          <p>多个完整项目从 0 到 1 落地</p>
         </div>
+        <div class="hero-card">
+          <span class="card-icon">💻</span>
+          <h3>技术栈</h3>
+          <p>HTML · CSS · JS · Python · C++</p>
+        </div>
+        <div class="hero-card">
+          <span class="card-icon">📚</span>
+          <h3>持续学习</h3>
+          <p>快速适应 · 深度思考 · 不断成长</p>
+        </div>
+      </div>
     </section>
 
     <!-- 关于我 -->
     <section id="about" class="section fade-in">
-        <div class="container">
-            <h2 class="section-title">关于我</h2>
-            <div class="about-grid">
-                <div class="about-text">
-                    <h3>不只是代码，还有热爱生活的灵魂</h3>
-                    <p>你好！我是葛政豪，就读于西南交通大学，目前大一。我对前端开发和硬件配置充满热情，相信技术是工具，解决真实问题才是目的。</p>
-                    <p>我喜欢把复杂的问题拆解成可执行的步骤，享受从零构建一个完整项目的过程。在学习编程的同时，我也在探索嵌入式开发和硬件世界。</p>
-                    <p>如果你正在寻找一个认真、好学、有执行力的合作伙伴，欢迎联系我！</p>
-                    <div class="about-tags">
-                        <span class="tag-item">🎓 西南交通大学</span>
-                        <span class="tag-item">💡 前端开发</span>
-                        <span class="tag-item">🔧 硬件配置</span>
-                        <span class="tag-item">📐 嵌入式学习</span>
-                    </div>
-                </div>
-                <div class="about-values">
-                    <div class="value-card">
-                        <span>🎯</span>
-                        <h4>目标导向</h4>
-                        <p>专注于解决真实问题，而不是炫技</p>
-                    </div>
-                    <div class="value-card">
-                        <span>🔄</span>
-                        <h4>持续迭代</h4>
-                        <p>每个项目都是学习和成长的机会</p>
-                    </div>
-                    <div class="value-card">
-                        <span>🤝</span>
-                        <h4>开放协作</h4>
-                        <p>喜欢交流想法，欢迎不同观点</p>
-                    </div>
-                    <div class="value-card">
-                        <span>⚡</span>
-                        <h4>快速执行</h4>
-                        <p>想法落地，行动优先于完美计划</p>
-                    </div>
-                </div>
+      <div class="container">
+        <h2 class="section-title">关于我</h2>
+        <div class="about-grid">
+          <div class="about-text">
+            <h3>不只是代码，还有热爱生活的灵魂</h3>
+            <p>
+              你好！我是葛政豪，就读于西南交通大学，目前大一。我对前端开发和硬件配置充满热情，相信技术是工具，解决真实问题才是目的。
+            </p>
+            <p>
+              我喜欢把复杂的问题拆解成可执行的步骤，享受从零构建一个完整项目的过程。在学习编程的同时，我也在探索嵌入式开发和硬件世界。
+            </p>
+            <p>如果你正在寻找一个认真、好学、有执行力的合作伙伴，欢迎联系我！</p>
+            <div class="about-tags">
+              <span class="tag-item">🎓 西南交通大学</span>
+              <span class="tag-item">💡 前端开发</span>
+              <span class="tag-item">🔧 硬件配置</span>
+              <span class="tag-item">📐 嵌入式学习</span>
             </div>
+          </div>
+          <div class="about-values">
+            <div class="value-card">
+              <span>🎯</span>
+              <h4>目标导向</h4>
+              <p>专注于解决真实问题，而不是炫技</p>
+            </div>
+            <div class="value-card">
+              <span>🔄</span>
+              <h4>持续迭代</h4>
+              <p>每个项目都是学习和成长的机会</p>
+            </div>
+            <div class="value-card">
+              <span>🤝</span>
+              <h4>开放协作</h4>
+              <p>喜欢交流想法，欢迎不同观点</p>
+            </div>
+            <div class="value-card">
+              <span>⚡</span>
+              <h4>快速执行</h4>
+              <p>想法落地，行动优先于完美计划</p>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- 项目经历 -->
     <section id="projects" class="section section-light-blue fade-in">
-        <div class="container">
-            <h2 class="section-title">项目经历</h2>
-            <p class="section-sub">以下是我参与的部分项目，每个项目都记录了我的职责、挑战和成果</p>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>个人品牌网站</h3>
-                        <span class="project-status">进行中</span>
-                    </div>
-                    <p>从零搭建的响应式个人网站，包含项目展示、学习经历时间线、技能专长等模块，部署在 Netlify 上，绑定自定义域名。</p>
-                    <div class="project-tags">
-                        <span class="tech-tag">HTML</span>
-                        <span class="tech-tag">CSS</span>
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">Netlify</span>
-                        <span class="tech-tag">GitHub</span>
-                    </div>
-                    <ul class="project-points">
-                        <li>独立完成从设计到开发的全流程</li>
-                        <li>实现响应式布局，适配移动端/平板/桌面</li>
-                        <li>配置 CI/CD 自动部署流程</li>
-                    </ul>
-                    <a href="https://github.com/yzpmf/Ge-resurme" target="_blank" class="project-link">🐙 查看源码</a>
-                </div>
+      <div class="container">
+        <h2 class="section-title">项目经历</h2>
+        <p class="section-sub">以下是我参与的部分项目，每个项目都记录了我的职责、挑战和成果</p>
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-header">
+              <h3>个人品牌网站</h3>
+              <span class="project-status">进行中</span>
+            </div>
+            <p>
+              从零搭建的响应式个人网站，包含项目展示、学习经历时间线、技能专长等模块，部署在 Netlify
+              上，绑定自定义域名。
+            </p>
+            <div class="project-tags">
+              <span class="tech-tag">HTML</span>
+              <span class="tech-tag">CSS</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">Netlify</span>
+              <span class="tech-tag">GitHub</span>
+            </div>
+            <ul class="project-points">
+              <li>独立完成从设计到开发的全流程</li>
+              <li>实现响应式布局，适配移动端/平板/桌面</li>
+              <li>配置 CI/CD 自动部署流程</li>
+            </ul>
+            <a href="https://github.com/yzpmf/Ge-resurme" target="_blank" class="project-link"
+              >🐙 查看源码</a
+            >
+          </div>
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>C++ 算法实验</h3>
-                        <span class="project-status">已完成</span>
-                    </div>
-                    <p>西南交通大学 C++ 课程实验代码，包含多个算法和基础程序练习，涵盖条件判断、函数设计、数据处理等核心知识点。</p>
-                    <div class="project-tags">
-                        <span class="tech-tag">C++</span>
-                        <span class="tech-tag">算法</span>
-                        <span class="tech-tag">数据结构</span>
-                    </div>
-                    <ul class="project-points">
-                        <li>完成比较、判断、计价等多类型程序</li>
-                        <li>代码规范，注释清晰</li>
-                        <li>通过所有实验测试用例</li>
-                    </ul>
-                </div>
+          <div class="project-card">
+            <div class="project-header">
+              <h3>C++ 算法实验</h3>
+              <span class="project-status">已完成</span>
+            </div>
+            <p>
+              西南交通大学 C++
+              课程实验代码，包含多个算法和基础程序练习，涵盖条件判断、函数设计、数据处理等核心知识点。
+            </p>
+            <div class="project-tags">
+              <span class="tech-tag">C++</span>
+              <span class="tech-tag">算法</span>
+              <span class="tech-tag">数据结构</span>
+            </div>
+            <ul class="project-points">
+              <li>完成比较、判断、计价等多类型程序</li>
+              <li>代码规范，注释清晰</li>
+              <li>通过所有实验测试用例</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-                <div cla
+    <!-- 学习经历 / 时间线 -->
+    <section id="timeline" class="section fade-in">
+      <div class="container">
+        <h2 class="section-title">学习经历</h2>
+        <p class="section-sub">从兴趣入门到系统学习的时间线</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <h4>2025 - 现在</h4>
+            <p>西南交通大学 - 本科在读。专注于前端、嵌入式与算法训练。</p>
+          </div>
+          <div class="timeline-item">
+            <h4>2024</h4>
+            <p>自学前端基础：HTML / CSS / JavaScript，完成多个小项目。</p>
+          </div>
+          <div class="timeline-item">
+            <h4>2023</h4>
+            <p>开始接触 C++ 与数据结构，参与课程项目与算法练习。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 技能专长 -->
+    <section id="skills" class="section section-light-blue fade-in">
+      <div class="container">
+        <h2 class="section-title">技能专长</h2>
+        <p class="section-sub">我熟练掌握一组能够把想法落地的工具</p>
+        <div class="skills-grid">
+          <div class="skill">
+            <h4>前端</h4>
+            <p>HTML · CSS · JS · 响应式设计 · 性能优化</p>
+          </div>
+          <div class="skill">
+            <h4>后端 / 脚本</h4>
+            <p>Python · Node.js · 小型服务搭建</p>
+          </div>
+          <div class="skill">
+            <h4>嵌入式</h4>
+            <p>基础 MCU 配置 · 硬件调试 · C/C++</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact" class="section fade-in">
+      <div class="container">
+        <h2 class="section-title">联系方式</h2>
+        <p class="section-sub">欢迎留言或通过下列方式联系我</p>
+        <div class="contact-card">
+          <p>邮箱：<a href="mailto:yzpmf@my.swjtu.edu.cn">yzpmf@my.swjtu.edu.cn</a></p>
+          <p>GitHub：<a href="https://github.com/yzpmf" target="_blank">github.com/yzpmf</a></p>
+          <p>如果你希望我参与合作或答疑，请通过邮箱联系。</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>© 2026 葛政豪。由 HTML / CSS / JS 构建。</p>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+      // 简单的交互：汉堡菜单 + 视差入场 + typewriter（如 main.js 未实现）
+      (function () {
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger &&
+          hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+          });
+
+        // fade-in 可见性处理
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) e.target.classList.add('visible');
+            });
+          },
+          { threshold: 0.12 }
+        );
+        document.querySelectorAll('.fade-in').forEach((el) => io.observe(el));
+
+        // 简单打字机效果（如果 main.js 没有）
+        const el = document.getElementById('typewriter');
+        if (el) {
+          const text = el.textContent;
+          el.textContent = '';
+          let i = 0;
+          const t = setInterval(() => {
+            el.textContent += text[i++] || '';
+            if (i >= text.length) clearInterval(t);
+          }, 28);
+        }
+
+        // 导航高亮和滚动监听
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 24) nav.classList.add('scrolled');
+          else nav.classList.remove('scrolled');
+        });
+      })();
+    </script>
+  </body>
+</html>
