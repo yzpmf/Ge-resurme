@@ -25,6 +25,7 @@
           <li><a href="#projects">项目经历</a></li>
           <li><a href="#timeline">学习经历</a></li>
           <li><a href="#skills">技能专长</a></li>
+          <li><a href="#articles">文章博客</a></li>
           <li><a href="#contact">联系方式</a></li>
         </ul>
         <a href="#contact" class="btn-resume">联系我</a>
@@ -40,6 +41,7 @@
           <li><a href="#projects" class="mobile-link">项目经历</a></li>
           <li><a href="#timeline" class="mobile-link">学习经历</a></li>
           <li><a href="#skills" class="mobile-link">技能专长</a></li>
+          <li><a href="#articles" class="mobile-link">文章博客</a></li>
           <li><a href="#contact" class="mobile-link">联系方式</a></li>
         </ul>
       </div>
@@ -227,6 +229,25 @@
       </div>
     </section>
 
+    <!-- 文章博客 -->
+    <section id="articles" class="section section-light-blue fade-in">
+      <div class="container">
+        <h2 class="section-title">文章博客</h2>
+        <p class="section-sub">记录学习笔记、项目经验和生活感悟</p>
+        <div id="articles-list" class="articles-grid">
+          <p class="loading">正在加载文章...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 文章阅读弹窗 -->
+    <div id="article-modal" class="article-modal">
+      <div class="article-modal-content">
+        <button class="modal-close" onclick="closeArticle()">&times;</button>
+        <div id="article-content"></div>
+      </div>
+    </div>
+
     <!-- 联系方式 -->
     <section id="contact" class="section fade-in">
       <div class="container">
@@ -252,6 +273,7 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/articles.js"></script>
     <script>
       // 简单的交互：汉堡菜单 + 视差入场 + typewriter（如 main.js 未实现）
       (function () {
