@@ -75,10 +75,12 @@ const skillSection = document.getElementById('skills');
 if (skillSection) skillObserver.observe(skillSection);
 
 // ===== 打字机效果 =====
+// 【填写】修改下面的 phrases 数组，添加你想循环显示的标签
+// 建议格式："标签1 | 标签2 | 标签3" 或 "信息1 · 信息2 · 信息3"
 const phrases = [
-    '全栈开发者 | 终身学习者 | 问题解决者',
-    '前端开发 · 硬件配置 · 嵌入式探索',
-    '西南交通大学 · 大一 · 计算机类',
+    '【填写：标签1 | 标签2 | 标签3】',
+    '【填写：信息1 · 信息2 · 信息3】',
+    '【填写：其他你想展示的内容】',
 ];
 let phraseIndex = 0;
 let charIndex = 0;
