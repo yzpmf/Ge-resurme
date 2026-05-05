@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>标准偏差 (s) 计算器</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            margin-top: 0;
+            font-size: 20px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:active {
+            background-color: #0056b3;
+        }
+        #data-inputs {
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        .data-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .data-row label {
+            margin-bottom: 0;
+            margin-right: 10px;
+            min-width: 40px;
+        }
+        #result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            display: none;
+            word-break: break-all;
+        }
+        .result-item {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        .error {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>样本标准偏差计算器</h2>
+    
+    <div class="form-group">
+        <label for="n-value">请输入测量次数 n：</label>
+        <input type="number" id="n-value" min="2" step="1" placeholder="例如：5">
+        <div id="n-error" class="error">测量次数必须是大于等于 2 的整数。</div>
+    </div>
+    
+    <button onclick="generateInputs()">生成输入框</button>
+
+    <div id="data-inputs"></div>
+    
+    <button id="calc-btn" style="display:none; background-color: #28a745;" onclick="calculateStdDev()">开始计算</button>
+
+    <div id="result-box">
+        <div class="result-item"><strong>平均值 (x̄):</strong> <span id="res-mean"></span></div>
+        <div class="result-item"><strong>标准偏差 (s):</strong> <span id="res-std"></span></div>
+    </div>
+</div>
+
+<script>
+    function generateInputs() {
+        const nInput = document.getElementById('n-value').value;
+        const n = parseInt(nInput);
+        const errorMsg = document.getElementById('n-error');
+        const dataInputsContainer = document.getElementById('data-inputs');
+        const calcBtn = document.getElementById('calc-btn');
+        const resultBox = document.getElementById('result-box');
+
+        // 重置状态
+        errorMsg.style.display = 'none';
+        dataInputsContainer.innerHTML = '';
+        calcBtn.style.display = 'none';
+        resultBox.style.display = 'none';
+
+        if (isNaN(n) || n < 2) {
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        for (let i = 1; i <= n; i++) {
+            const row = document.createElement('div');
+            row.className = 'data-row';
+            
+            const label = document.createElement('label');
+            label.innerText = '第 ' + i + ' 次:';
+            
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.className = 'val-input';
+            input.step = 'any'; // 允许输入小数
+            input.placeholder = '输入数值';
+
+            row.appendChild(label);
+            row.appendChild(input);
+            dataInputsContainer.appendChild(row);
+        }
+
+        calcBtn.style.display = 'block';
+    }
+
+    function calculateStdDev() {
+        const inputs = document.querySelectorAll('.val-input');
+        const values = [];
+        
+        // 收集所有数值
+        for (let i = 0; i < inputs.length; i++) {
+            const val = parseFloat(inputs[i].value);
+            if (isNaN(val)) {
+                alert('请确保所有输入框都已填入有效的数字！');
+                return;
+            }
+            values.push(val);
+        }
+
+        const n = values.length;
+        
+        // 计算平均值
+        let sum = 0;
+        for (let i = 0; i < n; i++) {
+            sum += values[i];
+        }
+        const mean = sum / n;
+
+        // 计算离差平方和
+        let sumOfSquares = 0;
+        for (let i = 0; i < n; i++) {
+            sumOfSquares += Math.pow(values[i] - mean, 2);
+        }
+
+        // 计算样本标准偏差 (除以 n-1)
+        const variance = sumOfSquares / (n - 1);
+        const stdDev = Math.sqrt(variance);
+
+        // 显示结果，保留四位小数以便于观察
+        document.getElementById('res-mean').innerText = mean.toFixed(4);
+        document.getElementById('res-std').innerText = stdDev.toFixed(4);
+        document.getElementById('result-box').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

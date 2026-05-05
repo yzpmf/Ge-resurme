@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刚体转动角加速度计算器 (含平均值功能)</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px 0;
+        }
+        .calculator-card {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+        h2, h3 {
+            text-align: center;
+            color: #333333;
+            margin-top: 0;
+        }
+        h2 { font-size: 20px; margin-bottom: 20px; }
+        h3 { font-size: 16px; margin-top: 20px; margin-bottom: 15px; color: #555;}
+        
+        .input-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .input-group {
+            flex: 1;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555555;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        .input-group input:focus {
+            border-color: #0066cc;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-weight: bold;
+        }
+        .btn-primary { background-color: #0066cc; margin-top: 10px; }
+        .btn-primary:hover { background-color: #0052a3; }
+        .btn-success { background-color: #28a745; }
+        .btn-success:hover { background-color: #218838; }
+        .btn-danger { background-color: #dc3545; }
+        .btn-danger:hover { background-color: #c82333; }
+        
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .result-container {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0066cc;
+            border-radius: 4px;
+            word-wrap: break-word;
+        }
+        .result-container.average {
+            border-left-color: #28a745;
+            background-color: #f0fdf4;
+        }
+        .result-label {
+            font-size: 13px;
+            color: #666666;
+            margin-bottom: 5px;
+        }
+        .result-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333333;
+        }
+        .error {
+            color: #cc0000;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #eeeeee;
+            margin: 25px 0;
+        }
+
+        .record-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #eeeeee;
+            border-radius: 4px;
+            background: #fafafa;
+        }
+        .record-list li {
+            padding: 8px 12px;
+            border-bottom: 1px dashed #dddddd;
+            font-size: 14px;
+            color: #444;
+            display: flex;
+            justify-content: space-between;
+        }
+        .record-list li:last-child {
+            border-bottom: none;
+        }
+        .empty-text {
+            text-align: center;
+            padding: 15px;
+            color: #999;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator-card">
+    <h2>角加速度 β 计算与平均值</h2>
+    
+    <div class="input-row">
+        <div class="input-group">
+            <label for="km">km (半圈数)</label>
+            <input type="number" id="km" step="any" placeholder="km">
+        </div>
+        <div class="input-group">
+            <label for="tm">tm (时间)</label>
+            <input type="number" id="tm" step="any" placeholder="tm">
+        </div>
+    </div>
+    
+    <div class="input-row">
+        <div class="input-group">
+            <label for="kn">kn (半圈数)</label>
+            <input type="number" id="kn" step="any" placeholder="kn">
+        </div>
+        <div class="input-group">
+            <label for="tn">tn (时间)</label>
+            <input type="number" id="tn" step="any" placeholder="tn">
+        </div>
+    </div>
+
+    <button class="btn-primary" onclick="calculateAndRecord()">计算当前 β 并记录</button>
+
+    <div id="errorMessage" class="error"></div>
+
+    <div class="result-container" id="currentResultContainer" style="display: none;">
+        <div class="result-label">单次计算结果 (rad/s²)：</div>
+        <div class="result-value" id="currentResultValue">-</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>数据记录区</h3>
+    <ul class="record-list" id="recordList">
+        <div class="empty-text">暂无记录数据</div>
+    </ul>
+
+    <div class="button-row">
+        <button class="btn-success" onclick="calculateAverage()">计算平均值</button>
+        <button class="btn-danger" onclick="clearRecords()">清空记录</button>
+    </div>
+
+    <div class="result-container average" id="averageResultContainer" style="display: none;">
+        <div class="result-label">平均角加速度 β (rad/s²)：</div>
+        <div class="result-value" id="averageResultValue">-</div>
+    </div>
+</div>
+
+<script>
+    // 存储计算结果的数组
+    let betaRecords = [];
+
+    function calculateAndRecord() {
+        document.getElementById('errorMessage').innerText = '';
+        
+        const km = parseFloat(document.getElementById('km').value);
+        const tm = parseFloat(document.getElementById('tm').value);
+        const kn = parseFloat(document.getElementById('kn').value);
+        const tn = parseFloat(document.getElementById('tn').value);
+
+        if (isNaN(km) || isNaN(tm) || isNaN(kn) || isNaN(tn)) {
+            document.getElementById('errorMessage').innerText = '请完整填写所有四个数值。';
+            return;
+        }
+
+        const denominator = (Math.pow(tn, 2) * tm) - (Math.pow(tm, 2) * tn);
+
+        if (denominator === 0) {
+            document.getElementById('errorMessage').innerText = '计算错误：分母为零，请检查 tm 和 tn（不能相等且不能为 0）。';
+            return;
+        }
+
+        const numerator = 2 * Math.PI * (kn * tm - km * tn);
+        const beta = numerator / denominator;
+
+        // 显示单次结果
+        document.getElementById('currentResultValue').innerText = beta.toFixed(6);
+        document.getElementById('currentResultContainer').style.display = 'block';
+
+        // 记录数据并更新UI
+        betaRecords.push(beta);
+        updateRecordListUI();
+    }
+
+    function updateRecordListUI() {
+        const listElement = document.getElementById('recordList');
+        listElement.innerHTML = ''; // 清空列表
+
+        if (betaRecords.length === 0) {
+            listElement.innerHTML = '<div class="empty-text">暂无记录数据</div>';
+            return;
+        }
+
+        betaRecords.forEach((beta, index) => {
+            const li = document.createElement('li');
+            
+            const indexSpan = document.createElement('span');
+            indexSpan.innerText = `第 ${index + 1} 组`;
+            
+            const valueSpan = document.createElement('span');
+            valueSpan.innerText = `${beta.toFixed(6)}`;
+            valueSpan.style.fontWeight = 'bold';
+
+            li.appendChild(indexSpan);
+            li.appendChild(valueSpan);
+            listElement.appendChild(li);
+        });
+
+        // 如果加入新数据时平均值框是打开的，自动隐藏，提示用户重新计算
+        document.getElementById('averageResultContainer').style.display = 'none';
+    }
+
+    function calculateAverage() {
+        document.getElementById('errorMessage').innerText = '';
+
+        if (betaRecords.length === 0) {
+            document.getElementById('errorMessage').innerText = '当前没有数据可以计算平均值，请先计算并记录。';
+            return;
+        }
+
+        const sum = betaRecords.reduce((total, num) => total + num, 0);
+        const average = sum / betaRecords.length;
+
+        document.getElementById('averageResultValue').innerText = average.toFixed(6);
+        document.getElementById('averageResultContainer').style.display = 'block';
+    }
+
+    function clearRecords() {
+        // 清空数组
+        betaRecords = [];
+        
+        // 更新UI
+        updateRecordListUI();
+        document.getElementById('currentResultContainer').style.display = 'none';
+        document.getElementById('averageResultContainer').style.display = 'none';
+        document.getElementById('errorMessage').innerText = '';
+
+        // 清空输入框
+        document.getElementById('km').value = '';
+        document.getElementById('tm').value = '';
+        document.getElementById('kn').value = '';
+        document.getElementById('tn').value = '';
+    }
+</script>
+
+</body>
+</html>
