@@ -64,14 +64,17 @@
     container.innerHTML = '<p class="loading">正在加载文章...</p>';
     
     try {
-      // 尝试加载 index.json，如果不存在则使用默认列表
-      let articles = [];
+      // 尝试加载 index.json，如果不存在（404 或网络错误）则使用默认列表
+      let articles = null;
       try {
         const indexRes = await fetch(config.baseUrl + config.indexFile);
         if (indexRes.ok) {
           articles = await indexRes.json();
         }
       } catch (e) {
+        // 网络错误，下面统一回退到默认列表
+      }
+      if (!Array.isArray(articles)) {
         // 默认文章列表
         articles = [
           { file: 'hello-world.md', title: '欢迎来到我的博客', date: '2026-04-16', tags: ['随笔'], summary: '这是我的个人博客第一篇文章，记录学习和生活点滴。' }

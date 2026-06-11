@@ -223,7 +223,7 @@
             </ul>
             <a href="https://gezhenghao.com/project/标准偏差计算器" target="_blank" class="project-link">查看项目 →</a>
           </div>
-
+        </div>
       </div>
     </section>
 
@@ -309,7 +309,7 @@
             <p>微信公众号：</p>
             <img src="images/wechat-qrcode.jpg" alt="微信公众号二维码" class="qrcode-img" />
           </div>
-          <p style="margin-top: 20px;">【填写：联系邀请语，如"期待与你的交流！"】</p>
+          <p style="margin-top: 20px;">期待与你的交流！</p>
         </div>
       </div>
     </section>
@@ -324,44 +324,5 @@
 
     <script src="js/main.js"></script>
     <script src="js/articles.js"></script>
-    <script>
-      // 交互脚本：汉堡菜单 + 滚动动画 + 打字机效果
-      (function () {
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
-        hamburger &&
-          hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-          });
-
-        const io = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((e) => {
-              if (e.isIntersecting) e.target.classList.add('visible');
-            });
-          },
-          { threshold: 0.12 }
-        );
-        document.querySelectorAll('.fade-in').forEach((el) => io.observe(el));
-
-        const el = document.getElementById('typewriter');
-        if (el) {
-          const text = el.textContent;
-          el.textContent = '';
-          let i = 0;
-          const t = setInterval(() => {
-            el.textContent += text[i++] || '';
-            if (i >= text.length) clearInterval(t);
-          }, 28);
-        }
-
-        const nav = document.querySelector('nav');
-        window.addEventListener('scroll', () => {
-          if (window.scrollY > 24) nav.classList.add('scrolled');
-          else nav.classList.remove('scrolled');
-        });
-      })();
-    </script>
   </body>
 </html>

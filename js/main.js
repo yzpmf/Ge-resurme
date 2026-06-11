@@ -87,9 +87,9 @@ if (skillSection) skillObserver.observe(skillSection);
 // 【填写】修改下面的 phrases 数组，添加你想循环显示的标签
 // 建议格式："标签1 | 标签2 | 标签3" 或 "信息1 · 信息2 · 信息3"
 const phrases = [
-  '【填写：标签1 | 标签2 | 标签3】',
-  '【填写：信息1 · 信息2 · 信息3】',
-  '【填写：其他你想展示的内容】',
+  '计算机科学 · 西南交通大学 · 大一',
+  '热爱技术与创新 · 探索无限可能',
+  'Python · C · HTML · CSS · JavaScript',
 ];
 let phraseIndex = 0;
 let charIndex = 0;
