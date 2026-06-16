@@ -945,6 +945,96 @@ body {
   box-shadow: var(--shadow);
   object-fit: cover;
 }
+
+/* ===== 留言表单 ===== */
+.contact-form {
+  background: var(--white);
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  max-width: 720px;
+  margin: 0 auto 28px;
+  text-align: left;
+}
+.form-row {
+  display: flex;
+  gap: 18px;
+}
+.form-group {
+  flex: 1;
+  margin-bottom: 18px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 15px;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border: 2px solid var(--gray-light);
+  border-radius: var(--radius-sm);
+  background: var(--light);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 16px;
+  transition: var(--transition);
+}
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-muted);
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-soft);
+  background: var(--white);
+  box-shadow: 0 0 0 4px rgba(74, 159, 212, 0.15);
+}
+.form-submit {
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 4px;
+}
+.form-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.form-status {
+  margin-top: 14px;
+  min-height: 22px;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+.form-status.ok {
+  color: #15803d;
+}
+.form-status.err {
+  color: #dc2626;
+}
+/* 蜜罐字段：对真人隐藏 */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
 footer {
   padding: 36px 0;
   text-align: center;

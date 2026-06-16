@@ -297,6 +297,45 @@
       <div class="container">
         <h2 class="section-title">联系方式</h2>
         <p class="section-sub">欢迎留言或通过下列方式联系我</p>
+
+        <!-- ==================== 留言表单（访客留言 → 我的邮箱） ==================== -->
+        <!--
+          两套方案共用这段表单，靠 js/contact.js 顶部的开关切换：
+          · 静态托管方案(Netlify)：保留下面的 data-netlify / form-name / bot-field
+          · 服务器方案：把 js/contact.js 的 mode 改为 'server' 并填 serverEndpoint
+        -->
+        <form
+          id="contactForm"
+          class="contact-form"
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          autocomplete="on"
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <!-- 蜜罐：真人看不到，机器人会填，用来挡垃圾留言 -->
+          <p class="hp-field" aria-hidden="true">
+            <label>请勿填写此项：<input name="bot-field" tabindex="-1" /></label>
+          </p>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cf-name">称呼</label>
+              <input type="text" id="cf-name" name="name" required maxlength="40" placeholder="怎么称呼你？" />
+            </div>
+            <div class="form-group">
+              <label for="cf-email">邮箱</label>
+              <input type="email" id="cf-email" name="email" required maxlength="80" placeholder="留个邮箱，方便我回复" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cf-message">留言</label>
+            <textarea id="cf-message" name="message" required rows="5" maxlength="2000" placeholder="想说点什么……"></textarea>
+          </div>
+          <button type="submit" class="btn-primary form-submit">发送留言</button>
+          <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+        </form>
+
         <div class="contact-card">
           <!-- 【填写】邮箱 -->
           <p>邮箱：<a href="mailto:yzpmf@swjtu.edu.cn">yzpmf@swjtu.edu.cn</a></p>
@@ -324,5 +363,6 @@
 
     <script src="js/main.js"></script>
     <script src="js/articles.js"></script>
+    <script src="js/contact.js"></script>
   </body>
 </html>

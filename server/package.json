@@ -1,0 +1,13 @@
+{
+  "name": "gezhenghao-contact-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "个人网站联系表单后端：接收留言并通过 SMTP 发到邮箱",
+  "main": "contact-server.js",
+  "scripts": {
+    "start": "node --env-file=.env contact-server.js"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.14"
+  }
+}
