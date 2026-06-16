@@ -16,8 +16,9 @@
   'use strict';
 
   var CONFIG = {
-    mode: 'netlify', // 'netlify' | 'server'
-    serverEndpoint: 'https://your-server.example.com/api/contact' // 仅 server 模式用
+    mode: 'netlify', // 'netlify' | 'web3forms' | 'server'
+    serverEndpoint: 'https://your-server.example.com/api/contact', // 仅 server 模式用
+    web3formsKey: 'PASTE_YOUR_ACCESS_KEY' // 仅 web3forms 模式用：web3forms.com 注册邮箱后拿到的 access key
   };
 
   var form = document.getElementById('contactForm');
@@ -57,7 +58,20 @@
     setStatus('发送中……', '');
 
     var request;
-    if (CONFIG.mode === 'server') {
+    if (CONFIG.mode === 'web3forms') {
+      // Web3Forms：邮件由其服务器投递，收件邮箱跟着注册 access key 的邮箱走
+      request = fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: CONFIG.web3formsKey,
+          subject: '【网站留言】来自 ' + data.name,
+          name: data.name,
+          email: data.email,
+          message: data.message
+        })
+      });
+    } else if (CONFIG.mode === 'server') {
       request = fetch(CONFIG.serverEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -79,7 +93,15 @@
 
     request
       .then(function (res) {
+        // Web3Forms 即使出错也返回 200，需看返回体的 success 字段
+        if (CONFIG.mode === 'web3forms') {
+          return res.json().then(function (j) {
+            if (!j.success) throw new Error(j.message || ('HTTP ' + res.status));
+          });
+        }
         if (!res.ok) throw new Error('HTTP ' + res.status);
+      })
+      .then(function () {
         form.reset();
         setStatus('留言已发送，感谢！我会尽快回复~', 'ok');
       })
