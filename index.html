@@ -3,9 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=0.9" />
-    <!-- 【填写】网站描述 -->
     <meta name="description" content="GeZhenghao的个人网站 - 计算机科学 | 西南交通大学 | 大一" />
-    <!-- 【填写】网站标题 -->
     <title>GeZhenghao | 计算机科学 · 西南交通大学 · 大一</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,10 +14,21 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <!-- ==================== 图标 sprite（Lucide 线性图标） ==================== -->
+    <svg class="icon-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="ic-rocket" viewBox="0 0 24 24"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"/><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"/></symbol><symbol id="ic-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></symbol><symbol id="ic-book-open" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol><symbol id="ic-graduation-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol><symbol id="ic-lightbulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol><symbol id="ic-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></symbol><symbol id="ic-sparkles" viewBox="0 0 24 24"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></symbol><symbol id="ic-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol><symbol id="ic-refresh-cw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol><symbol id="ic-handshake" viewBox="0 0 24 24"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></symbol><symbol id="ic-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></symbol><symbol id="ic-terminal" viewBox="0 0 24 24"><path d="M12 19h8"/><path d="m4 17 6-6-6-6"/></symbol><symbol id="ic-blocks" viewBox="0 0 24 24"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></symbol><symbol id="ic-settings" viewBox="0 0 24 24"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="ic-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol><symbol id="ic-github" viewBox="0 0 24 24"><path d="M12 .5C5.37.5 0 5.78 0 12.29c0 5.2 3.44 9.6 8.21 11.16.6.11.82-.25.82-.56v-2.13c-3.34.7-4.04-1.39-4.04-1.39-.55-1.34-1.33-1.7-1.33-1.7-1.09-.72.08-.71.08-.71 1.2.08 1.84 1.21 1.84 1.21 1.07 1.78 2.81 1.27 3.5.97.11-.76.42-1.27.76-1.56-2.67-.29-5.47-1.29-5.47-5.75 0-1.27.47-2.31 1.24-3.12-.13-.29-.54-1.48.11-3.08 0 0 1.01-.31 3.3 1.19a11.6 11.6 0 0 1 3-.39c1.02 0 2.05.13 3 .39 2.29-1.5 3.3-1.19 3.3-1.19.65 1.6.24 2.79.12 3.08.77.81 1.23 1.85 1.23 3.12 0 4.47-2.81 5.45-5.49 5.74.43.36.81 1.07.81 2.16v3.2c0 .31.22.68.83.56C20.57 21.88 24 17.49 24 12.29 24 5.78 18.63.5 12 .5z"/></symbol><symbol id="ic-message-circle" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></symbol><symbol id="ic-external-link" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol><symbol id="ic-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol><symbol id="ic-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></symbol></defs></svg>
+
+    <!-- 滚动进度条 -->
+    <div class="scroll-progress" id="scrollProgress"><div class="scroll-progress-fill"></div></div>
+
+    <!-- 深色模式切换 -->
+    <button class="theme-toggle" id="themeToggle" aria-label="切换深色模式">
+      <span class="theme-icon-light"><svg class="icon"><use href="#ic-sun"/></svg></span>
+      <span class="theme-icon-dark"><svg class="icon"><use href="#ic-moon"/></svg></span>
+    </button>
+
     <!-- ==================== 导航栏 ==================== -->
     <nav id="navbar">
       <div class="nav-inner">
-        <!-- 【填写】Logo 名称（通常用名字的1-2个字） -->
         <div class="logo">葛</div>
         <ul class="nav-links">
           <li><a href="#home">首页</a></li>
@@ -48,9 +57,8 @@
       </div>
     </nav>
 
-    <!-- ==================== Hero - 飘带动效 + 文字 ========== -->
+    <!-- ==================== Hero - 飘带动效 + 文字叠加 ========== -->
     <section id="home" class="hero">
-      <!-- 飘带动画容器 -->
       <div class="hero-ribbon-wrap">
         <div class="ribbon-center" style="display:flex;flex-direction:column;align-items:center;width:100%;">
           <svg class="ribbon-svg" viewBox="60 98 150 46" xmlns="http://www.w3.org/2000/svg">
@@ -70,17 +78,14 @@
           </svg>
           <div class="ribbon-subtitle">Welcome To My Web</div>
         </div>
-        <div class="hero-scroll-hint">继续向下滑动</div>
       </div>
 
-      <!-- 下方内容区 -->
-      <div class="hero-content">
+      <!-- 文字卡片：排在飘带下方，不再叠加遮挡 -->
+      <div class="hero-overlay">
         <p class="hero-greeting">你好，我是</p>
         <h1>GeZhenghao</h1>
         <p class="hero-tagline" id="typewriter">计算机科学 | 西南交通大学 | 大一</p>
-        <p class="hero-desc">
-          热爱技术与创新，正在探索计算机科学的无限可能
-        </p>
+        <p class="hero-desc">热爱技术与创新，正在探索计算机科学的无限可能</p>
         <div class="hero-btns">
           <a href="#projects" class="btn-primary">查看我的项目</a>
           <a href="#contact" class="btn-secondary">联系我</a>
@@ -89,17 +94,17 @@
 
       <div class="hero-cards">
         <div class="hero-card">
-          <span class="card-icon">🚀</span>
+          <span class="card-icon"><svg class="icon"><use href="#ic-rocket"/></svg></span>
           <h3>项目经验</h3>
           <p>小程序 · 网站 · 更多在路上</p>
         </div>
         <div class="hero-card">
-          <span class="card-icon">💻</span>
+          <span class="card-icon"><svg class="icon"><use href="#ic-code"/></svg></span>
           <h3>技术栈</h3>
           <p>Python · C · HTML · CSS · JS</p>
         </div>
         <div class="hero-card">
-          <span class="card-icon">📚</span>
+          <span class="card-icon"><svg class="icon"><use href="#ic-book-open"/></svg></span>
           <h3>持续学习</h3>
           <p>算法 · Web开发 · 创意编程</p>
         </div>
@@ -113,41 +118,37 @@
         <h2 class="section-title">关于我</h2>
         <div class="about-grid">
           <div class="about-text">
-            <!-- 【填写】小标题 -->
             <h3>不只是代码，还有热爱生活的灵魂</h3>
-            <!-- 【填写】自我介绍（2-4段） -->
             <p>我是西南交通大学计算机科学专业的大一学生，热爱技术与创新，正在探索计算机科学的无限可能。</p>
             <p>在掌握 Python、C、HTML、CSS、JavaScript 等编程语言的同时，也积极尝试微信小程序等前端开发实践。</p>
             <p>我相信技术可以改变生活，也正在用代码实现自己的想法。</p>
-            <!-- 【填写】个人标签（可增减） -->
             <div class="about-tags">
-              <span class="tag-item">🎓 西南交通大学</span>
-              <span class="tag-item">💡 计算机科学</span>
-              <span class="tag-item">🔧 算法 · Web开发</span>
-              <span class="tag-item">🌟 微信小程序</span>
+              <span class="tag-item"><span class="tag-icon"><svg class="icon"><use href="#ic-graduation-cap"/></svg></span> 西南交通大学</span>
+              <span class="tag-item"><span class="tag-icon"><svg class="icon"><use href="#ic-lightbulb"/></svg></span> 计算机科学</span>
+              <span class="tag-item"><span class="tag-icon"><svg class="icon"><use href="#ic-wrench"/></svg></span> 算法 · Web开发</span>
+              <span class="tag-item"><span class="tag-icon"><svg class="icon"><use href="#ic-sparkles"/></svg></span> 微信小程序</span>
             </div>
           </div>
-          <!-- 【填写】价值观/特点卡片（可增减数量） -->
           <div class="about-values">
             <div class="value-card">
-              <span>🎯</span>
-              <h4>🎯 追求卓越</h4>
-            <p>以高标准要求自己，在每一个项目中全力以赴</p>
+              <span class="value-icon"><svg class="icon"><use href="#ic-target"/></svg></span>
+              <h4>追求卓越</h4>
+              <p>以高标准要求自己，在每一个项目中全力以赴</p>
             </div>
             <div class="value-card">
-              <span>🔄</span>
-              <h4>🔄 持续学习</h4>
-            <p>保持好奇心，不断学习新技术和新知识</p>
+              <span class="value-icon"><svg class="icon"><use href="#ic-refresh-cw"/></svg></span>
+              <h4>持续学习</h4>
+              <p>保持好奇心，不断学习新技术和新知识</p>
             </div>
             <div class="value-card">
-              <span>🤝</span>
-              <h4>🤝 乐于协作</h4>
-            <p>享受团队合作，相信集体智慧的力量</p>
+              <span class="value-icon"><svg class="icon"><use href="#ic-handshake"/></svg></span>
+              <h4>乐于协作</h4>
+              <p>享受团队合作，相信集体智慧的力量</p>
             </div>
             <div class="value-card">
-              <span>⚡</span>
-              <h4>⚡ 快速执行</h4>
-            <p>想法到行动的转化速度快，注重实践</p>
+              <span class="value-icon"><svg class="icon"><use href="#ic-zap"/></svg></span>
+              <h4>快速执行</h4>
+              <p>想法到行动的转化速度快，注重实践</p>
             </div>
           </div>
         </div>
@@ -160,10 +161,48 @@
         <h2 class="section-title">项目经历</h2>
         <p class="section-sub">以下是我参与的部分项目，每个项目都记录了我的职责、挑战和成果</p>
         <div class="projects-grid">
-                    <!-- ========== 项目卡片 1：掌上御膳房 ========== -->
+          <!-- 项目卡片：LifeOS -->
+          <div class="project-card">
+            <div class="project-image project-image-placeholder" data-letter="田">
+              <span class="placeholder-letter">田</span>
+            </div>
+            <div class="project-meta">
+              <span class="project-meta-item">2026.06</span>
+              <span class="project-meta-sep">·</span>
+              <span class="project-meta-item">移动应用</span>
+              <span class="project-meta-sep">·</span>
+              <span class="project-meta-item">独立开发</span>
+            </div>
+            <div class="project-header">
+              <h3>LifeOS 个人生活操作系统</h3>
+              <span class="project-status status-done">已发布</span>
+            </div>
+            <p>把四象限待办、课程表、每日打卡和 AI 助手整合进一个 App 的个人生活管理工具，数据全部本地存储。</p>
+            <div class="project-tags">
+              <span class="tech-tag">React Native</span>
+              <span class="tech-tag">Expo</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">大模型 API</span>
+            </div>
+            <ul class="project-points">
+              <li>按 DDL 自动归类四象限，标记紧急即进入「马上做」</li>
+              <li>课程表、每日打卡、本周计划一体化管理</li>
+              <li>接入大模型，自然语言查日程、销账、截图导入课表</li>
+            </ul>
+            <a href="https://gezhenghao.com/project/LifeOS" target="_blank" class="project-link"><svg class="icon"><use href="#ic-external-link"/></svg> 访问项目</a>
+          </div>
+
+          <!-- 项目卡片 1：掌上御膳房 -->
           <div class="project-card">
             <div class="project-image">
               <img src="images/projects/yushanfang.jpg" alt="掌上御膳房" />
+            </div>
+            <div class="project-meta">
+              <span class="project-meta-item">2026.03</span>
+              <span class="project-meta-sep">·</span>
+              <span class="project-meta-item">微信小程序</span>
+              <span class="project-meta-sep">·</span>
+              <span class="project-meta-item">独立开发</span>
             </div>
             <div class="project-header">
               <h3>掌上御膳房</h3>
@@ -181,11 +220,21 @@
               <li>掌上厨房管理，记录烹饪历史与收藏</li>
               <li>2026年3月完成，已上线运行</li>
             </ul>
-            <a href="https://gezhenghao.com/project/yvshanfang" target="_blank" class="project-link">🚀 访问项目</a>
+            <a href="https://gezhenghao.com/project/yvshanfang" target="_blank" class="project-link"><svg class="icon"><use href="#ic-external-link"/></svg> 访问项目</a>
           </div>
 
-                    <!-- ========== 项目卡片 2：角加速度计算器 ========== -->
+          <!-- 项目卡片 2：角加速度计算器 -->
           <div class="project-card">
+            <div class="project-image project-image-placeholder" data-letter="β">
+              <span class="placeholder-letter">β</span>
+            </div>
+            <div class="project-meta">
+              <span class="project-meta-item">2026.04</span>
+              <span class="project-meta-sep">·</span>
+              <span class="project-meta-item">网页工具</span>
+              <span class="project-meta-sep">·</span>
+              <span class="project-meta-item">独立开发</span>
+            </div>
             <div class="project-header">
               <h3>角加速度计算器</h3>
               <span class="project-status status-done">已完成</span>
@@ -204,8 +253,18 @@
             <a href="https://gezhenghao.com/project/角加速度" target="_blank" class="project-link">查看项目 →</a>
           </div>
 
-          <!-- ========== 项目卡片 3：标准偏差计算器 ========== -->
+          <!-- 项目卡片 3：标准偏差计算器 -->
           <div class="project-card">
+            <div class="project-image project-image-placeholder" data-letter="σ">
+              <span class="placeholder-letter">σ</span>
+            </div>
+            <div class="project-meta">
+              <span class="project-meta-item">2026.04</span>
+              <span class="project-meta-sep">·</span>
+              <span class="project-meta-item">网页工具</span>
+              <span class="project-meta-sep">·</span>
+              <span class="project-meta-item">独立开发</span>
+            </div>
             <div class="project-header">
               <h3>标准偏差计算器</h3>
               <span class="project-status status-done">已完成</span>
@@ -232,19 +291,49 @@
       <div class="container">
         <h2 class="section-title">学习经历</h2>
         <p class="section-sub">从兴趣入门到系统学习的时间线</p>
-        <div class="timeline">
-          <!-- 【填写】时间线节点（可增减） -->
-          <div class="timeline-item">
-            <h4>2026年3月 - 现在</h4>
-            <p>西南交通大学计算机科学专业，大一学习阶段</p>
-          </div>
-          <div class="timeline-item">
-            <h4>2026年3月</h4>
-            <p>完成「掌上御膳房」微信小程序项目</p>
-          </div>
-          <div class="timeline-item">
-            <h4>2026年4月</h4>
-            <p>搭建个人网站，记录学习历程</p>
+        <div class="timeline-wrap">
+          <div class="timeline-line"></div>
+          <div class="timeline-list">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <h4>2024.09 - 2025.06</h4>
+                <span class="timeline-badge">高中</span>
+                <p>高中时期自学编程基础，通过在线课程学习 Python，完成第一个爬虫项目，对计算机科学产生浓厚兴趣。</p>
+              </div>
+            </div>
+            <div class="timeline-item timeline-item-right">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <h4>2025.09 - 2026.03</h4>
+                <span class="timeline-badge">大学入学</span>
+                <p>进入西南交通大学计算机科学专业，系统学习 C 语言、数据结构，加入程序设计竞赛训练队。</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <h4>2026.03</h4>
+                <span class="timeline-badge">项目</span>
+                <p>完成「掌上御膳房」微信小程序项目，独立设计 UI、开发前后端逻辑，并上线运行。</p>
+              </div>
+            </div>
+            <div class="timeline-item timeline-item-right">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <h4>2026.04</h4>
+                <span class="timeline-badge">建站</span>
+                <p>搭建个人网站，记录学习历程，开始尝试前端开发、CSS 动画与响应式设计。</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <h4>2026.05 - 现在</h4>
+                <span class="timeline-badge">持续</span>
+                <p>深入学习算法与 Web 开发，探索更多创意编程项目，计划参加开源社区贡献。</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -256,18 +345,69 @@
         <h2 class="section-title">技能专长</h2>
         <p class="section-sub">我熟练掌握一组能够把想法落地的工具</p>
         <div class="skills-grid">
-          <!-- 【填写】技能分类（可增减） -->
-          <div class="skill">
-            <h4>编程语言</h4>
-            <p>Python · C · HTML · CSS · JavaScript</p>
+          <div class="skill-category">
+            <h4 class="skill-cat-title"><svg class="icon"><use href="#ic-terminal"/></svg> 编程语言</h4>
+            <div class="skill-row">
+              <span class="skill-name">Python</span>
+              <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+              <span class="skill-percent">85%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">C</span>
+              <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
+              <span class="skill-percent">70%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">HTML</span>
+              <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+              <span class="skill-percent">80%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">CSS</span>
+              <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+              <span class="skill-percent">75%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">JavaScript</span>
+              <div class="skill-bar"><div class="skill-fill" data-width="72"></div></div>
+              <span class="skill-percent">72%</span>
+            </div>
           </div>
-          <div class="skill">
-            <h4>前端开发</h4>
-            <p>微信小程序 · WXML · WXSS</p>
+          <div class="skill-category">
+            <h4 class="skill-cat-title"><svg class="icon"><use href="#ic-blocks"/></svg> 前端开发</h4>
+            <div class="skill-row">
+              <span class="skill-name">微信小程序</span>
+              <div class="skill-bar"><div class="skill-fill" data-width="78"></div></div>
+              <span class="skill-percent">78%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">WXML / WXSS</span>
+              <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+              <span class="skill-percent">75%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">响应式设计</span>
+              <div class="skill-bar"><div class="skill-fill" data-width="65"></div></div>
+              <span class="skill-percent">65%</span>
+            </div>
           </div>
-          <div class="skill">
-            <h4>工具与环境</h4>
-            <p>Git · GitHub · VS Code · Netlify</p>
+          <div class="skill-category">
+            <h4 class="skill-cat-title"><svg class="icon"><use href="#ic-settings"/></svg> 工具与环境</h4>
+            <div class="skill-row">
+              <span class="skill-name">Git / GitHub</span>
+              <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
+              <span class="skill-percent">70%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">VS Code</span>
+              <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+              <span class="skill-percent">85%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Netlify</span>
+              <div class="skill-bar"><div class="skill-fill" data-width="60"></div></div>
+              <span class="skill-percent">60%</span>
+            </div>
           </div>
         </div>
       </div>
@@ -279,7 +419,25 @@
         <h2 class="section-title">文章博客</h2>
         <p class="section-sub">记录学习笔记、项目经验和生活感悟</p>
         <div id="articles-list" class="articles-grid">
-          <p class="loading">正在加载文章...</p>
+          <!-- 骨架屏占位 -->
+          <div class="skeleton-card">
+            <div class="skeleton-header"><div class="skeleton-title"></div><div class="skeleton-date"></div></div>
+            <div class="skeleton-summary"></div>
+            <div class="skeleton-tags"><div></div><div></div></div>
+            <div class="skeleton-btn"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-header"><div class="skeleton-title"></div><div class="skeleton-date"></div></div>
+            <div class="skeleton-summary"></div>
+            <div class="skeleton-tags"><div></div></div>
+            <div class="skeleton-btn"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-header"><div class="skeleton-title"></div><div class="skeleton-date"></div></div>
+            <div class="skeleton-summary"></div>
+            <div class="skeleton-tags"><div></div><div></div></div>
+            <div class="skeleton-btn"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -298,12 +456,6 @@
         <h2 class="section-title">联系方式</h2>
         <p class="section-sub">欢迎留言或通过下列方式联系我</p>
 
-        <!-- ==================== 留言表单（访客留言 → 我的邮箱） ==================== -->
-        <!--
-          两套方案共用这段表单，靠 js/contact.js 顶部的开关切换：
-          · 静态托管方案(Netlify)：保留下面的 data-netlify / form-name / bot-field
-          · 服务器方案：把 js/contact.js 的 mode 改为 'server' 并填 serverEndpoint
-        -->
         <form
           id="contactForm"
           class="contact-form"
@@ -314,7 +466,6 @@
           autocomplete="on"
         >
           <input type="hidden" name="form-name" value="contact" />
-          <!-- 蜜罐：真人看不到，机器人会填，用来挡垃圾留言 -->
           <p class="hp-field" aria-hidden="true">
             <label>请勿填写此项：<input name="bot-field" tabindex="-1" /></label>
           </p>
@@ -332,23 +483,44 @@
             <label for="cf-message">留言</label>
             <textarea id="cf-message" name="message" required rows="5" maxlength="2000" placeholder="想说点什么……"></textarea>
           </div>
-          <button type="submit" class="btn-primary form-submit">发送留言</button>
+          <button type="submit" class="btn-primary form-submit">
+            <span class="btn-text">发送留言</span>
+            <span class="btn-spinner" style="display:none">⏳ 发送中…</span>
+          </button>
           <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
         </form>
 
         <div class="contact-card">
-          <!-- 【填写】邮箱 -->
-          <p>邮箱：<a href="mailto:yzpmf@swjtu.edu.cn">yzpmf@swjtu.edu.cn</a></p>
-          <!-- 【填写】GitHub -->
-          <p>GitHub：<a href="https://github.com/yzpmf" target="_blank">github.com/yzpmf</a></p>
-          <!-- 【填写】知乎（可选，不需要可删除这行） -->
-          <p>知乎：<a href="https://www.zhihu.com/people/69-86-97-47" target="_blank">@YZPMF</a></p>
-          <!-- 【填写】微信公众号二维码（可选） -->
-          <div class="contact-wechat">
-            <p>微信公众号：</p>
+          <a href="mailto:yzpmf@swjtu.edu.cn" class="contact-email">
+            <span class="contact-email-icon"><svg class="icon"><use href="#ic-mail"/></svg></span>
+            <span class="contact-email-text">
+              <span class="contact-email-label">直接邮箱联系</span>
+              <span class="contact-email-addr">yzpmf@swjtu.edu.cn</span>
+            </span>
+          </a>
+          <div class="contact-links">
+            <a href="mailto:yzpmf@swjtu.edu.cn" class="contact-link-item" aria-label="邮箱">
+              <span class="contact-link-icon"><svg class="icon"><use href="#ic-mail"/></svg></span>
+              <span class="contact-link-label">邮箱</span>
+            </a>
+            <a href="https://github.com/yzpmf" target="_blank" class="contact-link-item" aria-label="GitHub">
+              <span class="contact-link-icon"><svg class="icon icon--fill"><use href="#ic-github"/></svg></span>
+              <span class="contact-link-label">GitHub</span>
+            </a>
+            <a href="https://www.zhihu.com/people/69-86-97-47" target="_blank" class="contact-link-item" aria-label="知乎">
+              <span class="contact-link-icon"><svg class="icon"><use href="#ic-book-open"/></svg></span>
+              <span class="contact-link-label">知乎</span>
+            </a>
+            <button class="contact-link-item contact-wechat-trigger" aria-label="微信公众号" onclick="toggleWechat()">
+              <span class="contact-link-icon"><svg class="icon"><use href="#ic-message-circle"/></svg></span>
+              <span class="contact-link-label">公众号</span>
+            </button>
+          </div>
+          <div class="contact-wechat-panel" id="wechatPanel" style="display:none">
+            <p>微信公众号</p>
             <img src="images/wechat-qrcode.jpg" alt="微信公众号二维码" class="qrcode-img" />
           </div>
-          <p style="margin-top: 20px;">期待与你的交流！</p>
+          <p class="contact-outro">期待与你的交流！</p>
         </div>
       </div>
     </section>
@@ -356,10 +528,17 @@
     <!-- ==================== 页脚 ==================== -->
     <footer>
       <div class="container">
-        <!-- 【填写】版权信息 -->
-        <p>© 2026 GeZhenghao。由 HTML / CSS / JS 构建。</p>
+        <div class="footer-content">
+          <p class="footer-quote">"Code is poetry."</p>
+          <p class="footer-copy">© 2026 GeZhenghao</p>
+        </div>
       </div>
     </footer>
+
+    <!-- 返回顶部 -->
+    <button class="back-to-top" id="backToTop" aria-label="返回顶部">
+      <span>↑</span>
+    </button>
 
     <script src="js/main.js"></script>
     <script src="js/articles.js"></script>
