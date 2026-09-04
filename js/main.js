@@ -7,6 +7,7 @@ hamburger.addEventListener('click', () => {
   mobileMenu.classList.toggle('active');
 });
 
+// 点击移动端菜单链接后关闭
 document.querySelectorAll('.mobile-link').forEach((link) => {
   link.addEventListener('click', () => {
     hamburger.classList.remove('active');
@@ -83,6 +84,8 @@ const skillSection = document.getElementById('skills');
 if (skillSection) skillObserver.observe(skillSection);
 
 // ===== 打字机效果 =====
+// 【填写】修改下面的 phrases 数组，添加你想循环显示的标签
+// 建议格式："标签1 | 标签2 | 标签3" 或 "信息1 · 信息2 · 信息3"
 const phrases = [
   '计算机科学 · 西南交通大学 · 大一',
   '热爱技术与创新 · 探索无限可能',
@@ -152,25 +155,17 @@ document.querySelectorAll('.copy-btn').forEach((btn) => {
     const text = btn.getAttribute('data-copy');
     navigator.clipboard.writeText(text).then(() => {
       const original = btn.textContent;
-      btn.textContent = '\u2705 已复制！';
-      btn.style.background = '#16A34A';
-      btn.style.color = '#fff';
+      btn.textContent = '已复制';
+      btn.style.borderColor = '#c93a22';
+      btn.style.color = '#c93a22';
       setTimeout(() => {
         btn.textContent = original;
-        btn.style.background = '';
+        btn.style.borderColor = '';
         btn.style.color = '';
       }, 2000);
     });
   });
 });
-
-// ===== 联系表单提示（兜底） =====
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
-    // 如果 contact.js 已拦截，这里不会执行
-  });
-}
 
 // ===== 飘带动画 + 滚动锁定 =====
 (function () {
@@ -183,26 +178,34 @@ if (contactForm) {
   ribbonPath.style.strokeDasharray = pathLength;
   ribbonPath.style.strokeDashoffset = pathLength;
 
-  var animationDuration = 3000;
+  // 动画参数：3秒自动播放完飘带
+  var animationDuration = 3000; // 毫秒
   var startTime = Date.now();
   var lastTextProgress = -1;
 
+  // 插入进度条
   var progressBar = document.createElement('div');
   progressBar.className = 'scroll-unlock-hint';
   progressBar.innerHTML = '<div class="scroll-unlock-progress" id="unlockProgress"></div>';
   document.body.appendChild(progressBar);
   var progressFill = document.getElementById('unlockProgress');
 
+  // 锁定页面滚动
   document.body.classList.add('scroll-locked');
 
   function animate() {
     var now = Date.now();
     var elapsed = now - startTime;
+    // 基于时间计算进度（0-1）
     var progress = Math.min(elapsed / animationDuration, 1);
 
+    // 更新进度条
     if (progressFill) progressFill.style.width = progress * 100 + '%';
+
+    // 飘带绘制
     ribbonPath.style.strokeDashoffset = pathLength - pathLength * progress;
 
+    // 文字显现：progress 0~50% 对应 textProgress 0~1
     var textProgress = Math.min(progress * 2, 1);
 
     if (ribbonSubtitle) {
@@ -218,11 +221,14 @@ if (contactForm) {
       }
     }
 
+    // 滚动提示淡出
     if (scrollHint) scrollHint.style.opacity = Math.max(0, 0.7 - progress * 0.7);
 
+    // 如果动画未完成，继续
     if (progress < 1) {
       requestAnimationFrame(animate);
     } else {
+      // 动画完成，解锁滚动
       unlockScroll();
     }
   }
@@ -238,63 +244,6 @@ if (contactForm) {
     if (scrollHint) scrollHint.style.opacity = 0;
   }
 
+  // 启动动画
   animate();
 })();
-
-// ===== 滚动进度条 =====
-(function () {
-  const scrollProgress = document.querySelector('.scroll-progress-fill');
-  if (!scrollProgress) return;
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    scrollProgress.style.width = pct + '%';
-  });
-})();
-
-// ===== 返回顶部 =====
-(function () {
-  const btn = document.getElementById('backToTop');
-  if (!btn) return;
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 400) {
-      btn.classList.add('visible');
-    } else {
-      btn.classList.remove('visible');
-    }
-  });
-  btn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-})();
-
-// ===== 深色模式切换 =====
-(function () {
-  const toggle = document.getElementById('themeToggle');
-  if (!toggle) return;
-
-  const saved = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  if (saved === 'dark' || (!saved && prefersDark)) {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  }
-
-  toggle.addEventListener('click', () => {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    if (isDark) {
-      document.documentElement.removeAttribute('data-theme');
-      localStorage.setItem('theme', 'light');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      localStorage.setItem('theme', 'dark');
-    }
-  });
-})();
-
-// ===== 微信二维码展开 =====
-window.toggleWechat = function () {
-  const panel = document.getElementById('wechatPanel');
-  if (!panel) return;
-  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-};

@@ -8,6 +8,6 @@
     "start": "node --env-file=.env contact-server.js"
   },
   "dependencies": {
-    "nodemailer": "^6.9.14"
+    "nodemailer": "^9.1.1"
   }
 }

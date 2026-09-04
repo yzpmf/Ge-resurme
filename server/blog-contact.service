@@ -1,0 +1,29 @@
+[Unit]
+Description=Blog contact mail service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=svc-blog
+Group=svc-blog
+WorkingDirectory=/opt/apps/blog-contact
+ExecStart=/usr/bin/node --env-file=/opt/env/blog-contact.env /opt/apps/blog-contact/contact-server.js
+Restart=on-failure
+RestartSec=3
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target
