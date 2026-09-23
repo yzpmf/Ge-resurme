@@ -29,6 +29,11 @@
 
 ## 最近改动
 
+### 2026-09-23（同日第二条）项目经历改条目式布局
+- **改了什么**：只动 `css/style.css`——`.projects-grid` 从 3 列卡片网格改为纵向条目列表（flex column + 底部分割线）；`.project-index` 编号放大到 34px 与标题同行；带图条目用 `:has(.project-image)` 做「左文右图」（图片 280px 列，1024px 收窄 220px，720px 以下回单列上图下文）；hover 从位移阴影改为标题变朱砂色；去掉卡片背景/边框/圆角
+- **兼容性**：`:has()` 选择器 2023 年后浏览器全支持；旧浏览器会退化为图片在条目顶部全宽，不影响阅读
+- **注意**：content-loader 动态渲染的卡片 class 相同，条目式对后台数据同样生效；HTML 结构未动
+
 ### 2026-09-23 首页微调 + 专业信息更正（本地已改，待推送）
 - **改了什么**：①删除页脚「— Designed & built with ink and code.」（保留 © 行）；②删除 Hero 区打字机轮播文字（`#typewriter` 元素 + `js/main.js` 中打字机逻辑整段移除，静态描述句保留）；③删除跑马灯分隔带（`.marquee` 整块）；④专业全站从「计算机科学」更正为「化学」（meta description、title、hero 描述、关于我正文与标签、学习经历时间线）
 - **注意**：本目录仍非 git 仓库，需按惯例克隆 `Ge-resurme` 叠加改动后 push 才会上线；CSS 中 `.marquee`/`.hero-tagline` 样式已无用但保留未删

@@ -696,33 +696,45 @@ body.scroll-locked {
   font-size: 13px;
 }
 
-/* ===== 项目经历 ===== */
+/* ===== 项目经历（条目式） ===== */
 .projects-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-}
-.project-card {
-  background: var(--card);
-  padding: 24px;
-  border-radius: var(--radius);
-  border: 1px solid var(--hairline);
-  transition: var(--duration-fast) var(--ease);
   display: flex;
   flex-direction: column;
 }
-.project-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--ink);
-  box-shadow: 6px 6px 0 rgba(28, 25, 23, 0.9);
+.project-card {
+  background: transparent;
+  padding: 34px 0;
+  border-bottom: 1px solid var(--hairline);
+  transition: var(--duration-fast) var(--ease);
+}
+.project-card:last-child {
+  border-bottom: none;
+}
+.project-card:hover .project-header h3 {
+  color: var(--vermillion);
 }
 .project-image {
-  width: calc(100% + 48px);
-  height: 180px;
+  width: 100%;
+  height: 170px;
   overflow: hidden;
   border-radius: 4px;
-  margin: -24px -24px 20px -24px;
-  border-bottom: 1px solid var(--hairline);
+  margin: 0 0 20px 0;
+  border: 1px solid var(--hairline);
+}
+.project-card:has(.project-image) {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  column-gap: 36px;
+  align-items: start;
+}
+.project-card:has(.project-image) > *:not(.project-image) {
+  grid-column: 1;
+}
+.project-card:has(.project-image) > .project-image {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  height: 190px;
+  margin: 0;
 }
 .project-image img {
   width: 100%;
@@ -738,7 +750,7 @@ body.scroll-locked {
 .project-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: baseline;
   margin-bottom: 12px;
   gap: 12px;
 }
@@ -746,16 +758,18 @@ body.scroll-locked {
   color: var(--ink);
   font-family: var(--font-serif);
   font-weight: var(--weight-black);
-  font-size: 20px;
+  font-size: 26px;
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  transition: color var(--duration-fast) var(--ease);
 }
 .project-index {
-  display: block;
   font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   color: var(--vermillion);
-  margin-bottom: 6px;
 }
 .project-status {
   font-family: var(--font-mono);
@@ -778,6 +792,7 @@ body.scroll-locked {
   color: var(--ink-soft);
   font-size: 15px;
   line-height: 1.7;
+  max-width: 780px;
 }
 .project-tags {
   display: flex;
@@ -799,7 +814,6 @@ body.scroll-locked {
   padding-left: 0;
   color: var(--muted);
   font-size: 14px;
-  flex: 1;
 }
 .project-points li {
   margin-bottom: 6px;
@@ -1446,8 +1460,9 @@ footer {
 
 /* ===== 响应式 ===== */
 @media (max-width: 1024px) {
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .project-card:has(.project-image) {
+    grid-template-columns: 1fr 220px;
+    column-gap: 24px;
   }
   .about-grid {
     grid-template-columns: 1fr;
@@ -1467,8 +1482,21 @@ footer {
   .section {
     padding: 70px 0;
   }
-  .projects-grid {
+  .project-card:has(.project-image) {
     grid-template-columns: 1fr;
+  }
+  .project-card:has(.project-image) > .project-image {
+    grid-column: 1;
+    grid-row: auto;
+    height: 160px;
+    margin-bottom: 18px;
+  }
+  .project-header h3 {
+    font-size: 21px;
+    gap: 12px;
+  }
+  .project-index {
+    font-size: 26px;
   }
   .hero-card {
     width: 100%;
