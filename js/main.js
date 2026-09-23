@@ -83,42 +83,6 @@ const skillObserver = new IntersectionObserver(
 const skillSection = document.getElementById('skills');
 if (skillSection) skillObserver.observe(skillSection);
 
-// ===== 打字机效果 =====
-// 【填写】修改下面的 phrases 数组，添加你想循环显示的标签
-// 建议格式："标签1 | 标签2 | 标签3" 或 "信息1 · 信息2 · 信息3"
-const phrases = [
-  '计算机科学 · 西南交通大学 · 大一',
-  '热爱技术与创新 · 探索无限可能',
-  'Python · C · HTML · CSS · JavaScript',
-];
-let phraseIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-const typewriterEl = document.getElementById('typewriter');
-
-function typewriter() {
-  if (!typewriterEl) return;
-  const current = phrases[phraseIndex];
-  if (isDeleting) {
-    typewriterEl.textContent = current.substring(0, charIndex - 1);
-    charIndex--;
-  } else {
-    typewriterEl.textContent = current.substring(0, charIndex + 1);
-    charIndex++;
-  }
-  let speed = isDeleting ? 30 : 60;
-  if (!isDeleting && charIndex === current.length) {
-    speed = 2500;
-    isDeleting = true;
-  } else if (isDeleting && charIndex === 0) {
-    isDeleting = false;
-    phraseIndex = (phraseIndex + 1) % phrases.length;
-    speed = 400;
-  }
-  setTimeout(typewriter, speed);
-}
-typewriter();
-
 // ===== 卡片交错入场 =====
 const cardObserver = new IntersectionObserver(
   (entries) => {

@@ -29,6 +29,10 @@
 
 ## 最近改动
 
+### 2026-09-23 首页微调 + 专业信息更正（本地已改，待推送）
+- **改了什么**：①删除页脚「— Designed & built with ink and code.」（保留 © 行）；②删除 Hero 区打字机轮播文字（`#typewriter` 元素 + `js/main.js` 中打字机逻辑整段移除，静态描述句保留）；③删除跑马灯分隔带（`.marquee` 整块）；④专业全站从「计算机科学」更正为「化学」（meta description、title、hero 描述、关于我正文与标签、学习经历时间线）
+- **注意**：本目录仍非 git 仓库，需按惯例克隆 `Ge-resurme` 叠加改动后 push 才会上线；CSS 中 `.marquee`/`.hero-tagline` 样式已无用但保留未删
+
 ### 2026-09-04 纸墨×朱砂整站改版 + 荣誉奖项板块 + con 后台接入（已推送上线）
 - **改了什么**：①全站视觉改版为「纸墨×朱砂 · 编辑杂志风」（Noto Serif SC + Space Grotesk + JetBrains Mono，去 emoji）；②新增「荣誉奖项」板块（`awards/cimc-2026.html` 详情页 + 证书图 `images/awards/cimc-2026.png`）；③新增 `js/content-loader.js`：项目/奖项/文章从 con.gezhenghao.com 后台动态拉取，失败回退静态内容；④合并时把仓库侧的 LifeOS 卡片补回新版首页（P.01），本地旧目录的落后问题通过这次合并且以仓库为准解决
 - **怎么改的**：在 `D:\tmp\Ge-resurme` 克隆（28a71f5）上叠加 `D:\dev\blog` 的改版文件后 push；⚠️ `D:\dev\blog` 仍不是 git 仓库，本次已把它的改动全部并入仓库，后续应以克隆为准
