@@ -29,6 +29,15 @@
 
 ## 最近改动
 
+### 2026-09-25 文章正文支持插图（配合 con 后台上传）
+- **背景**：con 后台新增了文章/项目配图上传能力（`POST /api/upload`，图片落盘 `uploads/`，返回绝对地址）。但前台 `mdToHtml` 原来不处理 `![]()` 语法，图传了也显示不出来。
+- **改了什么**（仅 3 个文件，+11 行）：
+  ①`js/content-loader.js`、`js/articles.js`：md 渲染补充图片语法 `![alt](url)` → `<img loading="lazy">`（**必须排在链接语法之前**，否则 `![x](y)` 会被误当链接处理）；
+  ②`css/style.css`：`.article-body` 下新增 `img` 样式（`max-width:100%`、居中、圆角、细边框）。
+- **怎么改的**：本地 `D:\dev\blog` 已与仓库漂移（且非 git 仓库），本次克隆 `Ge-resurme` 后**只叠加本功能所需的 3 处改动**（不夹带本地未推送的其它改动），commit `fab25eb` 后 push，Netlify 自动部署已生效。
+- **验证**：线上 `gezhenghao.com` 的 `content-loader.js`/`articles.js`/`style.css` 均已包含新语法与样式。
+- ⚠️ **Git 推送注意**：全局 git 配置的代理是 `127.0.0.1:7890`（离线），实际 Clash 在 **7897**；且 `github.com` 直连被墙、`clone` 需走代理。推送命令：`git -c http.proxy=http://127.0.0.1:7897 -c https.proxy=http://127.0.0.1:7897 push origin master`，并设 `GIT_TERMINAL_PROMPT=0`（凭据走已缓存的 GCM）。
+
 ### 2026-09-23（同日第二条）项目经历改条目式布局
 - **改了什么**：只动 `css/style.css`——`.projects-grid` 从 3 列卡片网格改为纵向条目列表（flex column + 底部分割线）；`.project-index` 编号放大到 34px 与标题同行；带图条目用 `:has(.project-image)` 做「左文右图」（图片 280px 列，1024px 收窄 220px，720px 以下回单列上图下文）；hover 从位移阴影改为标题变朱砂色；去掉卡片背景/边框/圆角
 - **兼容性**：`:has()` 选择器 2023 年后浏览器全支持；旧浏览器会退化为图片在条目顶部全宽，不影响阅读
