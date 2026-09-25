@@ -1239,6 +1239,14 @@ body.scroll-locked {
   line-height: 1.9;
   font-size: 16px;
 }
+.article-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 20px auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--hairline);
+}
 .article-body h1,
 .article-body h2,
 .article-body h3 {
