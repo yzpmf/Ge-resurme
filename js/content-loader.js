@@ -28,6 +28,18 @@
   function arr(v) {
     return Array.isArray(v) ? v : [];
   }
+  function slugify(title) {
+    return String(title || '')
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9\u4e00-\u9fa5_-]/g, '')
+      .replace(/^-|-$/g, '')
+      .slice(0, 80) || 'untitled';
+  }
+  function validArticle(a) {
+    return a && String(a.title || '').trim() && String(a.slug || '').trim();
+  }
 
   /* ---------- 项目 ---------- */
   function renderProjects(projects) {
@@ -80,26 +92,38 @@
   function renderArticles(articles) {
     var box = document.getElementById('articles-list');
     if (!box) return;
-    articlesCache = articles;
-    if (!articles.length) {
+    var list = arr(articles).map(function (a) {
+      a = a || {};
+      if (!validArticle(a)) return null;
+      if (!a.slug) a.slug = slugify(a.title);
+      return a;
+    }).filter(Boolean);
+    articlesCache = list;
+    if (!list.length) {
       box.innerHTML = '<p class="no-articles">暂无文章，敬请期待...</p>';
       return;
     }
-    box.innerHTML = articles
+    box.innerHTML = list
       .map(function (a) {
+        var btnId = 'article-btn-' + Math.random().toString(36).slice(2, 9);
         return (
-          '<article class="article-card">' +
+          '<article class="article-card" data-slug="' + esc(a.slug) + '">' +
           '<div class="article-header"><h3 class="article-title">' + esc(a.title) + '</h3>' +
           '<span class="article-date">' + esc(a.date) + '</span></div>' +
           (a.summary ? '<p class="article-summary">' + esc(a.summary) + '</p>' : '') +
           (arr(a.tags).length
             ? '<div class="article-tags">' + arr(a.tags).map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>'
             : '') +
-          '<button class="read-more" onclick="loadArticle(\'' + esc(a.slug) + '\')">阅读全文 →</button>' +
+          '<button class="read-more" id="' + btnId + '">阅读全文 →</button>' +
           '</article>'
         );
       })
       .join('');
+    // 绑定点击事件，避免在 HTML 属性里拼接 slug
+    list.forEach(function (a) {
+      var btn = box.querySelector('[data-slug="' + esc(a.slug) + '"] .read-more');
+      if (btn) btn.addEventListener('click', function () { window.loadArticle(a.slug); });
+    });
   }
 
   /* 简单的 Markdown 转 HTML（与 articles.js 保持一致） */
@@ -119,23 +143,31 @@
       .replace(/\n/g, '<br>');
   }
 
-  /* 覆盖 articles.js 的阅读器：优先读后台数据 */
+  /* 暴露缓存与阅读器：优先读后台数据，articles.js 可兜底 */
+  window.__articlesCache = articlesCache;
+  window.__loadArticleFromCache = function (slug) {
+    return window.loadArticle && window.loadArticle(slug);
+  };
   window.loadArticle = function (slug) {
     var modal = document.getElementById('article-modal');
     var content = document.getElementById('article-content');
+    if (!modal || !content || !String(slug || '').trim()) return;
     var a = null;
     for (var i = 0; i < articlesCache.length; i++) {
       if (articlesCache[i].slug === slug) { a = articlesCache[i]; break; }
     }
     if (!a) return;
     modal.classList.add('active');
+    var bodyHtml = String(a.body || '').trim()
+      ? mdToHtml(a.body)
+      : '<p class="no-articles">文章暂无内容，作者可能还在编辑中...</p>';
     content.innerHTML =
       '<div class="article-full">' +
       '<header class="article-full-header"><h1>' + esc(a.title) + '</h1>' +
       '<div class="article-meta"><span>' + esc(a.date) + '</span>' +
       (arr(a.tags).length ? '<span>' + arr(a.tags).map(esc).join(', ') + '</span>' : '') +
       '</div></header>' +
-      '<div class="article-body">' + mdToHtml(a.body) + '</div></div>';
+      '<div class="article-body">' + bodyHtml + '</div></div>';
   };
 
   /* ---------- 拉取（超时静默回退到静态内容） ---------- */
