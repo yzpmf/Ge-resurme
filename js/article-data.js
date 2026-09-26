@@ -6,7 +6,7 @@
   const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   async function request(url, type = 'json') {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 6000);
+    const timeout = setTimeout(() => controller.abort(), 10000);
     try {
       const response = await fetch(url, { signal: controller.signal, cache: 'no-store' });
       if (!response.ok) throw new Error('HTTP ' + response.status);

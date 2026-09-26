@@ -8,7 +8,7 @@
   'use strict';
 
   var API_URL = 'https://con.gezhenghao.com/api/public/content';
-  var TIMEOUT_MS = 4000;
+  var TIMEOUT_MS = 10000;
   var articlesCache = [];
 
   /* ---------- 安全工具 ---------- */
