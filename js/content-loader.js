@@ -48,18 +48,15 @@
     grid.innerHTML = projects
       .map(function (p) {
         var statusClass = p.status === '进行中' ? 'status-doing' : 'status-done';
-        var inlineAccess = p.title === '掌上御膳房' || /^https:\/\/yushanfang\.gezhenghao\.com(?:\/|$)/i.test(p.link || '');
+        var hideCover = p.title === '掌上御膳房' || /^https:\/\/yushanfang\.gezhenghao\.com(?:\/|$)/i.test(p.link || '');
         return (
           '<div class="project-card">' +
-          (p.image && !inlineAccess
+          (p.image && !hideCover
             ? '<div class="project-image"><img src="' + esc(safeUrl(p.image)) + '" alt="' + esc(p.title) + '" loading="lazy" /></div>'
             : '') +
           '<div class="project-header"><h3><span class="project-index">' + esc(p.index) + '</span>' + esc(p.title) + '</h3>' +
           '<span class="project-status ' + statusClass + '">' + esc(p.status) + '</span></div>' +
           '<p>' + esc(p.desc) + '</p>' +
-          (inlineAccess && p.link
-            ? '<div class="project-access" hidden><div class="project-access-code"></div><div class="project-access-text"><p>扫码访问网页版</p><a href="' + esc(safeUrl(p.link)) + '" target="_blank" rel="noopener noreferrer">直接打开项目 ↗</a></div></div>'
-            : '') +
           '<div class="project-tags">' +
           arr(p.tags).map(function (t) { return '<span class="tech-tag">' + esc(t) + '</span>'; }).join('') +
           '</div>' +
@@ -73,7 +70,6 @@
         );
       })
       .join('');
-    if (window.renderProjectAccess) window.renderProjectAccess();
   }
 
   /* ---------- 奖项 ---------- */
