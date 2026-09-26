@@ -1542,3 +1542,17 @@ footer {
 .article-title a:hover { color: var(--vermillion); }
 .article-title a:focus-visible, .read-more:focus-visible { outline: 2px solid var(--vermillion); outline-offset: 5px; }
 a.read-more { display: inline-block; text-decoration: none; }
+
+/* A complete, uncropped access code belongs with the project description. */
+.project-access[hidden] { display: none; }
+.project-access { display: flex; align-items: center; gap: 22px; margin: 22px 0 26px; }
+.project-access-code { flex: 0 0 148px; width: 148px; height: 148px; background: #fff; }
+.project-access-code svg { display: block; width: 100%; height: 100%; }
+.project-access-text p { margin: 0 0 10px; color: var(--ink-soft); font-size: 15px; }
+.project-access-text a { font-size: 13px; color: var(--vermillion); text-underline-offset: 4px; }
+.project-access-text a:hover { text-decoration: underline; }
+@media (max-width: 480px) {
+  .project-access { gap: 16px; }
+  .project-access-code { flex-basis: 132px; width: 132px; height: 132px; }
+  .project-access-text p { font-size: 14px; }
+}
