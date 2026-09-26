@@ -98,96 +98,52 @@
       if (!a.slug) a.slug = slugify(a.title);
       return a;
     }).filter(Boolean);
+    window.__cmsArticlesReady = true;
     articlesCache = list;
+    window.__articlesCache = articlesCache;
     if (!list.length) {
       box.innerHTML = '<p class="no-articles">暂无文章，敬请期待...</p>';
       return;
     }
     box.innerHTML = list
       .map(function (a) {
-        var btnId = 'article-btn-' + Math.random().toString(36).slice(2, 9);
+        var href = esc(window.BlogArticles.url(a, 'cms'));
         return (
           '<article class="article-card" data-slug="' + esc(a.slug) + '">' +
-          '<div class="article-header"><h3 class="article-title">' + esc(a.title) + '</h3>' +
+          '<div class="article-header"><h3 class="article-title"><a href="' + href + '">' + esc(a.title) + '</a></h3>' +
           '<span class="article-date">' + esc(a.date) + '</span></div>' +
           (a.summary ? '<p class="article-summary">' + esc(a.summary) + '</p>' : '') +
           (arr(a.tags).length
             ? '<div class="article-tags">' + arr(a.tags).map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>'
             : '') +
-          '<button class="read-more" id="' + btnId + '">阅读全文 →</button>' +
+          '<a class="read-more" href="' + href + '">阅读全文 →</a>' +
           '</article>'
         );
       })
       .join('');
-    // 绑定点击事件，避免在 HTML 属性里拼接 slug
-    list.forEach(function (a) {
-      var btn = box.querySelector('[data-slug="' + esc(a.slug) + '"] .read-more');
-      if (btn) btn.addEventListener('click', function () { window.loadArticle(a.slug); });
-    });
   }
-
-  /* 简单的 Markdown 转 HTML（与 articles.js 保持一致） */
-  function mdToHtml(md) {
-    return String(md || '')
-      .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
-      .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-      .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-      .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-      .replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>')
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" loading="lazy">')
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
-      .replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>')
-      .replace(/\n\n/g, '</p><p>')
-      .replace(/\n/g, '<br>');
-  }
-
-  /* 暴露缓存与阅读器：优先读后台数据，articles.js 可兜底 */
-  window.__contentLoaderReady = true;
-  window.__articlesCache = articlesCache;
-  window.loadArticle = function (slug) {
-    var modal = document.getElementById('article-modal');
-    var content = document.getElementById('article-content');
-    if (!modal || !content || !String(slug || '').trim()) return;
-    var a = null;
-    for (var i = 0; i < articlesCache.length; i++) {
-      if (articlesCache[i].slug === slug) { a = articlesCache[i]; break; }
-    }
-    if (!a) return;
-    modal.classList.add('active');
-    var bodyHtml = String(a.body || '').trim()
-      ? mdToHtml(a.body)
-      : '<p class="no-articles">文章暂无内容，作者可能还在编辑中...</p>';
-    content.innerHTML =
-      '<div class="article-full">' +
-      '<header class="article-full-header"><h1>' + esc(a.title) + '</h1>' +
-      '<div class="article-meta"><span>' + esc(a.date) + '</span>' +
-      (arr(a.tags).length ? '<span>' + arr(a.tags).map(esc).join(', ') + '</span>' : '') +
-      '</div></header>' +
-      '<div class="article-body">' + bodyHtml + '</div></div>';
-  };
 
   /* ---------- 拉取（超时静默回退到静态内容） ---------- */
   var ctrl = new AbortController();
   var timer = setTimeout(function () { ctrl.abort(); }, TIMEOUT_MS);
-  fetch(API_URL, { signal: ctrl.signal })
+  fetch(API_URL, { signal: ctrl.signal, cache: 'no-store' })
     .then(function (res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
     })
     .then(function (data) {
       clearTimeout(timer);
+      if (!data || !Array.isArray(data.articles)) throw new Error('Invalid article list');
       if (data && Array.isArray(data.projects)) renderProjects(data.projects);
       if (data && Array.isArray(data.awards)) renderAwards(data.awards);
       if (data && Array.isArray(data.articles)) renderArticles(data.articles);
     })
     .catch(function (err) {
       clearTimeout(timer);
-      /* 后台不可达：回退到 GitHub 文章源 */
+      /* 本地可预览静态稿；正式站显示重试提示，避免复活已删除的文章。 */
       if (typeof window.__loadGithubArticlesFallback === 'function') {
         try { window.__loadGithubArticlesFallback(); } catch (e) {}
       }
-      console.warn('后台 API 拉取失败，已回退到 GitHub 文章源:', err);
+      console.warn('后台 API 拉取失败:', err);
     });
 })();

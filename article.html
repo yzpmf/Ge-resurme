@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-CN" data-font="kai" data-size="normal">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="在一页淡黄纸上，慢慢读一些文字。葛政豪的个人文集。">
+  <meta name="theme-color" content="#f6f2ea">
+  <title>读一页书 · 葛政豪</title>
+  <link rel="stylesheet" href="fonts/wenkai/font.css">
+  <link rel="stylesheet" href="css/reader.css">
+  <script src="js/vendor/marked.js" defer></script>
+  <script src="js/vendor/purify.js" defer></script>
+  <script src="js/article-data.js" defer></script>
+  <script src="js/reader.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#reader">跳到正文</a>
+  <div class="reading-progress" aria-hidden="true"><span id="progress"></span></div>
+  <header class="reader-nav">
+    <a class="back-link" href="index.html#articles"><span aria-hidden="true">←</span> 返回文集</a>
+    <a class="wordmark" href="index.html"><span>纸上光阴</span></a>
+    <details class="reading-settings">
+      <summary>字<span aria-hidden="true"> / </span><span class="settings-label">阅读设置</span></summary>
+      <div class="settings-panel">
+        <label for="font-choice">正文字体</label>
+        <select id="font-choice"><option value="kai">楷书 · 霞鹜文楷</option><option value="song">宋体</option><option value="sans">黑体</option></select>
+        <label for="size-choice">文字大小</label>
+        <select id="size-choice"><option value="small">小</option><option value="normal" selected>标准</option><option value="large">大</option></select>
+        <p>为下一次阅读，记住你的选择。</p>
+      </div>
+    </details>
+  </header>
+
+  <section id="reading-arrival" class="reading-arrival" aria-label="书斋加载场景">
+    <div class="arrival-heading"><span class="eyebrow">一窗风，一卷书</span><h1>且坐，翻开这一页。</h1></div>
+    <svg class="study-scene" viewBox="0 0 1000 620" role="img" aria-labelledby="study-title study-desc">
+      <title id="study-title">柳窗书斋</title><desc id="study-desc">坐在宋式小屋的木桌前，桌上书页缓缓翻动。木格窗外，柳枝在微风中摇曳。</desc>
+      <defs>
+        <linearGradient id="room-light" x2="0" y2="1"><stop stop-color="#ede3cb"/><stop offset="1" stop-color="#ded0b3"/></linearGradient>
+        <linearGradient id="sky-light" x2="0" y2="1"><stop stop-color="#dfe8db"/><stop offset="1" stop-color="#f6f0d6"/></linearGradient>
+        <linearGradient id="desk-light" x2="0" y2="1"><stop stop-color="#a18762"/><stop offset="1" stop-color="#725d46"/></linearGradient>
+        <linearGradient id="paper-light"><stop stop-color="#f5eacf"/><stop offset=".48" stop-color="#fffae8"/><stop offset="1" stop-color="#d4bd93"/></linearGradient>
+        <radialGradient id="room-glow"><stop stop-color="#fff5d9" stop-opacity=".8"/><stop offset="1" stop-color="#fff5d9" stop-opacity="0"/></radialGradient>
+        <clipPath id="window-opening"><path d="M298 85H702V354H298Z"/></clipPath>
+        <path id="willow-leaf" d="M0 0Q-14 15-5 35Q5 17 0 0" fill="#687b4e"/>
+        <g id="willow-strand" fill="none" stroke="#63714d" stroke-width="1.4">
+          <path d="M0 0Q-22 78-2 145T-8 268"/>
+          <use href="#willow-leaf" x="-9" y="26"/><use href="#willow-leaf" x="-11" y="55" transform="rotate(-13 -11 55)"/>
+          <use href="#willow-leaf" x="-8" y="89"/><use href="#willow-leaf" x="0" y="125"/>
+          <use href="#willow-leaf" x="7" y="156" transform="rotate(-22 7 156)"/><use href="#willow-leaf" x="8" y="188"/>
+          <use href="#willow-leaf" x="2" y="220"/><use href="#willow-leaf" x="-6" y="246"/>
+          <use href="#willow-leaf" x="-11" y="44" transform="translate(-22 0) scale(-1 1)"/>
+          <use href="#willow-leaf" x="-5" y="110" transform="translate(-10 0) scale(-1 1)"/>
+          <use href="#willow-leaf" x="7" y="177" transform="translate(14 0) scale(-1 1)"/>
+        </g>
+        <pattern id="book-lines" width="15" height="42" patternUnits="userSpaceOnUse"><path d="M7 5v29" stroke="#958361" stroke-width="2" stroke-dasharray="3 2 5 3" opacity=".58"/></pattern>
+      </defs>
+      <!-- Quiet timber room, seen from a seated reader's eye level. -->
+      <path d="M92 12H908V569H92Z" fill="url(#room-light)"/>
+      <ellipse cx="500" cy="286" rx="376" ry="292" fill="url(#room-glow)"/>
+      <path d="M92 12L161 61V487L92 569M908 12L839 61V487L908 569" fill="#c2ad89" opacity=".55"/>
+      <path d="M115 28H885M139 49H861" stroke="#77684f" stroke-width="16"/>
+      <path d="M150 53V502M850 53V502" stroke="#7d6b50" stroke-width="19"/>
+      <path d="M172 475H826" stroke="#b49e78" stroke-width="3"/>
+      <path d="M200 475L128 567M328 475L286 567M670 475L719 567M791 475L870 567" stroke="#b5a180" stroke-width="2" opacity=".55"/>
+      <!-- Garden and a willow, kept behind the wooden lattice. -->
+      <g clip-path="url(#window-opening)">
+        <path d="M291 79H710V363H291Z" fill="url(#sky-light)"/>
+        <circle cx="401" cy="137" r="31" fill="#fff5da" opacity=".75"/>
+        <path d="M282 280Q349 221 410 256T558 245T713 250V368H282Z" fill="#b7c6ae" opacity=".6"/>
+        <path d="M282 320Q431 267 553 307T721 283V366H282Z" fill="#9dad91" opacity=".46"/>
+        <path d="M286 334Q424 317 565 339T727 332" fill="none" stroke="#eceddb" stroke-width="10"/>
+        <path d="M679 369Q650 227 714 80M681 216Q622 145 532 115M691 137Q621 94 472 89" fill="none" stroke="#6c7251" stroke-width="13"/>
+        <path d="M713 86Q595 28 390 66M617 111Q579 82 517 86" fill="none" stroke="#77815a" stroke-width="7"/>
+        <g class="willow willow-a" style="--sway:3deg;--origin:421px 59px"><use href="#willow-strand" x="421" y="59"/></g>
+        <g class="willow willow-b" style="--sway:4deg;--origin:472px 77px"><use href="#willow-strand" x="472" y="77"/></g>
+        <g class="willow willow-c" style="--sway:3.4deg;--origin:525px 98px"><use href="#willow-strand" x="525" y="98"/></g>
+        <g class="willow willow-a" style="--sway:4deg;--origin:579px 123px"><use href="#willow-strand" x="579" y="123"/></g>
+        <g class="willow willow-b" style="--sway:2.7deg;--origin:629px 143px"><use href="#willow-strand" x="629" y="143"/></g>
+        <g class="willow willow-c" style="--sway:3deg;--origin:374px 50px"><use href="#willow-strand" x="374" y="50"/></g>
+      </g>
+      <path d="M285 72H715V367H285Z M299 86V352H701V86Z" fill="#786a50" fill-rule="evenodd"/>
+      <path d="M288 74H713M290 363H710" stroke="#b7a17b" stroke-width="3"/>
+      <g fill="none" stroke="#817256" stroke-width="6">
+        <path d="M351 85V354M500 85V354M648 85V354M298 136H701M298 300H701"/>
+        <path d="M301 105H331V136M669 136V105H700M301 329H331V301M669 301V329H700" stroke-width="4"/>
+        <path d="M379 87V111H471V87M528 87V111H620V87M379 353V326H471V353M528 353V326H620V353" stroke-width="4"/>
+      </g>
+      <path d="M274 367H725V380H274Z" fill="#8a7657"/><path d="M265 379H735" stroke="#b6a180" stroke-width="5"/>
+      <!-- A hanging scroll, celadon vase, and an unhurried cup of tea. -->
+      <path d="M207 136H246V291H207Z" fill="#eee3c9" stroke="#b8a47e"/>
+      <path d="M201 135H252M201 293H252" stroke="#78684e" stroke-width="5"/>
+      <text x="227" y="165" fill="#7b755e" font-size="17" text-anchor="middle"><tspan x="227">静</tspan><tspan x="227" dy="29">观</tspan><tspan x="227" dy="29">自</tspan><tspan x="227" dy="29">得</tspan></text>
+      <path d="M775 333Q766 290 778 252M776 284L798 265M775 303L759 282" fill="none" stroke="#7c845d" stroke-width="2"/>
+      <path d="M798 265Q795 250 783 260Q786 271 798 265M759 282Q744 277 750 267Q763 267 759 282M779 253Q790 238 780 235Q771 241 779 253" fill="#8a926b"/>
+      <path d="M764 330H787L783 344Q803 382 785 392H765Q749 382 770 344Z" fill="#8caaa0" stroke="#738c7e" stroke-width="2"/>
+      <path d="M745 395H813M753 398V449M805 398V449" stroke="#867254" stroke-width="6"/>
+      <path d="M308 381L695 381L811 480L211 480Z" fill="#fff4d2" opacity=".14"/>
+      <!-- Desk and book occupy the foreground, directly in front of the window. -->
+      <ellipse cx="500" cy="543" rx="346" ry="27" fill="#716248" opacity=".12"/>
+      <path d="M249 414H751L850 500H150Z" fill="url(#desk-light)" stroke="#776249" stroke-width="2"/>
+      <path d="M150 500H850V519H150Z" fill="#70583f"/><path d="M174 519H197L189 584H174ZM803 519H826V584H811Z" fill="#705d45"/>
+      <path d="M232 431H761M193 468H806M160 502H841" stroke="#c6af84" opacity=".3"/>
+      <ellipse cx="671" cy="455" rx="32" ry="10" fill="#574f3d" opacity=".25"/>
+      <ellipse cx="671" cy="450" rx="31" ry="8" fill="#acb2a0"/><path d="M650 431Q651 453 671 454Q690 453 692 431" fill="#a6b7a5" stroke="#6f8b7b" stroke-width="2"/>
+      <ellipse cx="671" cy="431" rx="21" ry="6" fill="#d0d6bd"/><ellipse cx="671" cy="432" rx="16" ry="3" fill="#8b835b"/>
+      <path class="tea-steam" d="M668 421Q681 408 669 398T674 375" fill="none" stroke="#fff5df" stroke-width="3" opacity=".55"/>
+      <path d="M298 441L350 434L380 458L323 465Z" fill="#485b5b"/><path d="M305 444L348 438L372 457L325 461Z" fill="#e0d2b4"/><path d="M320 449L347 445" stroke="#9c8c6c"/>
+      <ellipse cx="502" cy="481" rx="113" ry="13" fill="#493d2e" opacity=".24"/>
+      <path d="M409 431Q454 424 500 443Q545 424 590 431L623 479Q557 467 500 489Q443 469 377 479Z" fill="#545d54" stroke="#4e5144" stroke-width="2"/>
+      <path d="M412 426Q454 421 500 438Q546 421 588 426L615 471Q552 462 500 484Q448 462 385 471Z" fill="#d9c8a7" stroke="#af9975"/>
+      <path d="M414 422Q458 421 500 437Q542 421 586 422L611 466Q552 457 500 478Q448 457 389 466Z" fill="url(#paper-light)" stroke="#c8b38d"/>
+      <path d="M424 429Q460 429 490 441L490 466Q446 451 403 458Z M511 441Q547 429 578 429L596 458Q553 451 511 466Z" fill="url(#book-lines)"/>
+      <path d="M500 437V478" stroke="#b09a72" stroke-width="2"/>
+      <g class="turning-page"><path d="M501 437Q542 417 586 422L611 466Q551 457 501 478Z" fill="url(#paper-light)" stroke="#bda781"/><path d="M512 441Q547 429 578 429L596 458Q553 451 512 466Z" fill="url(#book-lines)"/></g>
+      <path d="M499 479Q502 494 512 499L518 494" fill="none" stroke="#a45038" stroke-width="3"/>
+      <path d="M93 571H907" stroke="#a38d67" opacity=".3"/>
+    </svg>
+    <p id="arrival-status" class="arrival-status" role="status">柳风轻拂，书页将启<span class="loading-dots" aria-hidden="true">…</span></p>
+    <button id="enter-reading" class="text-button" hidden>开始阅读 →</button>
+    <noscript><p>请启用 JavaScript 读取文章，或<a href="index.html#articles">返回文集</a>。</p><style>.arrival-status{display:none}</style></noscript>
+  </section>
+
+  <main id="reader" class="reader-layout" hidden tabindex="-1">
+    <aside class="contents" aria-label="文章目录" hidden><span class="eyebrow">本篇目录</span><nav id="toc"></nav></aside>
+    <article class="reading-page">
+      <header class="article-heading"><p class="eyebrow">葛政豪的文集 <span class="little-rule"></span> 随读随记</p><h1 id="article-title"></h1><p id="article-meta" class="article-meta"></p></header>
+      <div id="article-body" class="prose"></div>
+      <footer class="article-ending"><span class="end-mark" aria-hidden="true">完</span><a href="index.html#articles">← 回到文集</a><a href="#reader">回到页首 ↑</a></footer>
+    </article>
+    <div class="margin-note" aria-hidden="true">窗外有风 · 纸上有光</div>
+  </main>
+  <section id="reader-error" class="reader-error" hidden role="alert"><span class="seal">书</span><h1>这一页，暂时未能翻开。</h1><p id="error-message"></p><button class="text-button" id="retry-reading">重新加载</button><a href="index.html#articles">返回文集 →</a></section>
+  <footer class="site-footer">© 2026 葛政豪 <span>一页一页，慢慢读。</span></footer>
+</body>
+</html>
