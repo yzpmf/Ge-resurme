@@ -160,10 +160,15 @@
     document.getElementById('article-modal').classList.remove('active');
   };
 
-  // 初始化
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadArticles);
-  } else {
-    loadArticles();
+  // 暴露给 content-loader.js：后台失败时回退到 GitHub 文章源
+  window.__loadGithubArticlesFallback = loadArticles;
+
+  // 初始化：如果 content-loader.js 没有接管，才自动渲染 GitHub 源
+  if (!window.__contentLoaderReady) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadArticles);
+    } else {
+      loadArticles();
+    }
   }
 })();

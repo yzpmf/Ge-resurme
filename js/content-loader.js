@@ -144,10 +144,8 @@
   }
 
   /* 暴露缓存与阅读器：优先读后台数据，articles.js 可兜底 */
+  window.__contentLoaderReady = true;
   window.__articlesCache = articlesCache;
-  window.__loadArticleFromCache = function (slug) {
-    return window.loadArticle && window.loadArticle(slug);
-  };
   window.loadArticle = function (slug) {
     var modal = document.getElementById('article-modal');
     var content = document.getElementById('article-content');
@@ -184,8 +182,12 @@
       if (data && Array.isArray(data.awards)) renderAwards(data.awards);
       if (data && Array.isArray(data.articles)) renderArticles(data.articles);
     })
-    .catch(function () {
+    .catch(function (err) {
       clearTimeout(timer);
-      /* 后台不可达：保留静态内容与 GitHub 文章源 */
+      /* 后台不可达：回退到 GitHub 文章源 */
+      if (typeof window.__loadGithubArticlesFallback === 'function') {
+        try { window.__loadGithubArticlesFallback(); } catch (e) {}
+      }
+      console.warn('后台 API 拉取失败，已回退到 GitHub 文章源:', err);
     });
 })();
