@@ -127,7 +127,7 @@
   /* ---------- 拉取（超时静默回退到静态内容） ---------- */
   var ctrl = new AbortController();
   var timer = setTimeout(function () { ctrl.abort(); }, TIMEOUT_MS);
-  fetch(API_URL, { signal: ctrl.signal, cache: 'no-store' })
+  window.__siteContentReady = fetch(API_URL, { signal: ctrl.signal, cache: 'no-store' })
     .then(function (res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
@@ -142,9 +142,9 @@
     .catch(function (err) {
       clearTimeout(timer);
       /* 本地可预览静态稿；正式站显示重试提示，避免复活已删除的文章。 */
-      if (typeof window.__loadGithubArticlesFallback === 'function') {
-        try { window.__loadGithubArticlesFallback(); } catch (e) {}
-      }
       console.warn('后台 API 拉取失败:', err);
+      if (typeof window.__loadGithubArticlesFallback === 'function') {
+        try { return window.__loadGithubArticlesFallback(); } catch (e) {}
+      }
     });
 })();
