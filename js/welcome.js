@@ -39,15 +39,15 @@
 
   const contentReady = domReady.then(() => window.__siteContentReady);
   const fontStyleReady = stylesheetReady(document.querySelector('[data-site-style="fonts"]'));
-  // Check fonts after the content renders, including glyphs introduced by the CMS.
-  const fontsReady = Promise.all([mainStyleReady, contentReady]).then(() => Promise.race([
-    fontStyleReady.then(async () => {
+  // Decide on webfonts early (2.4s cap): late-arriving fonts are locked to fallback instead of swapping in after the homepage is visible.
+  const fontsReady = Promise.race([
+    Promise.all([mainStyleReady, fontStyleReady]).then(async () => {
       content.getBoundingClientRect();
       if (document.fonts) await document.fonts.ready;
       return true;
     }),
-    new Promise(resolve => setTimeout(() => resolve(false), 8000))
-  ])).then(loaded => {
+    new Promise(resolve => setTimeout(() => resolve(false), 2400))
+  ]).then(loaded => {
     // Keep unavailable fonts from swapping in after the homepage is visible.
     if (!loaded) root.classList.add('welcome-font-fallback');
   });
@@ -70,13 +70,16 @@
     fontsReady,
     contentReady
   ]);
+  // Never hold the overlay past 3.2s (1.2s for reduced motion): slow CMS/font
+  // requests keep running in the background and swap in when they arrive.
+  const revealDeadline = new Promise(resolve => setTimeout(resolve, reducedMotion.matches ? 1200 : 3200));
 
   homeReady.then(() => {
     page.dataset.state = 'ready';
     status.textContent = '首屏已准备好';
   });
 
-  Promise.all([writingReady, homeReady]).then(async () => {
+  Promise.all([writingReady, Promise.race([homeReady, revealDeadline])]).then(async () => {
     if (preview) return;
     // Paint the initialized DOM below the opaque cover before fading it away.
     root.classList.add('welcome-prepared');

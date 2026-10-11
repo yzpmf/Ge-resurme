@@ -29,6 +29,14 @@
 
 ## 最近改动
 
+### 2026-10-11 开场放行提速 + G 标主笔提亮（与墨影分层）
+- 应用户反馈"底与主笔颜色像、分不开"：G 标主笔渐变整体提亮（`#C93A22 → #A32D1A` 改为 `#D9502E → #C43A21`），与墨色立体层 `#1C1917` 拉开明度对比（实测亮度差约 88/255，32px 下两层清晰可分）；favicon-32 同步重绘。
+- 开场卡顿、放行慢的优化（`js/welcome.js`）：
+  - 揭示加封顶：主页层最迟 3.2s 放行（减少动效偏好 1.2s）；此前需等字体（最长 8s）+ CMS（最长 10s）齐备才淡出，最坏可达 10s+。
+  - 字体判定与 CMS 解耦、2.4s 内未就绪即锁定系统回退字体，杜绝主页可见后迟到换字引起的排版跳动。
+  - `.welcome` 增加 `will-change: opacity`，淡出走合成层更顺（`index.html` 内联 welcome-critical 与 `css/welcome.css` 同步更新）。
+- 验证：本地计时截图 3s 已揭示主页；`node --check js/welcome.js` 通过；favicon 亮度分离度实测达标。push `master` 由 Netlify 发布。
+
 ### 2026-10-11 G 标志调整：hello 页顶部换 G 标、笔画加粗
 - hello 欢迎页左上「葛」朱砂印章替换为 G 个人标志（`images/logo-g.svg`）；`index.html` 内联 welcome-critical 与 `css/welcome.css` 的 `.welcome-seal` 样式同步更新（按规范两处一起改）。
 - 按反馈加粗标志笔画（stroke 17 → 20），墨色立体层错位拉开（22 → 26），小尺寸下字形与"底"更清晰；favicon 32/16 同步按加粗切重绘。
