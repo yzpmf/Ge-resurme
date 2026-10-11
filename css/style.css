@@ -191,21 +191,19 @@ nav.scrolled {
   padding: 0 24px;
   height: 66px;
 }
-/* 朱砂印章 Logo */
+/* 朱砂 G 个人标志（images/logo-g.svg，朱砂主笔 + 墨色立体层） */
 .logo {
   width: 38px;
   height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--vermillion);
-  color: var(--paper);
-  font-family: var(--font-serif);
-  font-size: 22px;
-  font-weight: var(--weight-black);
-  border-radius: 4px;
-  box-shadow: 2px 2px 0 rgba(28, 25, 23, 0.85);
   flex-shrink: 0;
+}
+.logo img {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 .nav-links {
   display: flex;
