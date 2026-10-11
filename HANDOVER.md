@@ -29,6 +29,12 @@
 
 ## 最近改动
 
+### 2026-10-11 hello 开场重绘为圆滑彩色飘带（苹果发布会风格）
+- 应用户偏好重绘开场 hello 图形：原笔刷描边字形改为 Pacifico 圆润花体（字形路径一次性提取后内嵌 SVG，**无字体文件依赖**）；主笔换苹果发布会式彩色渐变（橙 `#FF7A2F` → 粉 `#FF3D6E` → 紫 `#A64DFF` → 蓝 `#4D7DFF` → 天蓝 `#3DB6FF`），新增上下两条细飘带流线（暖橙粉 / 蓝紫）。
+- 书写动画机制不变：仍为 `helloWrite` 遮罩描边沿字形推进（`#yzpmf-ribbon` 元素与动画名契约不动，`welcome.js` 零改动）；飘带用新 `helloFlow` 动画延迟 700ms / 1000ms 流入；`prefers-reduced-motion` 下全部静止直出。
+- 样式按规范同步两份：`index.html` 内联 welcome-critical 与 `css/welcome.css`（`.hello-word` / `.hello-stream` / 遮罩描边 70px / `helloFlow` 关键帧 / 减少动效清单）。
+- 验证：本地 `?__welcome=preview` 截图核对成品；字形提取路径与真实字体渲染同位叠加校验一致；旧巨型描边字形路径与 `hello-ink` 样式已移除。push `master` 由 Netlify 发布。
+
 ### 2026-10-11 开场放行提速 + G 标主笔提亮（与墨影分层）
 - 应用户反馈"底与主笔颜色像、分不开"：G 标主笔渐变整体提亮（`#C93A22 → #A32D1A` 改为 `#D9502E → #C43A21`），与墨色立体层 `#1C1917` 拉开明度对比（实测亮度差约 88/255，32px 下两层清晰可分）；favicon-32 同步重绘。
 - 开场卡顿、放行慢的优化（`js/welcome.js`）：

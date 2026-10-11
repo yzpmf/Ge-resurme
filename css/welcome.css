@@ -66,14 +66,15 @@ html.welcome-font-fallback {
 }
 .welcome .ribbon-svg { display: block; width: min(88vw, 860px); height: auto; overflow: visible; }
 .welcome #yzpmf-ribbon {
-  stroke-width: 28;
+  stroke-width: 70;
   fill: none;
   filter: none;
   stroke-dasharray: 1000;
   stroke-dashoffset: 0;
   animation: helloWrite 2450ms cubic-bezier(0.42, 0, 0.32, 1) both;
 }
-.hello-ink { filter: drop-shadow(0 2px 1px rgba(94, 39, 23, 0.04)); }
+.hello-word { filter: drop-shadow(0 3px 2px rgba(60, 40, 30, 0.10)); }
+.hello-stream { fill: none; stroke-linecap: round; stroke-dasharray: 1000; animation: helloFlow 1400ms cubic-bezier(0.3, 0.6, 0.3, 1) 700ms both; }
 .welcome-caption {
   margin: 12px 0 0;
   font: 13px/1.8 'SimSun', 'Songti SC', serif;
@@ -95,6 +96,7 @@ html.welcome-font-fallback {
 .status-dot { width: 4px; height: 4px; flex: 0 0 auto; border-radius: 50%; background: #bb4b33; animation: breathing 1600ms ease-in-out infinite; }
 .welcome[data-state='ready'] .status-dot { animation: none; opacity: 0.65; }
 @keyframes helloWrite { from { stroke-dashoffset: 1000; } to { stroke-dashoffset: 0; } }
+@keyframes helloFlow { from { stroke-dashoffset: 1000; } to { stroke-dashoffset: 0; } }
 @keyframes captionIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes breathing { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.8; } }
 @media (max-width: 480px) {
@@ -105,6 +107,6 @@ html.welcome-font-fallback {
   .welcome-status { margin-top: 28px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .welcome #yzpmf-ribbon, .welcome-caption, .status-dot { animation: none; }
+  .welcome #yzpmf-ribbon, .hello-stream, .welcome-caption, .status-dot { animation: none; }
   .welcome { transition: none; }
 }
