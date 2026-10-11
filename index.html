@@ -82,15 +82,10 @@ html.welcome-font-fallback {
   letter-spacing: 0.14em;
 }
 .welcome-seal {
-  display: inline-grid;
-  place-items: center;
-  width: 29px;
-  height: 32px;
-  border-radius: 2px;
-  background: #b9402c;
-  color: #f6f2ea;
-  font: bold 20px/1 'SimSun', serif;
-  transform: rotate(-3deg);
+  display: block;
+  width: 31px;
+  height: 31px;
+  flex-shrink: 0;
 }
 .welcome .ribbon-svg { display: block; width: min(88vw, 860px); height: auto; overflow: visible; }
 .welcome #yzpmf-ribbon {
@@ -162,7 +157,7 @@ html.welcome-font-fallback {
   </head>
   <body>
   <div id="site-welcome" class="welcome" data-state="loading">
-    <div class="welcome-brand"><span class="welcome-seal" aria-hidden="true">葛</span><span>GE ZHENGHAO</span></div>
+    <div class="welcome-brand"><img class="welcome-seal" src="images/logo-g.svg" alt="" aria-hidden="true"><span>GE ZHENGHAO</span></div>
     <svg class="ribbon-svg" viewBox="0 0 610 244" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="hello-title">
             <title id="hello-title">hello，欢迎来到葛政豪的个人网站</title>
             <defs>

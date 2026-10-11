@@ -5,8 +5,8 @@
       <stop offset="1" stop-color="#A32D1A"/>
     </linearGradient>
   </defs>
-  <g transform="translate(22,22)">
-    <path transform="translate(111,111) skewX(-12) scale(0.92,1.02) translate(-111,-111)" fill="none" stroke="#1C1917" stroke-width="17" stroke-linecap="round" stroke-linejoin="round" d="M 149.5 50.5 A 70 70 0 1 0 170 100 L 112 100"/>
+  <g transform="translate(26,26)">
+    <path transform="translate(111,111) skewX(-12) scale(0.92,1.02) translate(-111,-111)" fill="none" stroke="#1C1917" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" d="M 149.5 50.5 A 70 70 0 1 0 170 100 L 112 100"/>
   </g>
-  <path transform="translate(111,111) skewX(-12) scale(0.92,1.02) translate(-111,-111)" fill="none" stroke="url(#gv)" stroke-width="17" stroke-linecap="round" stroke-linejoin="round" d="M 149.5 50.5 A 70 70 0 1 0 170 100 L 112 100"/>
+  <path transform="translate(111,111) skewX(-12) scale(0.92,1.02) translate(-111,-111)" fill="none" stroke="url(#gv)" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" d="M 149.5 50.5 A 70 70 0 1 0 170 100 L 112 100"/>
 </svg>

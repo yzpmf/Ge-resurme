@@ -58,15 +58,10 @@ html.welcome-font-fallback {
   letter-spacing: 0.14em;
 }
 .welcome-seal {
-  display: inline-grid;
-  place-items: center;
-  width: 29px;
-  height: 32px;
-  border-radius: 2px;
-  background: #b9402c;
-  color: #f6f2ea;
-  font: bold 20px/1 'SimSun', serif;
-  transform: rotate(-3deg);
+  display: block;
+  width: 31px;
+  height: 31px;
+  flex-shrink: 0;
 }
 .welcome .ribbon-svg { display: block; width: min(88vw, 860px); height: auto; overflow: visible; }
 .welcome #yzpmf-ribbon {

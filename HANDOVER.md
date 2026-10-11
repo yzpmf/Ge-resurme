@@ -29,6 +29,11 @@
 
 ## 最近改动
 
+### 2026-10-11 G 标志调整：hello 页顶部换 G 标、笔画加粗
+- hello 欢迎页左上「葛」朱砂印章替换为 G 个人标志（`images/logo-g.svg`）；`index.html` 内联 welcome-critical 与 `css/welcome.css` 的 `.welcome-seal` 样式同步更新（按规范两处一起改）。
+- 按反馈加粗标志笔画（stroke 17 → 20），墨色立体层错位拉开（22 → 26），小尺寸下字形与"底"更清晰；favicon 32/16 同步按加粗切重绘。
+- 验证：本地 hello 预览与导航截图核对（含像素检查）；push `master` 由 Netlify 发布。
+
 ### 2026-10-11 新增 G 个人标志，接入导航与 favicon
 - 定稿个人标志（第二版：意式斜体单笔画 G + 向后复制立体），配色对齐站点纸墨 × 朱砂体系：主笔朱砂渐变 `#C93A22 → #A32D1A`，立体层墨色 `#1C1917`。
 - 导航栏「朱砂印章」Logo 位替换为 G 标志（`images/logo-g.svg`，矢量透明底）；`css/style.css` 的 `.logo` 改为承载图片。
