@@ -138,6 +138,7 @@
       if (data && Array.isArray(data.projects)) renderProjects(data.projects);
       if (data && Array.isArray(data.awards)) renderAwards(data.awards);
       if (data && Array.isArray(data.articles)) renderArticles(data.articles);
+      if (typeof window.__refreshMotion === 'function') window.__refreshMotion();
     })
     .catch(function (err) {
       clearTimeout(timer);

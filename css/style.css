@@ -26,10 +26,13 @@
   --weight-black: 900;
   --weight-body: 400;
 
-  /* 动效 */
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --duration-fast: 0.25s;
-  --duration-base: 0.6s;
+  /* 动效：入场用遮罩曲线，悬停用更长的丝滑收尾 */
+  --ease: cubic-bezier(0.22, 0.8, 0.28, 1);
+  --ease-silk: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-mask: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-draw: cubic-bezier(0.76, 0, 0.18, 1);
+  --duration-fast: 0.32s;
+  --duration-base: 0.7s;
 
   --radius: 6px;
   --shadow: 0 2px 6px rgba(28, 25, 23, 0.05), 0 16px 40px rgba(28, 25, 23, 0.06);
@@ -152,17 +155,79 @@ ul {
   color: var(--vermillion-deep);
 }
 
-/* 入场动画（main.js 的 IntersectionObserver 驱动） */
-.fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition:
-    opacity 0.9s var(--ease),
-    transform 0.9s var(--ease);
+/* 板块切换（main.js 驱动：一次只显示一个板块，点导航按钮切换）
+   隐藏规则挂在 .js-panels 下，禁用 JS 时回退为整页滚动
+   入场参考动效图鉴：遮罩滑入、交错延迟、模糊到清晰、发丝线生长 */
+.js-panels #site-content section[id]:not(.section-visible) {
+  display: none;
 }
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
+#site-content section[id].section-visible {
+  animation: sectionIn 0.48s var(--ease) both;
+}
+@keyframes sectionIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+html.motion.motion-go .section-visible .title-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+html.motion.motion-go .section-visible .title-rise {
+  display: inline-block;
+  animation: titleRise 0.86s var(--ease-mask) both;
+}
+@keyframes titleRise {
+  from { transform: translateY(108%); }
+  to { transform: translateY(0); }
+}
+html.motion.motion-go .section-visible .section-index {
+  animation: indexIn 0.55s var(--ease) both;
+}
+@keyframes indexIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+html.motion.motion-go .section-visible .section-title::after {
+  transform-origin: left center;
+  animation: ruleDraw 0.95s var(--ease-draw) 0.12s both;
+}
+@keyframes ruleDraw {
+  from { transform: translateY(-8px) scaleX(0); }
+  to { transform: translateY(-8px) scaleX(1); }
+}
+html.motion.motion-go .section-visible .rise {
+  animation: riseIn 0.84s var(--ease-mask) backwards;
+  animation-delay: var(--d, 70ms);
+}
+html.motion.motion-go .section-visible .rise.tilt {
+  animation-name: riseFade;
+}
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(var(--enter, 18px));
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+@keyframes riseFade {
+  from { opacity: 0; filter: blur(4px); }
+  to { opacity: 1; filter: none; }
+}
+html.motion.motion-go .section-visible .project-image {
+  animation: clipOpen 0.95s var(--ease-draw) both;
+  animation-delay: var(--d, 80ms);
+}
+@keyframes clipOpen {
+  from { clip-path: inset(14% 0 14% 0); }
+  to { clip-path: inset(0); }
 }
 
 /* ===== 导航栏 - 纸面毛玻璃 ===== */
@@ -190,6 +255,44 @@ nav.scrolled {
   justify-content: space-between;
   padding: 0 24px;
   height: 66px;
+  position: relative;
+}
+/* 共享指示条：一块朱砂线在导航项之间滑动并拉伸 */
+.nav-lamp {
+  position: absolute;
+  left: 0;
+  bottom: 12px;
+  height: 2px;
+  width: 0;
+  border-radius: 2px;
+  background: var(--vermillion);
+  box-shadow: 0 0 10px rgba(201, 58, 34, 0.4);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 2;
+  transition:
+    transform 0.55s var(--ease-mask),
+    width 0.55s var(--ease-mask),
+    opacity 0.25s linear;
+}
+.nav-lamp.is-on { opacity: 1; }
+.nav-inner:has(.nav-lamp) .nav-links a::after { display: none; }
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 1200;
+  pointer-events: none;
+}
+.scroll-progress span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--vermillion-deep), var(--vermillion));
+  transform: scaleX(0);
+  transform-origin: left center;
 }
 /* 朱砂 G 个人标志（images/logo-g.svg，朱砂主笔 + 墨色立体层） */
 .logo {
@@ -337,6 +440,37 @@ nav.scrolled {
   padding: 90px 32px 60px;
   text-align: center;
   overflow: hidden;
+}
+
+/* 稿纸方格底纹（与 welcome 同语言，向四周淡出） */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--hairline-light) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hairline-light) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, transparent 30%, #000 95%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, transparent 30%, #000 95%);
+  pointer-events: none;
+}
+/* 朱砂/赭金光晕 + 大号 G 水印 */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 52% 42% at 74% 20%, rgba(201, 58, 34, 0.08) 0%, transparent 65%),
+    radial-gradient(ellipse 42% 38% at 18% 80%, rgba(176, 125, 43, 0.07) 0%, transparent 60%),
+    url('../images/logo-g.svg') center 44% / min(52vmin, 520px) no-repeat;
+  opacity: 0.06;
+  pointer-events: none;
+}
+.hero-content,
+.hero-cards {
+  position: relative;
+  z-index: 1;
 }
 
 /* 飘带区：纸面 + 朱砂/墨色光晕 */
@@ -545,6 +679,13 @@ body.scroll-locked {
   color: var(--paper);
   transform: translateY(-2px);
 }
+.btn-primary:active,
+.btn-secondary:active,
+.btn-resume:active,
+.read-more:active {
+  transform: translateY(1px) scale(0.98);
+  transition-duration: 0.1s;
+}
 
 /* Hero 三卡：编号索引卡 */
 .hero-cards {
@@ -568,6 +709,15 @@ body.scroll-locked {
   transform: translateY(-4px);
   border-color: var(--ink);
   box-shadow: 4px 4px 0 rgba(28, 25, 23, 0.9);
+}
+html.motion .hero-card.tilt {
+  transition: border-color 0.32s var(--ease), box-shadow 0.45s var(--ease);
+}
+html.motion .hero-card.tilt:hover {
+  transform: none;
+}
+html.motion.motion-go #site-content section[id].section-visible {
+  animation: none;
 }
 .hero-card-index {
   display: block;
@@ -738,7 +888,7 @@ body.scroll-locked {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s var(--ease);
+  transition: transform 0.85s var(--ease-silk), filter 0.85s var(--ease);
   filter: saturate(0.9);
 }
 .project-card:hover .project-image img {
@@ -838,7 +988,6 @@ body.scroll-locked {
 }
 .project-link:hover {
   color: var(--vermillion);
-  letter-spacing: 0.16em;
 }
 
 /* ===== 荣誉奖项（条目式，点击进详情页） ===== */
@@ -861,6 +1010,29 @@ body.scroll-locked {
 .award-item:hover {
   background: var(--card);
   padding-left: 22px;
+}
+/* 证书缩略图 */
+.award-thumb {
+  flex-shrink: 0;
+  width: 168px;
+  height: 110px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--paper-2);
+}
+.award-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  filter: saturate(0.92);
+  transition: transform 0.5s var(--ease);
+}
+.award-item:hover .award-thumb img {
+  transform: scale(1.05);
+  filter: saturate(1.02);
 }
 .award-item-main {
   flex: 1;
@@ -1413,7 +1585,17 @@ body.scroll-locked {
 }
 
 /* ===== 页脚 ===== */
+/* 板块切换模式下内容较短时，页脚贴住视口底部 */
+.js-panels #site-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.js-panels #site-content section[id].section-visible {
+  flex: 1 0 auto;
+}
 footer {
+  margin-top: auto;
   padding: 40px 0;
   text-align: center;
   background: var(--ink);
@@ -1421,10 +1603,22 @@ footer {
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.12em;
+  position: relative;
+}
+/* 纸面到墨色页脚的渐变过渡，避免硬切边 */
+footer::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -48px;
+  height: 48px;
+  background: linear-gradient(180deg, transparent 0%, rgba(28, 25, 23, 0.25) 70%, var(--ink) 100%);
+  pointer-events: none;
 }
 
 /* ===== 响应式 ===== */
-@media (max-width: 1024px) {
+@media (max-width: 1360px) {
   .project-card:has(.project-image) {
     grid-template-columns: 1fr 220px;
     column-gap: 24px;
@@ -1462,6 +1656,10 @@ footer {
   }
   .project-index {
     font-size: 26px;
+  }
+  .award-thumb {
+    width: 118px;
+    height: 80px;
   }
   .hero-card {
     width: 100%;
@@ -1508,6 +1706,7 @@ footer {
   .nav-links {
     display: none;
   }
+  .nav-lamp { display: none; }
   .hamburger {
     display: flex;
   }
@@ -1517,13 +1716,64 @@ footer {
   .hero {
     padding: 80px 18px 40px;
   }
+  .mobile-menu {
+    display: grid;
+    grid-template-rows: 0fr;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    overflow: hidden;
+    border-top-color: transparent;
+    transition:
+      grid-template-rows 0.48s var(--ease),
+      opacity 0.32s var(--ease),
+      padding 0.48s var(--ease);
+  }
+  .mobile-menu > ul {
+    min-height: 0;
+    overflow: hidden;
+  }
+  .mobile-menu.active {
+    display: grid;
+    grid-template-rows: 1fr;
+    opacity: 1;
+    padding: 8px 24px 18px;
+    border-top-color: var(--hairline);
+  }
+  .mobile-menu a {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .mobile-menu.active a {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.4s var(--ease),
+      transform 0.45s var(--ease-mask),
+      color 0.25s var(--ease),
+      padding 0.25s var(--ease);
+  }
+  .mobile-menu.active li:nth-child(1) a { transition-delay: 0.04s; }
+  .mobile-menu.active li:nth-child(2) a { transition-delay: 0.07s; }
+  .mobile-menu.active li:nth-child(3) a { transition-delay: 0.1s; }
+  .mobile-menu.active li:nth-child(4) a { transition-delay: 0.13s; }
+  .mobile-menu.active li:nth-child(5) a { transition-delay: 0.16s; }
+  .mobile-menu.active li:nth-child(6) a { transition-delay: 0.19s; }
+  .mobile-menu.active li:nth-child(7) a { transition-delay: 0.22s; }
+  .mobile-menu.active li:nth-child(8) a { transition-delay: 0.25s; }
 }
 
 /* 尊重减少动效偏好 */
 @media (prefers-reduced-motion: reduce) {
-  .fade-in {
-    opacity: 1;
-    transform: none;
+  #site-content section[id].section-visible,
+  .title-rise,
+  .section-index,
+  .section-title::after,
+  .rise,
+  .project-image {
+    animation: none !important;
+  }
+  .nav-lamp {
     transition: none;
   }
   .marquee-track {

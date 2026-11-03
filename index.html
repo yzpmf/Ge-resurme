@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -15,6 +15,7 @@
           root.classList.add('welcome-active');
         }
         root.dataset.welcomeMode = mode === 'preview' ? 'preview' : 'auto';
+        root.classList.add('js-panels');
         if (mode) {
           params.delete('__welcome');
           history.replaceState(null, '', location.pathname + (params.size ? '?' + params : '') + location.hash);
@@ -230,7 +231,7 @@ html.welcome-font-fallback {
     </nav>
 
     <!-- ==================== Hero - 个人介绍 ========== -->
-    <section id="home" class="hero">
+    <section id="home" class="hero section-visible">
       <!-- 下方内容区 -->
       <div class="hero-content">
         <p class="hero-greeting">你好，我是</p>
@@ -264,7 +265,7 @@ html.welcome-font-fallback {
     </section>
 
     <!-- ==================== 关于我 ==================== -->
-    <section id="about" class="section fade-in">
+    <section id="about" class="section">
       <div class="container">
         <h2 class="section-title"><span class="section-index">01</span>关于我</h2>
         <p class="section-sub">不只是代码，还有热爱生活的灵魂</p>
@@ -307,7 +308,7 @@ html.welcome-font-fallback {
     </section>
 
     <!-- ==================== 项目经历 ==================== -->
-    <section id="projects" class="section section-alt fade-in">
+    <section id="projects" class="section section-alt">
       <div class="container">
         <h2 class="section-title"><span class="section-index">02</span>项目经历</h2>
         <p class="section-sub">以下是我参与的部分项目，每个项目都记录了我的职责、挑战和成果</p>
@@ -420,7 +421,7 @@ html.welcome-font-fallback {
     </section>
 
     <!-- ==================== 荣誉奖项 ==================== -->
-    <section id="awards" class="section fade-in">
+    <section id="awards" class="section">
       <div class="container">
         <h2 class="section-title"><span class="section-index">03</span>荣誉奖项</h2>
         <p class="section-sub">竞赛与获奖记录</p>
@@ -432,6 +433,7 @@ html.welcome-font-fallback {
               <h3>CIMC“西门子杯”中国智能制造挑战赛 · 全国初赛</h3>
               <p>2026年第二十届 · 智能制造工程设计与应用类：工业嵌入式系统开发方向（试）（本科及研究生组）</p>
             </div>
+            <span class="award-thumb"><img src="images/awards/cimc-2026.png" alt="CIMC 获奖证书预览" loading="lazy" /></span>
             <span class="project-status award-level">三等奖</span>
             <span class="award-item-arrow">→</span>
           </a>
@@ -440,7 +442,7 @@ html.welcome-font-fallback {
     </section>
 
     <!-- ==================== 学习经历 / 时间线 ==================== -->
-    <section id="timeline" class="section section-alt fade-in">
+    <section id="timeline" class="section section-alt">
       <div class="container">
         <h2 class="section-title"><span class="section-index">04</span>学习经历</h2>
         <p class="section-sub">从兴趣入门到系统学习的时间线</p>
@@ -462,7 +464,7 @@ html.welcome-font-fallback {
     </section>
 
     <!-- ==================== 技能专长 ==================== -->
-    <section id="skills" class="section fade-in">
+    <section id="skills" class="section">
       <div class="container">
         <h2 class="section-title"><span class="section-index">05</span>技能专长</h2>
         <p class="section-sub">目前使用的编程语言、基础知识与开发工具</p>
@@ -484,7 +486,7 @@ html.welcome-font-fallback {
     </section>
 
     <!-- ==================== 文章博客 ==================== -->
-    <section id="articles" class="section section-alt fade-in">
+    <section id="articles" class="section section-alt">
       <div class="container">
         <h2 class="section-title"><span class="section-index">06</span>文章博客</h2>
         <p class="section-sub">记录学习笔记、项目经验和生活感悟</p>
@@ -495,7 +497,7 @@ html.welcome-font-fallback {
     </section>
 
     <!-- ==================== 联系方式 ==================== -->
-    <section id="contact" class="section fade-in">
+    <section id="contact" class="section">
       <div class="container">
         <h2 class="section-title"><span class="section-index">07</span>联系方式</h2>
         <p class="section-sub">欢迎留言或通过下列方式联系我</p>
@@ -561,7 +563,7 @@ html.welcome-font-fallback {
 
     </div>
 
-    <script src="js/main.js?v=hello-preload-20261001" defer></script>
+    <script src="js/main.js?v=motion-20261103" defer></script>
     <script src="js/contact.js" defer></script>
     <script src="js/article-data.js" defer></script>
     <script src="js/articles.js" defer></script>

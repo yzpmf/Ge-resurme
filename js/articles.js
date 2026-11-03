@@ -23,6 +23,7 @@
           <div class="article-tags">${(Array.isArray(article.tags) ? article.tags : []).map(tag => `<span class="tag">${esc(tag)}</span>`).join('')}</div>
           <a class="read-more" href="${esc(url(article, 'static'))}">阅读全文 →</a>
         </article>`).join('') : '<p class="no-articles">暂无文章，敬请期待...</p>';
+      if (typeof window.__refreshMotion === 'function') window.__refreshMotion();
     } catch (_) {
       if (!window.__cmsArticlesReady) container.innerHTML = '<p class="error">文章目录暂时无法读取，请刷新重试。</p>';
     }
