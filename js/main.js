@@ -193,12 +193,6 @@ showPanel(location.hash.slice(1) || 'home', false);
 
 function beginMotion() {
   if (!motionOk || root.classList.contains('motion-go')) return;
-  const current = panels.find((panel) => panel.classList.contains('section-visible'));
-  if (current) {
-    current.classList.remove('section-visible');
-    void current.offsetWidth;
-    current.classList.add('section-visible');
-  }
   root.classList.add('motion-go');
   placeLamp();
 }
@@ -230,7 +224,8 @@ function whenReveal() {
   });
 }
 
-whenReveal().then(beginMotion);
+if (root.classList.contains('welcome-active')) beginMotion();
+else whenReveal().then(beginMotion);
 setTimeout(beginMotion, 3600);
 
 function bindTilt() {

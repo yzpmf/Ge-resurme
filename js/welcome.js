@@ -9,14 +9,10 @@
     return;
   }
   const page = document.getElementById('site-welcome');
-  const status = document.getElementById('welcome-status-text');
   const pen = document.getElementById('yzpmf-ribbon');
   const active = root.classList.contains('welcome-active');
   const preview = root.dataset.welcomeMode === 'preview';
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const domReady = document.readyState === 'loading' || document.readyState === 'interactive'
-    ? new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve, { once: true }))
-    : Promise.resolve();
 
   function stylesheetReady(link) {
     if (!link || link.dataset.loaded || link.sheet) return Promise.resolve();
@@ -37,23 +33,8 @@
     return;
   }
 
-  const contentReady = domReady.then(() => window.__siteContentReady);
-  const fontStyleReady = stylesheetReady(document.querySelector('[data-site-style="fonts"]'));
-  // Decide on webfonts early (2.4s cap): late-arriving fonts are locked to fallback instead of swapping in after the homepage is visible.
-  const fontsReady = Promise.race([
-    Promise.all([mainStyleReady, fontStyleReady]).then(async () => {
-      content.getBoundingClientRect();
-      if (document.fonts) await document.fonts.ready;
-      return true;
-    }),
-    new Promise(resolve => setTimeout(() => resolve(false), 2400))
-  ]).then(loaded => {
-    // Keep unavailable fonts from swapping in after the homepage is visible.
-    if (!loaded) root.classList.add('welcome-font-fallback');
-  });
-
   const writingReady = new Promise(resolve => {
-    if (reducedMotion.matches || getComputedStyle(pen).strokeDashoffset === '0px') {
+    if (reducedMotion.matches || !pen) {
       resolve();
       return;
     }
@@ -61,32 +42,20 @@
       if (event.animationName === 'helloWrite') resolve();
     }, { once: true });
     reducedMotion.addEventListener('change', event => { if (event.matches) resolve(); });
-    // Fallback only for a missing animation event; it never bypasses page readiness.
-    setTimeout(resolve, 2600);
+    setTimeout(resolve, 2800);
   });
 
-  const homeReady = Promise.all([
-    mainStyleReady,
-    fontsReady,
-    contentReady
-  ]);
-  // Never hold the overlay past 3.2s (1.2s for reduced motion): slow CMS/font
-  // requests keep running in the background and swap in when they arrive.
-  const revealDeadline = new Promise(resolve => setTimeout(resolve, reducedMotion.matches ? 1200 : 3200));
+  // Leave as soon as the ribbon finishes. Fonts and CMS must not hold a finished hello on screen.
+  const homeReady = Promise.all([mainStyleReady, writingReady]);
 
-  homeReady.then(() => {
-    page.dataset.state = 'ready';
-    status.textContent = '首屏已准备好';
-  });
-
-  Promise.all([writingReady, Promise.race([homeReady, revealDeadline])]).then(async () => {
+  homeReady.then(async () => {
     if (preview) return;
-    // Paint the initialized DOM below the opaque cover before fading it away.
+    if (document.fonts && document.fonts.status !== 'loaded') root.classList.add('welcome-font-fallback');
     root.classList.add('welcome-prepared');
     root.classList.remove('site-booting');
     await paint();
     page.classList.add('is-leaving');
-    await new Promise(resolve => setTimeout(resolve, reducedMotion.matches ? 0 : 340));
+    await new Promise(resolve => setTimeout(resolve, reducedMotion.matches ? 0 : 280));
     content.inert = false;
     root.classList.remove('welcome-active', 'welcome-prepared');
     root.dataset.welcomeState = 'entered';

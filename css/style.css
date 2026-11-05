@@ -209,17 +209,15 @@ html.motion.motion-go .section-visible .rise.tilt {
   from {
     opacity: 0;
     transform: translateY(var(--enter, 18px));
-    filter: blur(4px);
   }
   to {
     opacity: 1;
     transform: none;
-    filter: none;
   }
 }
 @keyframes riseFade {
-  from { opacity: 0; filter: blur(4px); }
-  to { opacity: 1; filter: none; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 html.motion.motion-go .section-visible .project-image {
   animation: clipOpen 0.95s var(--ease-draw) both;
@@ -1761,6 +1759,14 @@ footer::before {
   .mobile-menu.active li:nth-child(6) a { transition-delay: 0.19s; }
   .mobile-menu.active li:nth-child(7) a { transition-delay: 0.22s; }
   .mobile-menu.active li:nth-child(8) a { transition-delay: 0.25s; }
+  .mobile-menu.active li:nth-child(9) a { transition-delay: 0.28s; }
+}
+@media (max-width: 1280px) {
+  .nav-links a {
+    padding: 7px 8px;
+    font-size: 14px;
+  }
+  .nav-index { margin-right: 3px; }
 }
 
 /* 尊重减少动效偏好 */
