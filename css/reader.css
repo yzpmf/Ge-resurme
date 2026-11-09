@@ -11,3 +11,95 @@ body { overflow-anchor: none; }
 
 /* Keep the closing mark above the return links after removing the closing copy. */
 .article-ending .end-mark { display: table; margin: 0 auto 28px; }
+
+/* Once the article is open, the page ground becomes a warm desk so the sheet can sit on it.
+   The arrival scene stays on --paper: #reader is still hidden then.
+   Home and the articles list never load this file. */
+body:has(#reader:not([hidden])) {
+  background-color: #cfc7b8;
+  background-image:
+    radial-gradient(1200px 700px at 20% 10%, #ddd6c8 0%, transparent 55%),
+    radial-gradient(900px 600px at 90% 80%, #d2cbbd 0%, transparent 50%);
+}
+@media (min-width: 761px) {
+  body:has(#reader:not([hidden])) { background-attachment: fixed; }
+}
+
+/* Cotton-paper sheet for the article column only.
+   Contents, margin note, nav, and footer stay on the desk, not on the sheet.
+   Tune intensity here:
+   --sheet-fiber  default 0.55 (0.35 calmer, 0.70 rougher)
+   --sheet-grain  default 0.09 (fine film grain over the fibers) */
+.reading-page {
+  --sheet-fiber: 0.55;
+  --sheet-grain: 0.09;
+  --sheet-fiber-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='p' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.035' numOctaves='5' stitchTiles='stitch' result='n'/%3E%3CfeDiffuseLighting in='n' lighting-color='%23f7f1ea' surfaceScale='2.2' result='lit'%3E%3CfeDistantLight azimuth='45' elevation='58'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  --sheet-grain-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin: -28px -12px 48px;
+  padding: 36px 32px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(60, 45, 30, 0.12);
+  background: linear-gradient(165deg, #f7f2e9 0%, #f4efe6 45%, #ebe4d8 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -1px 0 rgba(80, 60, 40, 0.06),
+    0 1px 0 rgba(255, 255, 255, 0.35),
+    0 18px 40px -18px rgba(40, 30, 20, 0.35),
+    0 4px 10px -4px rgba(40, 30, 20, 0.18);
+}
+
+.reading-page::before,
+.reading-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Low-frequency cotton fibers: lit fractal noise, same recipe as the paper demo. */
+.reading-page::before {
+  z-index: 0;
+  opacity: var(--sheet-fiber);
+  mix-blend-mode: multiply;
+  background-image: var(--sheet-fiber-image);
+  background-size: 240px 240px;
+}
+
+/* Fine grain so the sheet feels printed, not a flat gradient. */
+.reading-page::after {
+  z-index: 1;
+  opacity: var(--sheet-grain);
+  mix-blend-mode: overlay;
+  background-image: var(--sheet-grain-image);
+  background-size: 180px 180px;
+}
+
+.reading-page > * {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 1100px) {
+  .reading-page {
+    margin-left: -8px;
+    margin-right: -8px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (max-width: 760px) {
+  .reading-page {
+    margin: -12px 0 28px;
+    padding: 22px 14px 4px;
+    border-radius: 4px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.65),
+      inset 0 -1px 0 rgba(80, 60, 40, 0.06),
+      0 10px 24px -16px rgba(40, 30, 20, 0.32);
+  }
+}
