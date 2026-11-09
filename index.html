@@ -22,8 +22,16 @@
         }
       })();
     </script>
+    <script src="js/page-launch.js?v=award-open-smooth-20261109"></script>
     <style id="welcome-critical">
 /* Critical welcome styles are also inlined in index.html, so Hello paints immediately. */
+@font-face {
+  font-family: 'Pacifico';
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+  src: url('fonts/vendor/pacifico.woff2') format('woff2');
+}
 html { scrollbar-gutter: stable; }
 html.site-booting, html.welcome-active { background: #f6f2ea; }
 html.welcome-active, .welcome-active body { overflow: hidden; }
@@ -72,9 +80,21 @@ html.welcome-font-fallback {
   mask-image: radial-gradient(ellipse 58% 55% at 50% 47%, #000 10%, transparent 80%);
 }
 .welcome.is-leaving { opacity: 0; }
+.welcome-hello {
+  position: absolute;
+  top: 26px;
+  left: 42px;
+  z-index: 1;
+  font-family: 'Pacifico', cursive;
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1.2;
+  color: #497cc3;
+  animation: helloMarkIn 600ms 200ms ease both;
+}
 .welcome-brand {
   position: absolute;
-  top: 38px;
+  top: 80px;
   left: 42px;
   display: flex;
   align-items: center;
@@ -121,17 +141,19 @@ html.welcome-font-fallback {
 .welcome[data-state='ready'] .status-dot { animation: none; opacity: 0.65; }
 @keyframes helloWrite { from { stroke-dashoffset: 1000; } to { stroke-dashoffset: 0; } }
 @keyframes helloFlow { from { stroke-dashoffset: 1000; } to { stroke-dashoffset: 0; } }
+@keyframes helloMarkIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes captionIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes breathing { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.8; } }
 @media (max-width: 480px) {
   .welcome { padding: 90px 14px 130px; }
-  .welcome-brand { top: 28px; left: 24px; font-size: 11px; gap: 10px; }
+  .welcome-hello { top: 22px; left: 24px; font-size: 28px; }
+  .welcome-brand { top: 66px; left: 24px; font-size: 11px; gap: 10px; }
   .welcome .ribbon-svg { width: 94vw; }
   .welcome-caption { margin-top: 26px; font-size: 12px; letter-spacing: 0.14em; }
   .welcome-status { margin-top: 28px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .welcome #yzpmf-ribbon, .welcome-caption, .status-dot { animation: none; }
+  .welcome #yzpmf-ribbon, .welcome-caption, .status-dot, .welcome-hello { animation: none; }
   .welcome { transition: none; }
 }
     </style>
@@ -141,6 +163,7 @@ html.welcome-font-fallback {
     <link rel="icon" type="image/svg+xml" href="images/logo-g.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+    <link rel="preload" href="fonts/vendor/pacifico.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -160,6 +183,7 @@ html.welcome-font-fallback {
   </head>
   <body>
   <div id="site-welcome" class="welcome" data-state="loading">
+    <span class="welcome-hello" role="img" aria-label="hello">hello</span>
     <div class="welcome-brand"><img class="welcome-seal" src="images/logo-g.svg" alt="" aria-hidden="true"><span>GE ZHENGHAO</span></div>
     <svg class="ribbon-svg" viewBox="0 0 610 244" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="hello-title">
             <title id="hello-title">hello，欢迎来到葛政豪的个人网站</title>
@@ -245,21 +269,21 @@ html.welcome-font-fallback {
       </div>
 
       <div class="hero-cards">
-        <div class="hero-card">
+        <a class="hero-card" href="#projects">
           <span class="hero-card-index">01</span>
           <h3>项目经验</h3>
           <p>小程序 · 网站 · 更多在路上</p>
-        </div>
-        <div class="hero-card">
+        </a>
+        <a class="hero-card" href="#skills">
           <span class="hero-card-index">02</span>
           <h3>技术栈</h3>
           <p>Python · C++ · C</p>
-        </div>
-        <div class="hero-card">
+        </a>
+        <a class="hero-card" href="#timeline">
           <span class="hero-card-index">03</span>
           <h3>持续学习</h3>
           <p>算法 · Web开发 · 创意编程</p>
-        </div>
+        </a>
       </div>
     </section>
 
@@ -589,8 +613,8 @@ html.welcome-font-fallback {
 
     </div>
 
-    <script src="js/main.js?v=motion-20261103" defer></script>
-    <script src="js/contact.js" defer></script>
+    <script src="js/main.js?v=app-open-smooth-20261109" defer></script>
+    <script src="js/contact.js?v=server-20261107" defer></script>
     <script src="js/article-data.js" defer></script>
     <script src="js/articles.js" defer></script>
     <script src="js/content-loader.js?v=hello-preload-20261001" defer></script>
