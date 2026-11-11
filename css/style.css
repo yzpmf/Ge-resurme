@@ -1106,6 +1106,17 @@ html.motion.motion-go #site-content section[id].section-visible {
   filter: saturate(0.92);
   transition: transform 0.5s var(--ease);
 }
+.award-thumb-card {
+  background: #127a68;
+}
+.award-thumb-card img {
+  object-fit: contain;
+  object-position: center;
+}
+.award-item .award-level {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
 .award-item:hover .award-thumb img {
   transform: scale(1.05);
   filter: saturate(1.02);
@@ -1129,6 +1140,7 @@ html.motion.motion-go #site-content section[id].section-visible {
   font-weight: var(--weight-black);
   font-size: 20px;
   margin-bottom: 4px;
+  text-wrap: balance;
 }
 .award-item-main p {
   color: var(--muted);
@@ -1176,6 +1188,7 @@ html.motion.motion-go #site-content section[id].section-visible {
   color: var(--ink);
   margin: 12px 0 14px;
   line-height: 1.4;
+  text-wrap: balance;
 }
 .award-detail-meta {
   display: flex;
@@ -1325,83 +1338,581 @@ html.motion.motion-go #site-content section[id].section-visible {
   margin-top: 10px;
 }
 
-/* ===== 文章博客 ===== */
-.articles-grid {
+/* ===== 文章书柜 =====
+   bookshelf.js 写入尺寸变量：--H 书高 / --ws 书脊宽 / --depth 书深(封面宽) / --pitch 书距 /
+   --spread 翻开时邻书让位距离 / --pad 行内留白 / --side 柜侧板 / --clear 书顶余量 */
+#articles {
+  overflow: hidden;
+  overflow: clip;
+}
+.bookcase,
+.book-pop {
+  --grain-h: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.004 0.26' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.09 0 0 0 0 0.05 0 0 0 0 0.02 1.7 0 0 0 -0.66'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  --grain-v: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='900'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.26 0.004' numOctaves='3' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.09 0 0 0 0 0.05 0 0 0 0 0.02 1.7 0 0 0 -0.66'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.36 0 0 0 0 0.26 0 0 0 0 0.12 0 0 0 0.2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.bookcase {
+  position: relative;
+  margin-top: 10px;
+}
+.case-viewport {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 22px;
+  touch-action: pan-y;
 }
-.article-card {
-  background: var(--card);
-  padding: 26px;
-  border-radius: var(--radius);
-  border: 1px solid var(--hairline);
-  transition: var(--duration-fast) var(--ease);
+.case-page {
+  grid-area: 1 / 1;
+  transform-origin: 50% 60%;
+  will-change: transform;
 }
-.article-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--ink);
-  box-shadow: 6px 6px 0 rgba(28, 25, 23, 0.9);
+.case-frame {
+  position: relative;
+  padding: var(--crown) var(--side) var(--side);
+  border-radius: 4px 4px 3px 3px;
+  background:
+    var(--grain-v) 0 0 / 160px 900px,
+    linear-gradient(90deg, #3a2314 0%, #573722 8%, #4a2e1b 30%, #53341f 64%, #462b19 90%, #33200f 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 226, 190, 0.12),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.35),
+    0 2px 3px rgba(28, 18, 10, 0.3),
+    0 40px 60px -36px rgba(28, 18, 10, 0.75);
 }
-.article-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 12px;
-  gap: 12px;
+/* 顶部线脚 */
+.case-frame::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  right: -7px;
+  top: -6px;
+  height: calc(var(--crown) - 2px);
+  border-radius: 4px 4px 2px 2px;
+  background:
+    var(--grain-h) 0 0 / 900px 140px,
+    linear-gradient(180deg, #7a5333 0%, #5c3b24 20%, #4a2e1b 70%, #3a2314 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 230, 196, 0.22),
+    0 4px 0 -1px #2e1b0f,
+    0 9px 12px -6px rgba(0, 0, 0, 0.55);
 }
-.article-title {
+/* 底座 */
+.case-frame::after {
+  content: '';
+  position: absolute;
+  left: -5px;
+  right: -5px;
+  bottom: -9px;
+  height: 13px;
+  border-radius: 0 0 3px 3px;
+  background:
+    var(--grain-h) 0 0 / 900px 140px,
+    linear-gradient(180deg, #503220, #2f1c0f);
+}
+.case-inner {
+  position: relative;
+  border-radius: 2px;
+  background:
+    var(--grain-v) 0 0 / 140px 700px,
+    linear-gradient(180deg, #23140a, #301d10 45%, #25150b);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.4),
+    inset 12px 0 18px -10px rgba(0, 0, 0, 0.75),
+    inset -12px 0 18px -10px rgba(0, 0, 0, 0.75);
+}
+.shelf-row {
+  position: relative;
+}
+/* 上一层隔板投下的阴影 */
+.shelf-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: calc(var(--clear) + 30px);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+.shelf-books {
+  position: relative;
+  height: calc(var(--H) + var(--clear));
+  perspective: calc(var(--H) * 6.5);
+  perspective-origin: 50% 45%;
+}
+/* 隔板上表面 */
+.shelf-books::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 6px;
+  background: linear-gradient(180deg, rgba(110, 74, 45, 0), rgba(122, 84, 52, 0.6));
+  pointer-events: none;
+}
+.shelf-board {
+  position: relative;
+  z-index: 1;
+  height: var(--board);
+  background:
+    var(--grain-h) 0 0 / 900px 140px,
+    linear-gradient(180deg, #8c613d 0, #6a4529 2px, #573822 38%, #42291a 100%);
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.4),
+    0 10px 14px -8px rgba(0, 0, 0, 0.7);
+}
+
+/* 书：书脊朝外，悬停时绕竖轴转出封面 */
+.book {
+  --lean-now: var(--lean);
+  position: absolute;
+  bottom: 0;
+  left: calc(var(--pad) + var(--i) * var(--pitch));
+  width: var(--ws);
+  height: calc(var(--H) * var(--hr));
   color: var(--ink);
+  transform: translate3d(calc(var(--shift, 0) * var(--spread)), 0, 0) rotateZ(var(--lean-now));
+  transform-origin: 0 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.75s var(--ease-silk);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.book.is-open {
+  --lean-now: -1deg;
+  z-index: 200 !important;
+}
+.book-tilt,
+.book-body {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.book-tilt {
+  transform: translateZ(calc(var(--depth) / -2)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+}
+.book-body {
+  transform: translate3d(0, var(--lift, 0px), var(--pop, 0px)) rotateY(var(--turn, 0deg));
+  transition: transform 0.8s var(--ease-silk);
+}
+.book.is-open .book-body {
+  --turn: -90deg;
+  --pop: calc(var(--depth) * 0.7);
+  --lift: calc(var(--H) * -0.04);
+}
+.book-face {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.book-face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #1a0f06;
+  opacity: var(--shade, 0);
+  transition: opacity 0.8s var(--ease-silk);
+  pointer-events: none;
+}
+.book-spine {
+  left: 0;
+  width: var(--ws);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--ws) * 0.12);
+  padding: calc(var(--ws) * 0.22) 0 calc(var(--ws) * 0.2);
+  border-radius: 2px 2px 1px 1px;
+  background:
+    linear-gradient(90deg, rgba(74, 47, 20, 0.32) 0%, rgba(255, 250, 235, 0.24) 20%, rgba(255, 250, 235, 0) 48%, rgba(74, 47, 20, 0.1) 78%, rgba(74, 47, 20, 0.36) 100%),
+    var(--paper-grain),
+    var(--tone);
+  box-shadow: inset 0 0 0 1px rgba(74, 47, 20, 0.14);
+  transform: translateZ(calc(var(--depth) / 2));
+}
+.spine-band {
+  flex: none;
+  width: 100%;
+  height: calc(var(--ws) * 0.1);
+  border-top: 1px solid rgba(92, 60, 28, 0.45);
+  border-bottom: 1px solid rgba(92, 60, 28, 0.45);
+}
+.spine-title {
+  flex: 1 1 auto;
+  min-height: 0;
+  writing-mode: vertical-rl;
   font-family: var(--font-serif);
   font-weight: var(--weight-black);
-  font-size: 21px;
-  margin: 0;
-}
-.article-date {
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: max(11px, calc(var(--ws) * 0.32));
+  line-height: 1;
   letter-spacing: 0.08em;
+  padding-top: 0.2em;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.article-summary {
-  color: var(--ink-soft);
-  font-size: 15px;
-  line-height: 1.7;
-  margin-bottom: 16px;
+.spine-seal {
+  flex: none;
+  width: calc(var(--ws) * 0.26);
+  height: calc(var(--ws) * 0.26);
+  border-radius: 1px;
+  background: var(--vermillion);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
 }
-.article-tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
-}
-.article-tags .tag {
-  border: 1px solid var(--hairline);
-  color: var(--muted);
-  padding: 3px 12px;
-  border-radius: 999px;
+.spine-year {
+  flex: none;
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-size: max(8px, calc(var(--ws) * 0.17));
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
 }
-.read-more {
-  background: var(--ink);
-  color: var(--paper);
-  border: 1px solid var(--ink);
-  padding: 9px 22px;
-  border-radius: 999px;
+.book-cover,
+.book-back {
+  left: calc((var(--ws) - var(--depth)) / 2);
+  width: var(--depth);
+}
+.book-cover {
+  --shade: 0.42;
+  display: flex;
+  flex-direction: column;
+  padding: 18% 14% 13% 16%;
+  border-radius: 1px 3px 3px 1px;
+  background:
+    linear-gradient(90deg, rgba(74, 47, 20, 0.3) 0, rgba(74, 47, 20, 0.08) 4%, rgba(255, 250, 235, 0.14) 7%, rgba(255, 250, 235, 0) 32%),
+    var(--paper-grain),
+    var(--tone);
+  transform: rotateY(90deg) translateZ(calc(var(--ws) / 2));
+  transition: box-shadow 0.8s var(--ease-silk);
+}
+.book-cover::before {
+  content: '';
+  position: absolute;
+  inset: 5% 6% 5% 9%;
+  border: 1px solid rgba(92, 60, 28, 0.32);
+  pointer-events: none;
+}
+.cover-date {
+  font-family: var(--font-mono);
+  font-size: max(9px, calc(var(--depth) * 0.068));
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+}
+.cover-photo {
+  display: block;
+  width: 86%;
+  height: 46%;
+  margin: 7% 0 0 2%;
+  object-fit: cover;
+  object-position: center 58%;
+  border: 1px solid rgba(92, 60, 28, 0.28);
+  box-shadow: 0 1px 0 rgba(255, 250, 235, 0.45);
+  pointer-events: none;
+}
+.book.has-cover .cover-title {
+  margin-top: 8%;
+  font-size: calc(var(--depth) * 0.108);
+  -webkit-line-clamp: 2;
+}
+.cover-title {
+  margin-top: 16%;
+  font-family: var(--font-serif);
+  font-weight: var(--weight-black);
+  font-size: calc(var(--depth) * 0.125);
+  line-height: 1.32;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.cover-rule {
+  flex: none;
+  width: 22%;
+  height: 2px;
+  margin-top: 10%;
+  background: var(--vermillion);
+}
+.cover-more {
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: max(9px, calc(var(--depth) * 0.064));
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+  transition: color var(--duration-fast) var(--ease);
+}
+.book:hover .cover-more {
+  color: var(--vermillion);
+}
+.book-back {
+  --shade: 0.5;
+  background: var(--paper-grain), var(--tone);
+  transform: rotateY(-90deg) translateZ(calc(var(--ws) / 2));
+}
+/* 书口：一页页纸边 */
+.book-edge {
+  --shade: 0.22;
+  left: 0;
+  width: var(--ws);
+  background:
+    linear-gradient(180deg, var(--tone) 0 3px, transparent 3px calc(100% - 3px), var(--tone) calc(100% - 3px)),
+    repeating-linear-gradient(90deg, #f4ecd6 0 1px, #dccdaa 1px 2px);
+  transform: rotateY(180deg) translateZ(calc(var(--depth) / 2));
+}
+.book.is-open .book-spine {
+  --shade: 0.5;
+}
+.book.is-open .book-cover {
+  --shade: 0;
+  box-shadow: 0 26px 40px -20px rgba(10, 5, 2, 0.75);
+}
+.book:focus-visible .book-spine,
+.book:focus-visible .book-cover {
+  outline: 2px solid var(--vermillion);
+  outline-offset: -2px;
+}
+
+/* 换书架：与导航同款的朱砂滑动指示线 */
+.shelf-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 3vw, 28px);
+  margin-top: 42px;
+}
+.pager-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 6px;
+  border: 0;
+  background: none;
+  cursor: pointer;
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  transition: var(--duration-fast) var(--ease);
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+  transition: color var(--duration-fast) var(--ease), opacity var(--duration-fast) var(--ease);
 }
-.read-more:hover {
+.pager-arrow {
+  display: inline-block;
+  transition: transform 0.45s var(--ease-silk);
+}
+.pager-step:not(:disabled):hover {
+  color: var(--vermillion);
+}
+.pager-step[data-step="-1"]:not(:disabled):hover .pager-arrow {
+  transform: translateX(-4px);
+}
+.pager-step[data-step="1"]:not(:disabled):hover .pager-arrow {
+  transform: translateX(4px);
+}
+.pager-step:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+.pager-track {
+  position: relative;
+  padding: 0 12px;
+  border-left: 1px solid var(--hairline);
+  border-right: 1px solid var(--hairline);
+}
+.pager-nums {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.pager-num {
+  min-width: 38px;
+  height: 38px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  transition: color var(--duration-fast) var(--ease);
+}
+.pager-num:hover,
+.pager-num[aria-current="true"] {
+  color: var(--ink);
+}
+.pager-gap {
+  min-width: 22px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+.pager-lamp {
+  position: absolute;
+  left: 0;
+  bottom: 3px;
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
   background: var(--vermillion);
-  border-color: var(--vermillion);
-  transform: translateY(-2px);
+  box-shadow: 0 0 10px rgba(201, 58, 34, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.55s var(--ease-mask),
+    width 0.55s var(--ease-mask),
+    opacity 0.3s var(--ease);
+}
+.pager-step:focus-visible,
+.pager-num:focus-visible {
+  outline: 2px solid var(--vermillion);
+  outline-offset: 2px;
+}
+
+/* 手机：轻触书脊，书从架上弹出 */
+html.book-pop-open {
+  overflow: hidden;
+}
+.book-pop {
+  position: fixed;
+  inset: 0;
+  z-index: 2500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+.book-pop[hidden] {
+  display: none;
+}
+.book-pop-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(36, 24, 14, 0.58);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.book-pop-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: var(--H);
+  perspective: calc(var(--H) * 5);
+  pointer-events: none;
+}
+.book-pop .book {
+  position: relative;
+  left: auto;
+  bottom: auto;
+  pointer-events: auto;
+}
+.book-pop .book.is-open .book-body {
+  --pop: calc(var(--depth) * 0.45);
+  --lift: 0px;
+}
+.book-pop-foot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.book-pop-hint {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: rgba(246, 242, 234, 0.72);
+}
+.book-pop-close {
+  padding: 9px 22px;
+  border: 1px solid rgba(246, 242, 234, 0.55);
+  border-radius: 999px;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--paper);
+}
+
+/* 从文章返回时，书要先瞬间摆成翻开的样子，再由纸页缩回封面 */
+.is-instant .book,
+.is-instant .book-body,
+.is-instant .book-face::after,
+.book.is-instant,
+.book.is-instant .book-body,
+.book.is-instant .book-face::after {
+  transition: none !important;
+}
+
+/* 打开文章：封面像 App 图标一样放大成阅读页 */
+.book-launch-dim {
+  position: fixed;
+  inset: 0;
+  z-index: 2590;
+  background: rgba(36, 24, 14, 0.3);
+  pointer-events: none;
+}
+.book-launch {
+  position: fixed;
+  z-index: 2600;
+  overflow: hidden;
+  background: var(--paper);
+}
+.book-launch-stage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  will-change: filter;
+}
+.book-launch-fit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  will-change: transform;
+}
+.book-launch .book-launch-plate {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: 3px;
+  box-shadow: none;
+  transform: none;
+}
+.book-launch-wash {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  opacity: 0;
+}
+
+@media (max-width: 640px) {
+  .shelf-pager {
+    margin-top: 30px;
+  }
+  .pager-word {
+    display: none;
+  }
+  .pager-num {
+    min-width: 34px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .book,
+  .book-body,
+  .book-face::after,
+  .pager-lamp {
+    transition: none;
+  }
 }
 .loading,
 .no-articles,
@@ -1674,23 +2185,11 @@ footer {
   margin-top: auto;
   padding: 40px 0;
   text-align: center;
-  background: var(--ink);
-  color: rgba(246, 242, 234, 0.6);
+  background: transparent;
+  color: var(--muted);
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.12em;
-  position: relative;
-}
-/* 纸面到墨色页脚的渐变过渡，避免硬切边 */
-footer::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -48px;
-  height: 48px;
-  background: linear-gradient(180deg, transparent 0%, rgba(28, 25, 23, 0.25) 70%, var(--ink) 100%);
-  pointer-events: none;
 }
 
 /* ===== 响应式 ===== */
@@ -1741,9 +2240,6 @@ footer::before {
     width: 100%;
   }
   .about-values {
-    grid-template-columns: 1fr;
-  }
-  .articles-grid {
     grid-template-columns: 1fr;
   }
   .article-full {
@@ -1868,9 +2364,3 @@ footer::before {
     animation: none;
   }
 }
-
-/* Article links remain native links on desktop and touch devices. */
-.article-title a { color: inherit; text-decoration: none; }
-.article-title a:hover { color: var(--vermillion); }
-.article-title a:focus-visible, .read-more:focus-visible { outline: 2px solid var(--vermillion); outline-offset: 5px; }
-a.read-more { display: inline-block; text-decoration: none; }

@@ -76,17 +76,27 @@
   function renderAwards(awards) {
     var grid = document.querySelector('.awards-grid');
     if (!grid || !awards.length) return;
+    /* 后台还没有的静态条目保留，避免新加的会员证被旧列表整表盖掉。 */
+    var kept = Array.prototype.filter.call(grid.querySelectorAll('.award-item'), function (el) {
+      var href = el.getAttribute('href') || '';
+      return href && !awards.some(function (a) { return (a.detailUrl || '') === href; });
+    }).map(function (el) { return el.outerHTML; });
     grid.innerHTML = awards
       .map(function (a) {
+        var thumbClass = a.imageFit === 'contain' ? 'award-thumb award-thumb-card' : 'award-thumb';
+        var img = a.image
+          ? '<span class="' + thumbClass + '"><img src="' + esc(safeUrl(a.image)) + '" alt="' + esc(a.title) + '" loading="lazy" /></span>'
+          : '';
         return (
           '<a class="award-item" href="' + esc(safeUrl(a.detailUrl)) + '">' +
           '<div class="award-item-main"><span class="award-item-index">' + esc(a.index) + '</span>' +
           '<h3>' + esc(a.title) + '</h3><p>' + esc(a.sub) + '</p></div>' +
+          img +
           '<span class="project-status award-level">' + esc(a.level) + '</span>' +
           '<span class="award-item-arrow">→</span></a>'
         );
       })
-      .join('');
+      .join('') + kept.join('');
   }
 
   /* ---------- 文章 ---------- */
@@ -106,22 +116,9 @@
       box.innerHTML = '<p class="no-articles">暂无文章，敬请期待...</p>';
       return;
     }
-    box.innerHTML = list
-      .map(function (a) {
-        var href = esc(window.BlogArticles.url(a, 'cms'));
-        return (
-          '<article class="article-card" data-slug="' + esc(a.slug) + '">' +
-          '<div class="article-header"><h3 class="article-title"><a href="' + href + '">' + esc(a.title) + '</a></h3>' +
-          '<span class="article-date">' + esc(a.date) + '</span></div>' +
-          (a.summary ? '<p class="article-summary">' + esc(a.summary) + '</p>' : '') +
-          (arr(a.tags).length
-            ? '<div class="article-tags">' + arr(a.tags).map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>'
-            : '') +
-          '<a class="read-more" href="' + href + '">阅读全文 →</a>' +
-          '</article>'
-        );
-      })
-      .join('');
+    window.BlogShelf.render(box, list.map(function (a) {
+      return { title: a.title, date: a.date, href: window.BlogArticles.url(a, 'cms'), cover: a.cover || '' };
+    }));
   }
 
   /* ---------- 拉取（超时静默回退到静态内容） ---------- */

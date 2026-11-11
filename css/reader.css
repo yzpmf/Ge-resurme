@@ -11,3 +11,7 @@ body { overflow-anchor: none; }
 
 /* Keep the closing mark above the return links after removing the closing copy. */
 .article-ending .end-mark { display: table; margin: 0 auto 28px; }
+/* Opened from the bookcase: no study scene; a quiet status only if the text is slow to arrive. */
+.from-shelf .arrival-heading,.from-shelf .study-scene,.from-shelf #enter-reading{display:none}.from-shelf .reading-arrival{min-height:calc(100svh - 150px);display:flex;flex-direction:column;justify-content:center;animation:shelf-wait .4s ease .8s both}.from-shelf .reader-nav{animation:arrive .65s ease both}@keyframes shelf-wait{from{opacity:0}}
+/* Leaving for the bookcase: everything fades to bare paper first. */
+html.is-closing body>*{opacity:0;transition:opacity .3s ease}

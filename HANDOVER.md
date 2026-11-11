@@ -29,6 +29,31 @@
 
 ## 最近改动
 
+### 2026-11-11 去掉每页底部墨色页脚
+- 各板块和奖项详情页共用的 `footer` 不再铺墨色底，也去掉向上 48px 的墨色渐变。版权行留在纸面上，字色改为灰墨。
+- `style.css` 版本号：首页 `?v=footer-coverblur4-20261111`，奖项详情页 `?v=footer-20261111`。已推 `master`。
+
+### 2026-11-11 荣誉奖项加入中国计算机学会学生会员
+- 会员证上的名称是中国计算机学会（CCF），不是「协会」。静态列表新增 A.02：学生会员，编号 A48483G，有效期至 2027/06/30。详情页 `awards/ccf-member.html`，会员证图 `images/awards/ccf-member.png`。
+- 线上奖项列表仍由 con 后台整表替换，后台目前只有西门子杯一条。`content-loader.js` 改为保留后台没有的静态条目，所以这条在后台更新前也会留在列表里。返回动画按具体奖项缩回对应缩略图，不再写死西门子杯页面。
+- 资源版本号：`page-launch.js`、`content-loader.js` 为 `?v=ccf-member-20261111`。已推 `master`。后台 content.json 仍未改，列表靠静态条目保留。
+
+### 2026-11-11 文章区改为橡木书柜
+- 文章卡片改成书柜：每页两层深色橡木书架，文章是斜靠着的淡黄书本（书脊竖排标题 + 朱砂小印 + 年份）。每层放几本由 `js/bookshelf.js` 按容器宽度算（电脑约 14 本/层，手机约 8 本/层）。
+- 电脑端悬停：书绕竖轴转出封面，两边的书让开，封面跟着鼠标微倾（参考 Vasari VHS Reader 的效果）。键盘 Tab 聚焦也会转出来。手机端轻触书脊：书从架上弹到屏幕中间并转成封面，点封面读文章，点空白处或「放回书架」收回。
+- 多于一架时书柜下面出现「← 上一架 01 02 … 下一架 →」，指示线和导航栏同款朱砂线。换架用弹簧动画：旧书柜向左拉走，新书柜从右边进来，带一点回弹；跨多页时只有两架经过。手机上也可以左右滑动换架。
+- 封面默认仍是淡黄底 + 标题 + 日期。`小镇做题家` 用怀远一中校门航拍 `images/articles/huaiyuan-yizhong.jpg`：不铺满封面（原图是横幅，铺满会裁掉教学楼或校门），贴在封面上半，居中偏下裁切，保住主楼和校门；标题留在照片下面的纸面上。`articles/index.json` 的 `cover` 字段、后台文章的 `cover` 字段都会传给书柜；这篇在 `bookshelf.js` 里还有按标题的兜底，后台暂时没有封面字段也能显示。
+- `content-loader.js`（CMS）和 `articles.js`（本地静态）都改为调用 `window.BlogShelf.render`。`main.js` 的入场列表把 `.article-card` 换成 `.bookcase`。样式在 `css/style.css` 的「文章书柜」段，旧卡片样式已删除。
+- 注意：`main.js` 会往 `.rise` 元素上写 `--d`（动画延迟），所以书深变量叫 `--depth`，不要改回 `--d`。
+- 打开文章像点开 App：点电脑端转出来的封面，或手机弹出的封面，封面图案本身从原位置放大（约 0.9 秒），前半段保持清晰，后半段逐渐模糊，再淡成阅读页纸色，然后跳到 `article.html`。返回时同一套动画倒放。跳转前在 sessionStorage 写 `ge-book-launch`。阅读页 `<head>` 里的内联脚本读到它，就给 html 加 `from-shelf`，跳过「柳窗书斋 / 翻书」加载场景，正文读到就直接淡入（`reader.js` 的 `fromShelf`，`reader.css` 末尾的 `.from-shelf` 规则）。直接打开文章链接时，仍然显示原来的加载场景。从文章页按浏览器返回时，如果命中 bfcache，`pageshow` 会清掉放大层。
+- 返回文集像书合上：文章页里所有 `index.html#articles` 链接（「返回文集」「回到文集」）被 `reader.js` 接管。先在 sessionStorage 写 `ge-book-return`（存当前 `location.search`），正文淡成空白纸页（`html.is-closing`，0.3 秒），再跳回主页。主页 `<head>` 的内联脚本看到这个标记，就先用纸色盖住整页（`html.book-returning::after`）。`bookshelf.js` 渲染时按链接的 search 找到那本书，自动切到它所在的那一架：电脑端把书瞬间摆成翻开状态（`.is-instant` 关掉过渡），手机端则瞬间弹出到屏幕中央。然后全屏纸页卡片缩回封面（0.86 秒，颜色由纸色变回书的淡黄，最后融进封面），书再转回书脊、邻书合拢；手机端则是弹出的书收回书架。找不到书或 3.5 秒内书柜没渲染出来，就直接撤掉纸色遮罩。从文章页按浏览器返回、且页面是 bfcache 恢复时，`pageshow` 会用同一套 `land()` 播放合上动画。合上过程中如果 CMS 又重新渲染一次，会等动画结束后再应用。
+- 资源版本号：`style.css`、`bookshelf.js`、`reader.css`、`reader.js` 为 `?v=book-return-20261111`，其余为 `?v=bookshelf-20261111`。已推 `master`。
+
+### 2026-11-07 联系表单改为服务器发信
+- 线上一直收不到留言邮件：`js/contact.js` 停在 `mode:'netlify'`，Netlify 只把留言存进后台，不会发到邮箱。自建 `blog-contact` 虽在 `127.0.0.1:3001` 运行，但没有公网入口。
+- 在 `con.gezhenghao.com` 的 Nginx 上把 `POST /api/contact` 反代到本机 3001。本机实测返回 `{"ok":true}`，QQ SMTP 已收下测试信。
+- 本地 `js/contact.js` 改为 `mode:'server'`，地址 `https://con.gezhenghao.com/api/contact`；`index.html` 脚本加了 `?v=server-20261107`。收件仍是 `2298209797@qq.com`（发信 `gzh.zh@qq.com`）。已推 `master`。
+
 ### 2026-11-05 开源硬件板块 + hello 不再堵住进站
 - 新增「开源硬件」板块，第一条是怀远一中 PCB 校园卡，链到立创开源 `base2007/2026-ma-nian-kuai-le`（CC-BY-SA-4.0）。导航、手机菜单和奖项详情页的返回导航一起加上；板块序号从荣誉奖项起顺延。
 - 开场仍用原来那一条连续笔画写 hello（2.45 秒沿字形推进），不拆成五个字母，也不画上下两条飘带。笔画结束就进入主页，不再额外干等。

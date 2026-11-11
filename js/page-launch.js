@@ -110,13 +110,23 @@
     root.style.setProperty('--lr', ((radius || 8) / scale).toFixed(2) + 'px');
   }
 
-  function showAwards() {
+  function showAwards(targetPath) {
     var awards = document.getElementById('awards');
     var home = document.getElementById('home');
     if (!awards) return null;
     if (home && home !== awards) home.classList.remove('section-visible');
     awards.classList.add('section-visible', 'skip-enter');
-    var thumb = awards.querySelector('.award-thumb') || awards.querySelector('.award-item');
+    var thumb = null;
+    if (targetPath) {
+      var items = awards.querySelectorAll('.award-item');
+      for (var i = 0; i < items.length; i++) {
+        if (samePath(items[i].getAttribute('href') || '', targetPath)) {
+          thumb = items[i].querySelector('.award-thumb') || items[i];
+          break;
+        }
+      }
+    }
+    if (!thumb) thumb = awards.querySelector('.award-thumb') || awards.querySelector('.award-item');
     if (!thumb) return null;
     var rect = thumb.getBoundingClientRect();
     if (rect.width < 2 || rect.height < 2) return null;
@@ -132,7 +142,7 @@
       return;
     }
     if (data.mode === 'close') {
-      var spot = showAwards();
+      var spot = showAwards(data.to);
       var anchor = null;
       try { anchor = JSON.parse(sessionStorage.getItem(ANCHOR) || 'null'); } catch (err) {}
       var useMeasured = spot && spot.rect.width > 2 && spot.rect.top > -20 && spot.rect.top < window.innerHeight;
@@ -174,9 +184,9 @@
     var activation = event.activation;
     var to = activation && activation.entry && activation.entry.url;
     var backToAwards = activation && (activation.navigationType === 'traverse' || (to && to.indexOf('#awards') !== -1));
-    if (to && /cimc-2026\.html/.test(location.pathname) && backToAwards) {
+    if (to && /\/awards\/[^/?#]+\.html$/i.test(location.pathname) && backToAwards) {
       document.documentElement.classList.add('launch-hide-foot');
-      save({ mode: 'close' });
+      save({ mode: 'close', to: location.pathname });
       return;
     }
     event.viewTransition.skipTransition();

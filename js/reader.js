@@ -5,6 +5,7 @@
   const reader = document.getElementById('reader');
   const enter = document.getElementById('enter-reading');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const fromShelf = root.classList.contains('from-shelf');
   const started = performance.now();
   let opened = false;
 
@@ -54,9 +55,20 @@
       reader.focus({ preventScroll: true });
       const target = document.getElementById(location.hash.slice(1));
       if (target) target.scrollIntoView();
-    }, reducedMotion.matches ? 0 : 350);
+    }, reducedMotion.matches || fromShelf ? 0 : 350);
   }
   enter.addEventListener('click', openReading);
+
+  // Back to the bookcase: the text fades to bare paper, and the index folds that paper into its book.
+  document.addEventListener('click', event => {
+    const link = event.target.closest && event.target.closest('a[href="index.html#articles"]');
+    if (!link || event.button || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    try { sessionStorage.setItem('ge-book-return', JSON.stringify({ search: location.search, t: Date.now() })); } catch (_) {}
+    root.classList.add('is-closing');
+    setTimeout(() => { location.href = link.href; }, reducedMotion.matches ? 0 : 320);
+  });
+  addEventListener('pageshow', event => { if (event.persisted) root.classList.remove('is-closing'); });
   document.getElementById('retry-reading').addEventListener('click', () => location.reload());
 
   function render(article) {
@@ -134,7 +146,7 @@
     document.getElementById('arrival-status').textContent = '书已翻开，请慢慢读。';
     enter.hidden = false;
     // Brief arrival, never an artificial long loading screen; ready content is skippable.
-    setTimeout(openReading, reducedMotion.matches ? 0 : Math.max(0, 1600 - (performance.now() - started)));
+    setTimeout(openReading, reducedMotion.matches || fromShelf ? 0 : Math.max(0, 1600 - (performance.now() - started)));
   }).catch(error => {
     arrival.hidden = true;
     document.getElementById('reader-error').hidden = false;

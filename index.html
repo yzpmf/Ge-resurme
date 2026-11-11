@@ -22,7 +22,20 @@
         }
       })();
     </script>
-    <script src="js/page-launch.js?v=award-open-smooth-20261109"></script>
+    <script>
+      // Back from an article: paper covers the page until bookshelf.js folds it into its book.
+      (function () {
+        try {
+          var data = JSON.parse(sessionStorage.getItem('ge-book-return') || 'null');
+          if (!data || Date.now() - data.t > 8000) return;
+          document.documentElement.classList.add('book-returning');
+          var style = document.createElement('style');
+          style.textContent = 'html.book-returning::after{content:"";position:fixed;inset:0;z-index:2600;background:#f6f2ea}';
+          document.head.appendChild(style);
+        } catch (_) {}
+      })();
+    </script>
+    <script src="js/page-launch.js?v=ccf-member-20261111"></script>
     <style id="welcome-critical">
 /* Critical welcome styles are also inlined in index.html, so Hello paints immediately. */
 @font-face {
@@ -175,7 +188,7 @@ html.welcome-font-fallback {
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;900&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     /></noscript>
-    <link rel="stylesheet" href="css/style.css" data-site-style="main" media="print"
+    <link rel="stylesheet" href="css/style.css?v=footer-coverblur4-20261111" data-site-style="main" media="print"
       onload="this.media='all';this.dataset.loaded='true'" onerror="this.dataset.loaded='error'" />
     <noscript><link rel="stylesheet" href="css/style.css" /></noscript>
     <script src="js/welcome.js?v=hello-letters-20261105" defer
@@ -474,7 +487,7 @@ html.welcome-font-fallback {
     <section id="awards" class="section">
       <div class="container">
         <h2 class="section-title"><span class="section-index">04</span>荣誉奖项</h2>
-        <p class="section-sub">竞赛与获奖记录</p>
+        <p class="section-sub">竞赛获奖与学会会员</p>
         <div class="awards-grid">
           <!-- ========== 奖项条目 1：CIMC 西门子杯（点击进详情页） ========== -->
           <a class="award-item" href="awards/cimc-2026.html">
@@ -485,6 +498,17 @@ html.welcome-font-fallback {
             </div>
             <span class="award-thumb"><img src="images/awards/cimc-2026.png" alt="CIMC 获奖证书预览" loading="lazy" /></span>
             <span class="project-status award-level">三等奖</span>
+            <span class="award-item-arrow">→</span>
+          </a>
+          <!-- ========== 奖项条目 2：中国计算机学会学生会员 ========== -->
+          <a class="award-item" href="awards/ccf-member.html">
+            <div class="award-item-main">
+              <span class="award-item-index">A.02</span>
+              <h3>中国计算机学会（CCF）学生会员</h3>
+              <p>会员编号 A48483G · 有效期至 2027/06/30</p>
+            </div>
+            <span class="award-thumb award-thumb-card"><img src="images/awards/ccf-member.png" alt="中国计算机学会学生会员证" loading="lazy" /></span>
+            <span class="project-status award-level">学生会员</span>
             <span class="award-item-arrow">→</span>
           </a>
         </div>
@@ -540,7 +564,7 @@ html.welcome-font-fallback {
       <div class="container">
         <h2 class="section-title"><span class="section-index">07</span>文章博客</h2>
         <p class="section-sub">记录学习笔记、项目经验和生活感悟</p>
-        <div id="articles-list" class="articles-grid">
+        <div id="articles-list" class="bookcase">
           <p class="loading">正在加载文章...</p>
         </div>
       </div>
@@ -613,10 +637,11 @@ html.welcome-font-fallback {
 
     </div>
 
-    <script src="js/main.js?v=app-open-smooth-20261109" defer></script>
+    <script src="js/main.js?v=bookshelf-20261111" defer></script>
     <script src="js/contact.js?v=server-20261107" defer></script>
     <script src="js/article-data.js" defer></script>
-    <script src="js/articles.js" defer></script>
-    <script src="js/content-loader.js?v=hello-preload-20261001" defer></script>
+    <script src="js/bookshelf.js?v=cover-blur5-20261111" defer></script>
+    <script src="js/articles.js?v=cover-20261111" defer></script>
+    <script src="js/content-loader.js?v=ccf-member-20261111" defer></script>
   </body>
 </html>

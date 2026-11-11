@@ -46,7 +46,7 @@ const RISE = [
   '.award-item',
   '.timeline-item',
   '.skill',
-  '.article-card',
+  '.bookcase',
   '.contact-form',
   '.contact-card',
 ].join(',');

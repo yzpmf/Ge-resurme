@@ -16,8 +16,8 @@
   'use strict';
 
   var CONFIG = {
-    mode: 'netlify', // 'netlify' | 'web3forms' | 'server'
-    serverEndpoint: 'https://your-server.example.com/api/contact', // 仅 server 模式用
+    mode: 'server', // 'netlify' | 'web3forms' | 'server'
+    serverEndpoint: 'https://con.gezhenghao.com/api/contact', // 仅 server 模式用
     web3formsKey: 'PASTE_YOUR_ACCESS_KEY' // 仅 web3forms 模式用：web3forms.com 注册邮箱后拿到的 access key
   };
 
