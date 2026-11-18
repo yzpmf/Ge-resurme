@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /welcome.html
+
+Sitemap: https://gezhenghao.com/sitemap.xml

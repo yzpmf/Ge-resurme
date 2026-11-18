@@ -29,6 +29,16 @@
 
 ## 最近改动
 
+### 2026-11-18 搜索引擎收录（SEO）优化
+- 补齐根目录 `robots.txt` 与 `sitemap.xml`（收录首页、奖项详情页、后台已发布文章链接及子项目页，屏蔽 `welcome.html`）。
+- `index.html`、`article.html`、`awards/cimc-2026.html`、`awards/ccf-member.html` 补齐中文姓名「葛政豪」与 `GeZhenghao` 双语标题及描述、`<link rel="canonical">`、Open Graph / Twitter Card 元信息，以及 `WebSite` + `Person` JSON-LD 结构化数据（关联西南交通大学、GitHub、立创开源主页）。
+- `index.html` 与 `article.html` 头部内联脚本增加搜索引擎爬虫 User-Agent 识别：爬虫访问时跳过 `welcome-active` / `site-booting` 遮罩和 `.js-panels` 单板块隐藏模式（及文章页加载场景），直接完整呈现全站所有板块内容；普通访客体验保持不变。
+
+### 2026-11-11 后台奖项和文章可以加图片，新增条目沿用原动画
+- `D:\dev\con`：奖项编辑增加证书/会员证图片和「铺满裁切 / 完整显示」；文章编辑增加封面图。保存时保留 `awards.image`、`awards.imageFit`、`awards.id`、`articles.cover`。新增奖项不填详情页时，前台打开 `awards/view.html?id=...`。
+- 主站：后台奖项带图时出缩略图，并走原来的揭开、悬停和点开缩回动画。返回时按链接（含查询参数）缩回对应那一条。文章封面支持 `https://` 和 `/uploads/`，书柜翻开动画不区分新旧文章。
+- 资源版本号：`style.css`、`page-launch.js`、`bookshelf.js`、`content-loader.js` 为 `?v=cms-image-20261111`。con 已发到公网所在的腾讯云硅谷（`ssh hermes`）并重启 `con-admin`。香港旧机不再部署 con。主站这批改动还没 push，所以 `awards/view.html` 和缩略图逻辑还没上 gezhenghao.com。
+
 ### 2026-11-11 去掉每页底部墨色页脚
 - 各板块和奖项详情页共用的 `footer` 不再铺墨色底，也去掉向上 48px 的墨色渐变。版权行留在纸面上，字色改为灰墨。
 - `style.css` 版本号：首页 `?v=footer-coverblur4-20261111`，奖项详情页 `?v=footer-20261111`。已推 `master`。
@@ -42,7 +52,7 @@
 - 文章卡片改成书柜：每页两层深色橡木书架，文章是斜靠着的淡黄书本（书脊竖排标题 + 朱砂小印 + 年份）。每层放几本由 `js/bookshelf.js` 按容器宽度算（电脑约 14 本/层，手机约 8 本/层）。
 - 电脑端悬停：书绕竖轴转出封面，两边的书让开，封面跟着鼠标微倾（参考 Vasari VHS Reader 的效果）。键盘 Tab 聚焦也会转出来。手机端轻触书脊：书从架上弹到屏幕中间并转成封面，点封面读文章，点空白处或「放回书架」收回。
 - 多于一架时书柜下面出现「← 上一架 01 02 … 下一架 →」，指示线和导航栏同款朱砂线。换架用弹簧动画：旧书柜向左拉走，新书柜从右边进来，带一点回弹；跨多页时只有两架经过。手机上也可以左右滑动换架。
-- 封面默认仍是淡黄底 + 标题 + 日期。`小镇做题家` 用怀远一中校门航拍 `images/articles/huaiyuan-yizhong.jpg`：不铺满封面（原图是横幅，铺满会裁掉教学楼或校门），贴在封面上半，居中偏下裁切，保住主楼和校门；标题留在照片下面的纸面上。`articles/index.json` 的 `cover` 字段、后台文章的 `cover` 字段都会传给书柜；这篇在 `bookshelf.js` 里还有按标题的兜底，后台暂时没有封面字段也能显示。
+- 封面默认仍是淡黄底 + 标题 + 日期。`小镇做题家` 用怀远一中校门航拍 `images/articles/huaiyuan-yizhong.jpg`：不铺满封面（原图是横幅，铺满会裁掉教学楼或校门），贴在封面上半，居中偏下裁切，保住主楼和校门；标题留在照片下面的纸面上。`articles/index.json` 的 `cover` 字段、后台文章的 `cover` 字段都会传给书柜；这篇在 `bookshelf.js` 里还有按标题的兜底。后台封面字段已在同日稍后加上，见上面「后台奖项和文章可以加图片」。
 - `content-loader.js`（CMS）和 `articles.js`（本地静态）都改为调用 `window.BlogShelf.render`。`main.js` 的入场列表把 `.article-card` 换成 `.bookcase`。样式在 `css/style.css` 的「文章书柜」段，旧卡片样式已删除。
 - 注意：`main.js` 会往 `.rise` 元素上写 `--d`（动画延迟），所以书深变量叫 `--depth`，不要改回 `--d`。
 - 打开文章像点开 App：点电脑端转出来的封面，或手机弹出的封面，封面图案本身从原位置放大（约 0.9 秒），前半段保持清晰，后半段逐渐模糊，再淡成阅读页纸色，然后跳到 `article.html`。返回时同一套动画倒放。跳转前在 sessionStorage 写 `ge-book-launch`。阅读页 `<head>` 里的内联脚本读到它，就给 html 加 `from-shelf`，跳过「柳窗书斋 / 翻书」加载场景，正文读到就直接淡入（`reader.js` 的 `fromShelf`，`reader.css` 末尾的 `.from-shelf` 规则）。直接打开文章链接时，仍然显示原来的加载场景。从文章页按浏览器返回时，如果命中 bfcache，`pageshow` 会清掉放大层。

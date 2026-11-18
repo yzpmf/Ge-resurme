@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -8,14 +8,17 @@
         var root = document.documentElement;
         var params = new URLSearchParams(location.search);
         var mode = params.get('__welcome');
+        var isBot = /bot|crawl|spider|slurp|bingpreview|mediapartners|inspect|lighthouse/i.test(navigator.userAgent || '');
         var seen = false;
         try { seen = sessionStorage.getItem('gzh-welcome-20261001') === '1'; } catch (_) {}
-        root.classList.add('site-booting');
-        if (mode === 'show' || mode === 'preview' || (!seen && !location.hash && mode !== 'entered')) {
-          root.classList.add('welcome-active');
+        if (!isBot) {
+          root.classList.add('site-booting');
+          if (mode === 'show' || mode === 'preview' || (!seen && !location.hash && mode !== 'entered')) {
+            root.classList.add('welcome-active');
+          }
+          root.classList.add('js-panels');
         }
         root.dataset.welcomeMode = mode === 'preview' ? 'preview' : 'auto';
-        root.classList.add('js-panels');
         if (mode) {
           params.delete('__welcome');
           history.replaceState(null, '', location.pathname + (params.size ? '?' + params : '') + location.hash);
@@ -171,8 +174,52 @@ html.welcome-font-fallback {
 }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=0.9" />
-    <meta name="description" content="GeZhenghao的个人网站 - 化学 | 西南交通大学 | 大二" />
-    <title>GeZhenghao | 化学 · 西南交通大学 · 大二</title>
+    <meta name="description" content="葛政豪（Ge Zhenghao / GeZhenghao）的个人网站与作品集 — 西南交通大学化学专业大二学生，热爱技术与创新，记录项目经历（LifeOS、掌上御膳房、奶蛙跳一跳）、开源硬件、荣誉奖项与个人文集。" />
+    <meta name="keywords" content="葛政豪,GeZhenghao,Ge Zhenghao,西南交通大学,个人网站,个人博客,LifeOS,掌上御膳房,奶蛙跳一跳" />
+    <meta name="author" content="葛政豪 (Ge Zhenghao)" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://gezhenghao.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="葛政豪 · GeZhenghao 个人网站" />
+    <meta property="og:title" content="葛政豪 GeZhenghao | 个人网站 · 西南交通大学 · 化学与技术探索" />
+    <meta property="og:description" content="葛政豪（Ge Zhenghao）的个人网站与作品集 — 西南交通大学化学专业，记录项目经历、开源硬件、荣誉奖项与个人文集。" />
+    <meta property="og:url" content="https://gezhenghao.com/" />
+    <meta property="og:image" content="https://gezhenghao.com/images/favicon-32.png" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="葛政豪 GeZhenghao | 个人网站 · 西南交通大学" />
+    <meta name="twitter:description" content="葛政豪（Ge Zhenghao）的个人网站与作品集 — 西南交通大学化学专业，记录项目经历、开源硬件、荣誉奖项与个人文集。" />
+    <title>葛政豪 GeZhenghao | 个人网站 · 西南交通大学 · 化学</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://gezhenghao.com/#website",
+            "url": "https://gezhenghao.com/",
+            "name": "葛政豪 GeZhenghao 个人网站",
+            "alternateName": ["葛政豪", "GeZhenghao", "Ge Zhenghao"],
+            "inLanguage": "zh-CN"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://gezhenghao.com/#person",
+            "name": "葛政豪",
+            "alternateName": ["GeZhenghao", "Ge Zhenghao"],
+            "url": "https://gezhenghao.com/",
+            "affiliation": {
+              "@type": "CollegeOrUniversity",
+              "name": "西南交通大学"
+            },
+            "sameAs": [
+              "https://github.com/yzpmf",
+              "https://oshwhub.com/base2007"
+            ]
+          }
+        ]
+      }
+    </script>
     <link rel="icon" type="image/svg+xml" href="images/logo-g.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
