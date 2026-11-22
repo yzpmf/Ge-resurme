@@ -507,15 +507,17 @@
         { transform: 'translate(-50%, -50%) scale(1)' },
         { transform: 'translate(-50%, -50%) scale(' + scale.toFixed(3) + ')' },
       ], { duration: dur, easing: ease, fill: 'forwards' }),
+      /* Blur eases in gently while the cover is still growing, and the paper wash overlaps it
+         with its own soft S-curve, so neither starts or stops with a visible "kink". */
       stage.animate([
         { filter: 'blur(0px)' },
-        { filter: 'blur(0px)', offset: 0.42 },
-        { filter: 'blur(16px)' },
+        { filter: 'blur(0px)', offset: 0.16, easing: 'cubic-bezier(.5,0,.4,1)' },
+        { filter: 'blur(20px)' },
       ], { duration: dur, easing: 'linear', fill: 'forwards' }),
       wash.animate([
         { opacity: 0 },
-        { opacity: 0, offset: 0.55 },
-        { opacity: 1, offset: 0.92 },
+        { opacity: 0, offset: 0.32, easing: 'cubic-bezier(.45,0,.35,1)' },
+        { opacity: 1, offset: 0.95 },
         { opacity: 1 },
       ], { duration: dur, easing: 'linear', fill: 'forwards' }),
     ];

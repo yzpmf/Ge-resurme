@@ -29,6 +29,10 @@
 
 ## 最近改动
 
+### 2026-11-22 文章书柜展开过渡模糊与淡化曲线柔化
+- 优化 `js/bookshelf.js` 的 `playCover()` 动画曲线：模糊（`stage.animate`）由原来的 42% 线性生硬起步改为 16% 起沿 S 曲线（`cubic-bezier(.5,0,.4,1)`）渐入至 `blur(20px)`；纸色淡化层（`wash.animate`）改为 32% → 95% 沿 S 曲线（`cubic-bezier(.45,0,.35,1)`）叠加渐入，使封面放大、模糊与纸色融合连贯顺滑（返回收起书本倒放同享该曲线）。
+- `index.html` 中 `js/bookshelf.js` 版本号更新为 `?v=smooth-blur-20261121`，已推 `master` 由 Netlify 自动部署。
+
 ### 2026-11-18 搜索引擎收录（SEO）优化
 - 补齐根目录 `robots.txt` 与 `sitemap.xml`（收录首页、奖项详情页、后台已发布文章链接及子项目页，屏蔽 `welcome.html`）。
 - `index.html`、`article.html`、`awards/cimc-2026.html`、`awards/ccf-member.html` 补齐中文姓名「葛政豪」与 `GeZhenghao` 双语标题及描述、`<link rel="canonical">`、Open Graph / Twitter Card 元信息，以及 `WebSite` + `Person` JSON-LD 结构化数据（关联西南交通大学、GitHub、立创开源主页）。
